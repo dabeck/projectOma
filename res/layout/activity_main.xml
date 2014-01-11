@@ -6,6 +6,52 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentRight="true"
     android:layout_alignParentTop="true"
+    android:gravity="bottom"
     android:orientation="vertical" >
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/image_grandma"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:src="@drawable/ic_launcher" android:contentDescription="@string/image_grandma"/>
+
+    <ListView
+        android:id="@+id/console_output"
+        android:layout_width="wrap_content"
+        android:layout_height="140dp"
+        tools:listitem="@android:layout/simple_list_item_1" >
+
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/button_request"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:text="@string/button_request" />
+
+        <Button
+            android:id="@+id/button_stock"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_vertical"
+            android:text="@string/button_stock" />
+
+        <Button
+            android:id="@+id/button_test"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="@string/button_test" />
+    </LinearLayout>
 
 </LinearLayout>

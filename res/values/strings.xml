@@ -4,5 +4,10 @@
     <string name="app_name">projectOma</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="button">Wunsch bearbeiten</string>
+    <string name="button_request">Wunsch bearbeiten</string>
+    <string name="button_stock">Vorräte &amp; Kleidung</string>
+    <string name="button_test">Testen</string>
+    <string name="image_grandma">Grandmas face</string>
 
 </resources>
