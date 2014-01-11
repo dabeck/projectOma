@@ -38,7 +38,7 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="130dp"
             android:layout_height="match_parent"
-            android:onClick="myClickMethod"
+            android:onClick="btnRequestClicked"
             android:text="@string/button_request" />
 
         <Button
@@ -47,6 +47,7 @@
             android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:layout_gravity="fill_vertical"
+            android:onClick="btnStockClicked"
             android:text="@string/button_stock" />
 
         <Button
@@ -54,6 +55,7 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
+            android:onClick="btnTestClicked"
             android:text="@string/button_test" />
     </LinearLayout>
 

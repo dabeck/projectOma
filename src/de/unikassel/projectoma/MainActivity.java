@@ -37,8 +37,18 @@ public class MainActivity extends ListActivity {
 		return true;
 	}
 	
-	public void myClickMethod(View v) {
-		listItems.add("Clicked : " + clickCounter++);
+	public void btnRequestClicked(View v) {
+		listItems.add("RequestClicked : " + clickCounter++);
+		adapter.notifyDataSetChanged();
+	}
+	
+	public void btnStockClicked(View v) {
+		listItems.add("StockClicked : " + clickCounter++);
+		adapter.notifyDataSetChanged();
+	}
+	
+	public void btnTestClicked(View v) {
+		listItems.add("TestClicked : " + clickCounter++);
 		adapter.notifyDataSetChanged();
 	}
 }
