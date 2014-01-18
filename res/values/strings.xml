@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">projectOma</string>
+    <string name="app_name">care grandma</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="button">Wunsch bearbeiten</string>
-    <string name="button_request">Wunsch bearbeiten</string>
-    <string name="button_stock">Vorräte &amp; Kleidung</string>
-    <string name="button_test">Testen</string>
-    <string name="image_grandma">Grandmas face</string>
-
+    <string name="button_request">Process request</string>
+    <string name="button_stock">Stocks &amp; Clothing</string>
+    <string name="button_test">Test</string>
+    <string name="image_grandma">Face</string>
+    <string name="about">About</string>
+    <string name="general_settings">General settings</string>
+    <string name="pause_game">Pause game</string>
+    <string name="difficulty_level">Difficulty level</string>
+    <string name="difficulty_desc">Define how hard grandma should be!</string>
+    <string name="pause_desc">Pauses the game</string>
+    <string name="settings">Settings</string>
+    <string name="grandmas_name">Grandmas name</string>
+    <string name="name_desc">Define grandmas name!</string>
+    <string name="set_grandmas_name">Set a name</string>
+    <string name="provide_name">Provide a name</string>
+    <string name="default_name">Grandma</string>
+    <string name="advanced_settings">Advanced settings</string>
+    <string name="btn_reset">Reset game</string>
+    <string name="reset_desc">Resets the current game</string>
+        
 </resources>

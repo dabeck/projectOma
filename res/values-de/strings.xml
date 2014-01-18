@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Pflege Oma!</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="button_request">Wunsch bearbeiten</string>
+    <string name="button_stock">Vorräte &amp; Kleidung</string>
+    <string name="button_test">Testen</string>
+    <string name="image_grandma">Gesicht</string>
+    <string name="about">Über</string>
+    <string name="general_settings">allgemeine Einstellungen</string>
+    <string name="pause_game">Spiel pausieren</string>
+    <string name="difficulty_level">Schwierigkeitsgrad</string>
+    <string name="difficulty_desc">Definiere wie hart Oma zu dir ist!</string>
+    <string name="pause_desc">Pausiert das Spiel!</string>
+    <string name="settings">Einstellungen</string>
+    <string name="grandmas_name">Omas Name</string>
+    <string name="name_desc">Definiere Omas Name!</string>
+    <string name="set_grandmas_name">Name setzen</string>
+    <string name="provide_name">Name eingeben</string>
+    <string name="default_name">Oma</string>
+    <string name="advanced_settings">erweiterte Einstellungen</string>
+    <string name="btn_reset">Spiel zurücksetzen</string>
+    <string name="reset_desc">Setzt den aktuellen Spielstand zurück!</string>
+        
+</resources>

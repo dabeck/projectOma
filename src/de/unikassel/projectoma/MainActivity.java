@@ -2,9 +2,12 @@ package de.unikassel.projectoma;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -37,6 +40,22 @@ public class MainActivity extends ListActivity {
 		return true;
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_settings:
+				startActivity(new Intent(this, SettingsActivity.class));
+				return true;
+			case R.id.about:
+				new AlertDialog.Builder(this).setTitle(R.string.about)
+				        .setMessage("Android is shit!!!111")
+				        .setIcon(R.drawable.ic_launcher).show();
+				
+				return true;
+		}
+		return false;
+	}
+
 	public void btnRequestClicked(View v) {
 		listItems.add("RequestClicked : " + clickCounter++);
 		adapter.notifyDataSetChanged();
