@@ -36,7 +36,7 @@
         <Preference
             android:key="reset_game"
             android:summary="@string/reset_desc"
-            android:title="@string/btn_reset" 
+            android:title="@string/btn_reset"
         />
             
     </PreferenceCategory>
