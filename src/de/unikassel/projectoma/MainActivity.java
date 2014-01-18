@@ -2,10 +2,12 @@ package de.unikassel.projectoma;
 
 import java.util.ArrayList;
 
+import de.unikassel.projectoma.model.Oma;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,10 @@ public class MainActivity extends ListActivity {
 	
 	// RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
 	int clickCounter = 0;
+	
+	private Oma oma;
+	
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,5 +75,15 @@ public class MainActivity extends ListActivity {
 	public void btnTestClicked(View v) {
 		listItems.add("TestClicked : " + clickCounter++);
 		adapter.notifyDataSetChanged();
+	}
+	
+	@Override
+	protected void onPause() {
+		oma.save(PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()));
+	}
+	
+	@Override
+	protected void onResume() {
+		this.oma = Oma.load(PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()));
 	}
 }
