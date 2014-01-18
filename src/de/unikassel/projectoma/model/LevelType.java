@@ -1,7 +1,9 @@
 package de.unikassel.projectoma.model;
 
 public enum LevelType {
-	PFLEGELEICHT,
+	/* PFLEGELEICHT */
+	EASY,
 	NORMAL,
-	NERVIG
+	/* NERVIG */
+	HARD
 }

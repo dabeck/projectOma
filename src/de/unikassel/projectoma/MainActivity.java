@@ -2,7 +2,7 @@ package de.unikassel.projectoma;
 
 import java.util.ArrayList;
 
-import de.unikassel.projectoma.model.Oma;
+import de.unikassel.projectoma.model.Grandma;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -25,7 +25,7 @@ public class MainActivity extends ListActivity {
 	// RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
 	int clickCounter = 0;
 	
-	private Oma oma;
+	private Grandma grandma;
 	
 
 	
@@ -79,11 +79,11 @@ public class MainActivity extends ListActivity {
 	
 	@Override
 	protected void onPause() {
-		oma.save(PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()));
+		grandma.save(PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()));
 	}
 	
 	@Override
 	protected void onResume() {
-		this.oma = Oma.load(PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()));
+		this.grandma = Grandma.load(PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()));
 	}
 }

@@ -1,5 +1,5 @@
 package de.unikassel.projectoma.model;
 
-public class Getraenk extends Artikel {
+public class Drink extends Article {
 
 }
