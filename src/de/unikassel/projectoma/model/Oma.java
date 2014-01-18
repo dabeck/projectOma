@@ -2,6 +2,12 @@ package de.unikassel.projectoma.model;
 
 import java.util.List;
 
+import com.google.gson.Gson;
+
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
+
 public class Oma {
 
 	/* Name der Oma. */
@@ -11,6 +17,7 @@ public class Oma {
 	/* Wunsch, welcher aktuell abgearbeitet wird. */
 	private Artikel taetigkeit;
 	
+	
 	private List<Artikel> wuensche;
 	private List<Artikel> einkaufsliste;
 	
@@ -18,6 +25,20 @@ public class Oma {
 	private List<Artikel> vorratskammer;
 	private List<Kleidung> kleiderschrank;
 	
+	
+	public void save(SharedPreferences sp) {
+		Editor edit = sp.edit();
+		Gson gson = new Gson();
+		String json = gson.toJson(this);
+		edit.putString("de.unikassel.projectoma.oma", json);
+		edit.commit();
+	}
+	public static Oma load(SharedPreferences sp) {
+		Gson gson = new Gson();
+		String json = sp.getString("de.unikassel.projectoma.oma", "");
+		Oma o = gson.fromJson(json, Oma.class);
+		return o;
+	}
 	
 	
 	public String getName() {
