@@ -83,7 +83,7 @@ public class MainActivity extends ListActivity {
 			this.grandma = new Grandma();
 		}
 
-		grandma.save(PreferenceManager.getDefaultSharedPreferences(this
+		this.grandma.save(PreferenceManager.getDefaultSharedPreferences(this
 		        .getApplicationContext()));
 	}
 	
