@@ -2,10 +2,10 @@ package de.unikassel.projectoma.model;
 
 import java.util.List;
 
-import com.google.gson.Gson;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
+import com.google.gson.Gson;
 
 public class Grandma {
 
@@ -36,6 +36,7 @@ public class Grandma {
 		edit.putString("de.unikassel.projectoma.grandma", json);
 		edit.commit();
 	}
+
 	public static Grandma load(SharedPreferences sp) {
 		Gson gson = new Gson();
 		String json = sp.getString("de.unikassel.projectoma.grandma", "");

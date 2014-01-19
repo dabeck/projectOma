@@ -2,7 +2,6 @@ package de.unikassel.projectoma;
 
 import java.util.ArrayList;
 
-import de.unikassel.projectoma.model.Grandma;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import de.unikassel.projectoma.model.Grandma;
 
 public class MainActivity extends ListActivity {
 	
@@ -26,8 +26,6 @@ public class MainActivity extends ListActivity {
 	int clickCounter = 0;
 	
 	private Grandma grandma;
-	
-
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +77,20 @@ public class MainActivity extends ListActivity {
 	
 	@Override
 	protected void onPause() {
-		grandma.save(PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()));
+		super.onPause();
+
+		if (this.grandma == null) {
+			this.grandma = new Grandma();
+		}
+
+		grandma.save(PreferenceManager.getDefaultSharedPreferences(this
+		        .getApplicationContext()));
 	}
 	
 	@Override
 	protected void onResume() {
-		this.grandma = Grandma.load(PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()));
+		super.onResume();
+		this.grandma = Grandma.load(PreferenceManager
+		        .getDefaultSharedPreferences(this.getApplicationContext()));
 	}
 }
