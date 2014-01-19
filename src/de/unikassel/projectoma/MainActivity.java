@@ -24,13 +24,16 @@ public class MainActivity extends ListActivity {
 	
 	// RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
 	int clickCounter = 0;
-	
-	private Grandma grandma;
-	
+
+	GrandmaApplication app;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		this.app = ((GrandmaApplication) getApplicationContext());
 		setContentView(R.layout.activity_main);
+
 		adapter = new ArrayAdapter<String>(this,
 		        android.R.layout.simple_list_item_1, listItems);
 		setListAdapter(adapter);
@@ -78,19 +81,15 @@ public class MainActivity extends ListActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-
-		if (this.grandma == null) {
-			this.grandma = new Grandma();
-		}
-
-		this.grandma.save(PreferenceManager.getDefaultSharedPreferences(this
+		this.app.grandma.save(PreferenceManager
+		        .getDefaultSharedPreferences(this
 		        .getApplicationContext()));
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		this.grandma = Grandma.load(PreferenceManager
+		this.app.grandma = Grandma.load(PreferenceManager
 		        .getDefaultSharedPreferences(this.getApplicationContext()));
 	}
 }

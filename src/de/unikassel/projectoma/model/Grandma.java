@@ -4,11 +4,8 @@ import java.util.List;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.res.Resources;
 
 import com.google.gson.Gson;
-
-import de.unikassel.projectoma.R;
 
 public class Grandma {
 
@@ -136,11 +133,9 @@ public class Grandma {
 	}
 	
 	
-	
 	public Grandma() {
-		this.name = Resources.getSystem().getString(R.string.default_name);
-		this.level = LevelType.SIMPLE;
 	}
+
 	public Grandma(String name, LevelType level) {
 		this.name = name;
 		this.level = level;
