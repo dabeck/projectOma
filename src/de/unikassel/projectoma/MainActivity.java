@@ -102,8 +102,17 @@ public class MainActivity extends ListActivity {
 		
 		
 		
-		/* Erster Start?!? */
-		/* TODO */
+		if (this.app.grandma == null) {
+			/* Erster Start! */
+			/* TODO: mit GUI verknuepfen, wg. Name, Level, etc. */
+			
+			String name = "Omi";
+			LevelType level = LevelType.MEDIUM;
+			
+			this.app.grandma = new Grandma()
+				.withName(name)
+				.withLevel(level);
+		}
 		
 		
 		
