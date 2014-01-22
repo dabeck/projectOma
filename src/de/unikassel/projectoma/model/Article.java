@@ -1,6 +1,7 @@
 package de.unikassel.projectoma.model;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 public class Article {
 
@@ -56,4 +57,26 @@ public class Article {
 		return this;
 	}
 	
+	
+	private Timestamp getNow() {
+		return new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+	}
+	private Timestamp getDeadline() {
+		return new Timestamp(
+				start.getYear() + duration.getYear(),
+				start.getMonth() + duration.getMonth(),
+				start.getDay() + duration.getDay(),
+				start.getHours() + duration.getHours(),
+				start.getMinutes() + duration.getMinutes(),
+				start.getSeconds() + duration.getSeconds(),
+				start.getNanos() + duration.getNanos()
+			);
+	}
+	public boolean checkStatus() {
+		if(getNow().after(getDeadline())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
