@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
+import de.unikassel.projectoma.model.Article;
 import de.unikassel.projectoma.model.Grandma;
 
 public class MainActivity extends ListActivity {
@@ -89,7 +91,26 @@ public class MainActivity extends ListActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		/* Erster Start?!? */
+		/* TODO */
+		
+		/* Lade Oma */
 		this.app.grandma = Grandma.load(PreferenceManager
 		        .getDefaultSharedPreferences(this.getApplicationContext()));
+		
+		/* Spielende?!? */
+		// pruefe alle Deadlines
+		for (Article wish : this.app.grandma.getWishes())
+			if (!wish.checkStatus()) {
+				/* TODO: Article casten und Toast "Wunsch XY" praezisieren... */
+				Toast t = Toast.makeText(
+						this.app.getApplicationContext(),
+						"GAME OVER: Der Wunsch XY wurde nicht rechtzeitig erfüllt!",
+						Toast.LENGTH_LONG
+					);
+				t.show();
+				/* TODO: Spiel vorbei, loesche Oma, App-Restart */
+			}
 	}
 }
