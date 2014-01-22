@@ -1,6 +1,6 @@
 package de.unikassel.projectoma.model;
 
-public enum MedicineType {
+public enum Daytime {
 	/* MORGEN */
 	MORNING,
 	/* MITTAG */

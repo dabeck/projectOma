@@ -2,15 +2,15 @@ package de.unikassel.projectoma.model;
 
 public class Medicine extends Article {
 
-	private MedicineType typ;
+	private Daytime typ;
 
-	public MedicineType getTyp() {
+	public Daytime getTyp() {
 		return typ;
 	}
-	public void setTyp(MedicineType typ) {
+	public void setTyp(Daytime typ) {
 		this.typ = typ;
 	}
-	public Medicine withTyp(MedicineType typ) {
+	public Medicine withTyp(Daytime typ) {
 		this.typ = typ;
 		return this;
 	}
