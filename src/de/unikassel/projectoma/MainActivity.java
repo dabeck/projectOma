@@ -2,9 +2,12 @@ package de.unikassel.projectoma;
 
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -14,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import de.unikassel.projectoma.model.Article;
 import de.unikassel.projectoma.model.Grandma;
+import de.unikassel.projectoma.model.LevelType;
 
 public class MainActivity extends ListActivity {
 	
@@ -92,25 +96,47 @@ public class MainActivity extends ListActivity {
 	protected void onResume() {
 		super.onResume();
 		
-		/* Erster Start?!? */
-		/* TODO */
-		
 		/* Lade Oma */
 		this.app.grandma = Grandma.load(PreferenceManager
 		        .getDefaultSharedPreferences(this.getApplicationContext()));
 		
+		
+		
+		/* Erster Start?!? */
+		/* TODO */
+		
+		
+		
 		/* Spielende?!? */
-		// pruefe alle Deadlines
-		for (Article wish : this.app.grandma.getWishes())
-			if (!wish.checkStatus()) {
-				/* TODO: Article casten und Toast "Wunsch XY" praezisieren... */
-				Toast t = Toast.makeText(
-						this.app.getApplicationContext(),
-						"GAME OVER: Der Wunsch XY wurde nicht rechtzeitig erfüllt!",
-						Toast.LENGTH_LONG
-					);
-				t.show();
-				/* TODO: Spiel vorbei, loesche Oma, App-Restart */
-			}
+		// pruefe alle Deadlines, jeweils fuer Wuensche und Einkaufsliste
+		for (Article wish : this.app.grandma.getWishes()) {
+			checkDeadline(wish);
+		}
+		for (Article wish : this.app.grandma.getShoppingList()) {
+			checkDeadline(wish);
+		}
+	}
+	
+	private void checkDeadline(Article wish) {
+		if (!wish.checkStatus()) {
+			/* TODO: Article casten und Toast "Wunsch XY" praezisieren... */
+			
+			// GameOver-Toast
+			Toast t = Toast.makeText(
+					this.app.getApplicationContext(),
+					"GAME OVER: Der Wunsch '" + wish.getName() + "' wurde nicht rechtzeitig erfüllt!",
+					Toast.LENGTH_LONG
+				);
+			t.show();
+			
+			// loesche Oma
+			Editor edit = PreferenceManager
+			        .getDefaultSharedPreferences(this
+					        .getApplicationContext()).edit();
+			edit.putString("de.unikassel.projectoma.grandma", null);
+			edit.commit();
+			
+			/* TODO: App-Restart */
+		}
 	}
 }

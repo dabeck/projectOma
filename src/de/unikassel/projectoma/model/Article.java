@@ -73,7 +73,7 @@ public class Article {
 			);
 	}
 	public boolean checkStatus() {
-		if(getNow().after(getDeadline())) {
+		if(getNow().after(getDeadline()) && this.getProgress() < 1.0) {
 			return true;
 		} else {
 			return false;
