@@ -2,12 +2,9 @@ package de.unikassel.projectoma;
 
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -100,24 +97,17 @@ public class MainActivity extends ListActivity {
 		this.app.grandma = Grandma.load(PreferenceManager
 		        .getDefaultSharedPreferences(this.getApplicationContext()));
 		
-		
-		
 		if (this.app.grandma == null) {
-			/* Erster Start! */
-			/* TODO: mit GUI verknuepfen, wg. Name, Level, etc. */
+			this.app.grandma = new Grandma(this.getApplicationContext()
+			        .getString(R.string.default_name), LevelType.SIMPLE);
 			
-			String name = "Omi";
-			LevelType level = LevelType.MEDIUM;
-			
-			this.app.grandma = new Grandma()
-				.withName(name)
-				.withLevel(level);
+			// TODO: set firstStart bool
+
 		}
-		
-		
-		
-		/* Spielende?!? */
-		// pruefe alle Deadlines, jeweils fuer Wuensche und Einkaufsliste
+
+		 /* Spielende?!? */
+		 // pruefe alle Deadlines, jeweils fuer Wuensche und
+		// Einkaufsliste
 		for (Article wish : this.app.grandma.getWishes()) {
 			checkDeadline(wish);
 		}
@@ -133,19 +123,12 @@ public class MainActivity extends ListActivity {
 			// GameOver-Toast
 			Toast t = Toast.makeText(
 					this.app.getApplicationContext(),
-					"GAME OVER: Der Wunsch '" + wish.getName() + "' wurde nicht rechtzeitig erfüllt!",
+			        "GAME OVER: Der Wunsch '" + wish.getName()
+			                + "' wurde nicht rechtzeitig erfÃ¼llt!",
 					Toast.LENGTH_LONG
 				);
 			t.show();
 			
-			// loesche Oma
-			Editor edit = PreferenceManager
-			        .getDefaultSharedPreferences(this
-					        .getApplicationContext()).edit();
-			edit.putString("de.unikassel.projectoma.grandma", null);
-			edit.commit();
-			
-			/* TODO: App-Restart */
 		}
 	}
 }

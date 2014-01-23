@@ -1,5 +1,6 @@
 package de.unikassel.projectoma.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.SharedPreferences;
@@ -143,6 +144,16 @@ public class Grandma {
 	public Grandma(String name, LevelType level) {
 		this.name = name;
 		this.level = level;
+		
+		this.wishes = new ArrayList<Article>();
+		
+		this.shoppingList = new ArrayList<Article>();
+		
+		this.pantry = new ArrayList<Food>();
+		
+		this.inventory = new ArrayList<Article>();
+		
+		this.wardrobe = new ArrayList<Clothing>();
 	}
 	
 	

@@ -61,12 +61,19 @@ public class Food extends Article {
 	
 	
 	
-	public static HashMap<FoodType,Food> FoodList = new HashMap<FoodType, Food>() {{
+	public static HashMap<FoodType, Food> FoodList = new HashMap<FoodType, Food>() {
+		
+		/**
+         * 
+         */
+		private static final long serialVersionUID = 1L;
+		
+		{
 		/* Morgens */
 		put(
 				FoodType.EGGS_AND_BACON,
 				new Food(
-						"Rührei mit Speck",
+						"Rï¿½hrei mit Speck",
 						new Timestamp(0, 0, 0, 0, 30, 0, 0)
 						)
 					.withDaytime(Daytime.MORNING)
@@ -86,7 +93,7 @@ public class Food extends Article {
 		put(
 				FoodType.CEREALS_AND_MILK,
 				new Food(
-						"Müsli mit Milch",
+						"Mï¿½sli mit Milch",
 						new Timestamp(0, 0, 0, 0, 15, 0, 0)
 						)
 					.withDaytime(Daytime.MORNING)
@@ -148,7 +155,7 @@ public class Food extends Article {
 		put(
 				FoodType.CANNELLONI_WITH_CHEESE_SAUCES,
 				new Food(
-						"Cannelloni mit Käsesauce",
+						"Cannelloni mit Kï¿½sesauce",
 						new Timestamp(0, 0, 0, 0, 30, 0, 0)
 						)
 					.withDaytime(Daytime.MIDDAY)
@@ -220,7 +227,7 @@ public class Food extends Article {
 		put(
 				FoodType.RICE_CRACKERS_WITH_CHEESE,
 				new Food(
-						"Reiscracker mit Käse",
+						"Reiscracker mit Kï¿½se",
 						new Timestamp(0, 0, 0, 0, 15, 0, 0)
 						)
 					.withDaytime(Daytime.EVENING)
@@ -230,7 +237,7 @@ public class Food extends Article {
 		put(
 				FoodType.PUMPKIN_SOUP,
 				new Food(
-						"Kürbissuppe",
+						"Kï¿½rbissuppe",
 						new Timestamp(0, 0, 0, 0, 30, 0, 0)
 						)
 					.withDaytime(Daytime.EVENING)
@@ -242,7 +249,7 @@ public class Food extends Article {
 		put(
 				FoodType.BEER_JELLY,
 				new Food(
-						"Biersülze",
+						"Biersï¿½lze",
 						new Timestamp(0, 0, 0, 0, 30, 0, 0)
 						)
 					.withDaytime(Daytime.EVENING)

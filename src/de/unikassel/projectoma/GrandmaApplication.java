@@ -3,7 +3,6 @@ package de.unikassel.projectoma;
 import android.app.Application;
 import android.os.Bundle;
 import de.unikassel.projectoma.model.Grandma;
-import de.unikassel.projectoma.model.LevelType;
 
 
 public class GrandmaApplication extends Application {
@@ -11,8 +10,7 @@ public class GrandmaApplication extends Application {
 	public Grandma grandma;
 	
 	protected void onCreate(Bundle savedInstanceState) {
-		this.grandma = new Grandma(this.getApplicationContext().getString(
-		        R.string.default_name), LevelType.SIMPLE);
+		super.onCreate();
 	}
 
 	public Grandma getGrandma() {
