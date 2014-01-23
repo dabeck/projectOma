@@ -29,9 +29,6 @@ public class Grandma {
 	/* Kleiderschrank */
 	private List<Clothing> wardrobe;
 	
-	
-	
-	
 	public void save(SharedPreferences sp) {
 		Editor edit = sp.edit();
 		Gson gson = new Gson();
@@ -45,8 +42,6 @@ public class Grandma {
 		String json = sp.getString("de.unikassel.projectoma.grandma", "");
 		return gson.fromJson(json, Grandma.class);
 	}
-	
-	
 	
 	
 	public String getName() {

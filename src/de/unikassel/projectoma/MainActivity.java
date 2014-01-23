@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -129,6 +130,11 @@ public class MainActivity extends ListActivity {
 				);
 			t.show();
 			
+			Editor edit = PreferenceManager.getDefaultSharedPreferences(
+			        this.getApplicationContext()).edit();
+			edit.putString("de.unikassel.projectoma.grandma", null);
+			edit.commit();
+
 		}
 	}
 }
