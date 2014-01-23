@@ -73,7 +73,7 @@ public class Food extends Article {
 		put(
 				FoodType.EGGS_AND_BACON,
 				new Food(
-						"R�hrei mit Speck",
+"Rührei mit Speck",
 						new Timestamp(0, 0, 0, 0, 30, 0, 0)
 						)
 					.withDaytime(Daytime.MORNING)
@@ -93,7 +93,7 @@ public class Food extends Article {
 		put(
 				FoodType.CEREALS_AND_MILK,
 				new Food(
-						"M�sli mit Milch",
+"Müsli mit Milch",
 						new Timestamp(0, 0, 0, 0, 15, 0, 0)
 						)
 					.withDaytime(Daytime.MORNING)
@@ -227,7 +227,7 @@ public class Food extends Article {
 		put(
 				FoodType.RICE_CRACKERS_WITH_CHEESE,
 				new Food(
-						"Reiscracker mit K�se",
+"Reiscracker mit Käse",
 						new Timestamp(0, 0, 0, 0, 15, 0, 0)
 						)
 					.withDaytime(Daytime.EVENING)
@@ -237,7 +237,7 @@ public class Food extends Article {
 		put(
 				FoodType.PUMPKIN_SOUP,
 				new Food(
-						"K�rbissuppe",
+"Kürbissuppe",
 						new Timestamp(0, 0, 0, 0, 30, 0, 0)
 						)
 					.withDaytime(Daytime.EVENING)
@@ -249,7 +249,7 @@ public class Food extends Article {
 		put(
 				FoodType.BEER_JELLY,
 				new Food(
-						"Biers�lze",
+"Biersülze",
 						new Timestamp(0, 0, 0, 0, 30, 0, 0)
 						)
 					.withDaytime(Daytime.EVENING)
