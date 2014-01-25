@@ -13,11 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/image_grandma"
-        android:layout_width="match_parent"
+    <net.frakbot.imageviewex.ImageViewEx
+        android:id="@+id/imageViewEx1"
+        android:layout_width="wrap_content"
         android:layout_height="330dp"
-        android:src="@drawable/ic_launcher" android:contentDescription="@string/image_grandma"/>
+        android:src="@drawable/ic_launcher" />
 
     <ListView
         android:id="@android:id/list"

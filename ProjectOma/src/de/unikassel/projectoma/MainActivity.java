@@ -2,6 +2,8 @@ package de.unikassel.projectoma;
 
 import java.util.ArrayList;
 
+import net.frakbot.imageviewex.Converters;
+import net.frakbot.imageviewex.ImageViewEx;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import de.unikassel.projectoma.model.Article;
 import de.unikassel.projectoma.model.Grandma;
 import de.unikassel.projectoma.model.LevelType;
+import de.unikassel.projectoma.R;
 
 public class MainActivity extends ListActivity {
 	
@@ -25,6 +28,7 @@ public class MainActivity extends ListActivity {
 	// DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE
 	// LISTVIEW
 	ArrayAdapter<String> adapter;
+	ImageViewEx mainImage;
 	
 	// RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
 	int clickCounter = 0;
@@ -41,6 +45,10 @@ public class MainActivity extends ListActivity {
 		adapter = new ArrayAdapter<String>(this,
 		        android.R.layout.simple_list_item_1, listItems);
 		setListAdapter(adapter);
+		
+		mainImage = (ImageViewEx)findViewById(R.id.imageViewEx1);
+		
+		mainImage.setSource(Converters.assetToByteArray(getAssets(), "grandma_help.gif"));
 	}
 	
 	@Override
