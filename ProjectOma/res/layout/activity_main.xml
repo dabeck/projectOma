@@ -15,8 +15,9 @@
 
     <net.frakbot.imageviewex.ImageViewEx
         android:id="@+id/imageViewEx1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="330dp"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_launcher" />
 
     <ListView
