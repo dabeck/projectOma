@@ -33,7 +33,7 @@ public class ImageHelper {
 	
 	public static void setGrandmaTypeMusic()
 	{
-		changeImg("grandma_music_long.gif");
+		changeImg("grandma_music_short.gif");
 	}
 	
 	public static void setGrandmaTypeHungry()

@@ -74,20 +74,48 @@ public class MainActivity extends ListActivity {
 	}
 
 	public void btnRequestClicked(View v) {
-		listItems.add("RequestClicked : " + clickCounter++);
+		listItems.add("RequestClicked");
 		adapter.notifyDataSetChanged();
-		
-		ImageHelper.setGrandmaTypeMusic();
 	}
 	
 	public void btnStockClicked(View v) {
-		listItems.add("StockClicked : " + clickCounter++);
+		listItems.add("StockClicked");
 		adapter.notifyDataSetChanged();
+		
+		ImageHelper.setGrandmaTypeInCar();
 	}
 	
 	public void btnTestClicked(View v) {
-		listItems.add("TestClicked : " + clickCounter++);
+		listItems.add("Playing new GIF : " + clickCounter++);
 		adapter.notifyDataSetChanged();
+		
+		
+		switch(clickCounter%8) {
+		case 1:
+			ImageHelper.setGrandmaTypeCooking();
+			break;
+		case 2:
+			ImageHelper.setGrandmaTypeHelp();
+			break;
+		case 3:
+			ImageHelper.setGrandmaTypeHungry();
+			break;
+		case 4:
+			ImageHelper.setGrandmaTypeIll();
+			break;
+		case 5:
+			ImageHelper.setGrandmaTypeInCar();
+			break;
+		case 6:
+			ImageHelper.setGrandmaTypeWashing();
+			break;
+		case 7:
+			ImageHelper.setGrandmaTypeMusic();
+			break;
+		default:
+			ImageHelper.setGrandmaTypeHelp();
+			break;
+		}
 	}
 	
 	@Override
