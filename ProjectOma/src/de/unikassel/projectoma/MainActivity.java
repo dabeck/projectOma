@@ -1,9 +1,12 @@
 package de.unikassel.projectoma;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import de.unikassel.projectoma.model.Article;
 import de.unikassel.projectoma.model.Grandma;
 import de.unikassel.projectoma.model.LevelType;
+import de.unikassel.projectoma.reciever.DailyReciever;
 import de.unikassel.projectoma.R;
 import de.unikassel.projectoma.helper.ImageHelper;
 
@@ -139,7 +143,18 @@ public class MainActivity extends ListActivity {
 			        .getString(R.string.default_name), LevelType.SIMPLE);
 			
 			// TODO: set firstStart bool
-
+			
+			/* Taeglich wiederholender 'Alarm', welcher Wuensche fuer die
+			 * naechsten 24 Stunden erzeugt. (Nur beim ersten Start erzeugen!) */
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(System.currentTimeMillis());
+			AlarmManager alarmMgr = (AlarmManager) this.getApplicationContext()
+					.getSystemService(this.getApplicationContext().ALARM_SERVICE);
+			Intent intent = new Intent(this.getApplicationContext(), DailyReciever.class);
+			PendingIntent alarmIntent = PendingIntent.getBroadcast(this
+					.getApplicationContext(), 0, intent, 0);
+			alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar
+					.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
 		}
 
 		 /* Spielende?!? */

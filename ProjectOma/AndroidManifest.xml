@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
     <application
         android:allowBackup="true"
@@ -31,6 +32,8 @@
             android:name="de.unikassel.projectoma.SettingsActivity"
             android:label="@string/settings" >
         </activity>
+        <receiver android:name="de.unikassel.projectoma.reciever.DailyReciever"></receiver>
+        <receiver android:name="de.unikassel.projectoma.reciever.WishReciever"></receiver>
     </application>
 
 </manifest>
