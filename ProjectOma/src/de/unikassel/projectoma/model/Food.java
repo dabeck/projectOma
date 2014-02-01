@@ -2,6 +2,7 @@ package de.unikassel.projectoma.model;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Food extends Article {
 
@@ -297,4 +298,51 @@ public class Food extends Article {
 					.withHealty(false)
 				);
 	}};
+	
+	public static Food randomFood(Daytime dt) {
+		FoodType[] range;
+		Random rand = new Random();
+		
+		switch (dt) {
+			case MORNING:
+				range = new FoodType[] {
+						FoodType.EGGS_AND_BACON,
+						FoodType.CAKE_WITH_CHANTILLY_CREAM,
+						FoodType.CEREALS_AND_MILK,
+						FoodType.FRUIT,
+						FoodType.VITAMINE_SHAKE
+				};
+				break;
+			case MIDDAY:
+				range = new FoodType[] {
+						FoodType.SCHNITZEL_AND_FRENCH_FRIES,
+						FoodType.BOILED_COD_FISH_WITH_POTATOES,
+						FoodType.KNUCKLE_OF_PORK,
+						FoodType.CANNELLONI_WITH_CHEESE_SAUCES,
+						FoodType.SUSHI,
+						FoodType.NOODLE_SOUP
+				};
+				break;
+			case EVENING:
+				range = new FoodType[] {
+						FoodType.ROLLMOP_HERRINGS_ON_BREAD,
+						FoodType.BREAD_AND_BUTTER,
+						FoodType.TOAST_HAWAI,
+						FoodType.SALAD,
+						FoodType.RICE_CRACKERS_WITH_CHEESE,
+						FoodType.PUMPKIN_SOUP
+				};
+				break;
+			default:
+				range = new FoodType[] {
+						FoodType.BEER_JELLY,
+						FoodType.HALF_A_PIG_ON_TOAST,
+						FoodType.FOOD_OF_THE_GODS,
+						FoodType.RAABERDATSCHI,
+						FoodType.TOTE_OMA
+				};
+		}
+		
+		return FoodList.get(range[rand.nextInt(range.length)]);
+	}
 }

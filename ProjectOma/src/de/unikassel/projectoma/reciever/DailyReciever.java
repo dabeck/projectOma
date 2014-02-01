@@ -6,6 +6,7 @@ import java.util.Random;
 import com.google.gson.Gson;
 
 import de.unikassel.projectoma.model.Article;
+import de.unikassel.projectoma.model.Daytime;
 import de.unikassel.projectoma.model.Food;
 import de.unikassel.projectoma.model.FoodType;
 import android.app.AlarmManager;
@@ -27,15 +28,15 @@ public class DailyReciever extends BroadcastReceiver {
 		
 		/* Generiere 3 Essenswuensche*/
 		/*     morgens (08-10) */
-		wish = (Article)Food.FoodList.get(FoodType.CEREALS_AND_MILK);
+		wish = (Article)Food.randomFood(Daytime.MORNING);
 		calendar = setCalendar(calendar, currentHour, 8, 2);
 		setAlarm(context, calendar, wish);
 		/*     mittags (12-14) */
-		wish = (Article)Food.FoodList.get(FoodType.SCHNITZEL_AND_FRENCH_FRIES);
+		wish = (Article)Food.randomFood(Daytime.MIDDAY);
 		calendar = setCalendar(calendar, currentHour, 12, 2);
 		setAlarm(context, calendar, wish);
 		/*     abends  (18-20) */
-		wish = (Article)Food.FoodList.get(FoodType.BREAD_AND_BUTTER);
+		wish = (Article)Food.randomFood(Daytime.EVENING);
 		calendar = setCalendar(calendar, currentHour, 18, 2);
 		setAlarm(context, calendar, wish);
 	}
