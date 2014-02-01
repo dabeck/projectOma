@@ -16,6 +16,7 @@ public class ImageHelper {
 	{
 		if(appContext instanceof Context && img.length() >= 4){
 			mainImage.setSource(Converters.assetToByteArray(appContext.getAssets(), img));
+			mainImage.setFramesDuration(1);
 		}
 	}
 	
@@ -59,5 +60,35 @@ public class ImageHelper {
 	public static void setGrandmaTypeInCar()
 	{
 		changeImg("grandma_incar.gif");
+	}
+	
+	public static void setGrandmaTypeMedicine()
+	{
+		changeImg("grandma_medicine.gif");
+	}
+	
+	public static void setGrandmaTypeCleanDishes()
+	{
+		changeImg("grandma_clean_dishes.gif");
+	}
+	
+	public static void setGrandmaTypeShopping()
+	{
+		changeImg("grandma_shopping.gif");
+	}
+	
+	public static void setGrandmaTypeTired()
+	{
+		changeImg("grandma_tired.gif");
+	}
+	
+	public static void setGrandmaTypeThirsty()
+	{
+		changeImg("grandma_thirsty.gif");
+	}
+	
+	public static void setGrandmaTypePills()
+	{
+		changeImg("grandma_pills.gif");
 	}
 }
