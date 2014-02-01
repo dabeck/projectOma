@@ -11,10 +11,13 @@ public class ImageHelper {
 	private static Context appContext;
 	private static Activity mainActivity;
 	private static ImageViewEx mainImage;
-	
+	private static String selectedImg;
+
 	private static void changeImg(String img)
 	{
-		if(appContext instanceof Context && img.length() >= 4){
+		if(appContext instanceof Context && img.contains(".gif") && !selectedImg.equals(img)){
+			selectedImg = img;
+
 			mainImage.setSource(Converters.assetToByteArray(appContext.getAssets(), img));
 			mainImage.setFramesDuration(1);
 		}
@@ -25,6 +28,7 @@ public class ImageHelper {
 		appContext = c.getApplicationContext();
 		mainActivity = (Activity)c;
 		mainImage = (ImageViewEx)mainActivity.findViewById(R.id.imageViewEx1);
+		selectedImg = "";
 	}
 	
 	public static void setGrandmaTypeHelp()
