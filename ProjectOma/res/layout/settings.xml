@@ -16,7 +16,7 @@
             android:key="difficulty_level"
             android:title="@string/difficulty_level"
             android:summary="@string/difficulty_desc"
-            android:defaultValue="Simple"
+            android:defaultValue="1"
             android:entries="@array/difficultyNames"
             android:entryValues="@array/difficultyValues"
         />

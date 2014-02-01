@@ -41,7 +41,7 @@ public class MainActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		this.app = ((GrandmaApplication) getApplicationContext());
+		app = ((GrandmaApplication) getApplication());
 		setContentView(R.layout.activity_main);
 
 		adapter = new ArrayAdapter<String>(this,
@@ -125,7 +125,7 @@ public class MainActivity extends ListActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		this.app.grandma.save(PreferenceManager
+		app.grandma.save(PreferenceManager
 		        .getDefaultSharedPreferences(this
 		        .getApplicationContext()));
 	}
@@ -135,19 +135,19 @@ public class MainActivity extends ListActivity {
 		super.onResume();
 		
 		/* Lade Oma */
-		this.app.grandma = Grandma.load(PreferenceManager
+		app.grandma = Grandma.load(PreferenceManager
 		        .getDefaultSharedPreferences(this.getApplicationContext()));
 		
-		if (this.app.grandma == null) {
-			this.app.grandma = new Grandma(this.getApplicationContext()
+		if (app.grandma == null) {
+			app.grandma = new Grandma(this.getApplicationContext()
 			        .getString(R.string.default_name), LevelType.SIMPLE);
-			
-			// TODO: set firstStart bool
-			
+						
 			/* Taeglich wiederholender 'Alarm', welcher Wuensche fuer die
 			 * naechsten 24 Stunden erzeugt. (Nur beim ersten Start erzeugen!) */
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(System.currentTimeMillis());
+			
+			@SuppressWarnings("static-access")
 			AlarmManager alarmMgr = (AlarmManager) this.getApplicationContext()
 					.getSystemService(this.getApplicationContext().ALARM_SERVICE);
 			Intent intent = new Intent(this.getApplicationContext(), DailyReciever.class);
@@ -160,10 +160,10 @@ public class MainActivity extends ListActivity {
 		 /* Spielende?!? */
 		 // pruefe alle Deadlines, jeweils fuer Wuensche und
 		// Einkaufsliste
-		for (Article wish : this.app.grandma.getWishes()) {
+		for (Article wish : app.grandma.getWishes()) {
 			checkDeadline(wish);
 		}
-		for (Article wish : this.app.grandma.getShoppingList()) {
+		for (Article wish : app.grandma.getShoppingList()) {
 			checkDeadline(wish);
 		}
 	}
@@ -174,7 +174,7 @@ public class MainActivity extends ListActivity {
 			
 			// GameOver-Toast
 			Toast t = Toast.makeText(
-					this.app.getApplicationContext(),
+					app.getApplicationContext(),
 			        "GAME OVER: Der Wunsch '" + wish.getName()
 			                + "' wurde nicht rechtzeitig erfüllt!",
 					Toast.LENGTH_LONG

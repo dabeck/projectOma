@@ -5,10 +5,4 @@
         <item >Mittel</item>
         <item >Schwer</item>
     </string-array>
-    
-    <string-array name="difficultyValues">
-        <item >Leicht</item>
-        <item >Mittel</item>
-        <item >Schwer</item>
-    </string-array>
 </resources>
