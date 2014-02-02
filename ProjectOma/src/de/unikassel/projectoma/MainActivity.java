@@ -66,8 +66,7 @@ public class MainActivity extends ListActivity {
 			
 			if(mAccel > 12)
 			{
-				listItems.add("Phone shaked!!");
-				adapter.notifyDataSetChanged();
+				Log.i("ProjectOma", "Phone shaked!!");
 				processRequest(RequestType.wash_clothes);
 			}
 		}
@@ -165,6 +164,8 @@ public class MainActivity extends ListActivity {
 	public void processRequest(RequestType selection)
 	{
 		Log.i("ProjectOma", "Trying to process request " + selection.toString());
+		
+		//TODO: lock this method till a request is finished before executing another one
 
 		switch(selection) {
 		case cook:
