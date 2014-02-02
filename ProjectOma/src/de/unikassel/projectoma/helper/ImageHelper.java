@@ -182,7 +182,7 @@ public class ImageHelper {
 	
 	public static void setGrandmaTypeEat()
 	{
-		setOneTimeImg("grandma_eat.gif", 5, true);
+		setOneTimeImg("grandma_food_heavy.gif", 5, true);
 	}
 	
 	public static void setGrandmaTypeDrink()
