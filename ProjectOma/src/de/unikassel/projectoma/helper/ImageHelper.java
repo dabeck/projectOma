@@ -179,4 +179,24 @@ public class ImageHelper {
 	{
 		setInfiniteImg("grandma_take_walk.gif");
 	}
+	
+	public static void setGrandmaTypeEat()
+	{
+		setOneTimeImg("grandma_eat.gif", 5, true);
+	}
+	
+	public static void setGrandmaTypeDrink()
+	{
+		setOneTimeImg("grandma_drink.gif", 5, true);
+	}
+	
+	public static void setGrandmaTypeDoCleanDishes()
+	{
+		setOneTimeImg("grandma_do_clean_dishes.gif", 10, true);
+	}
+	
+	public static void setGrandmaTypeGoShopping()
+	{
+		setOneTimeImg("grandma_take_walk.gif", 10, true);
+	}
 }

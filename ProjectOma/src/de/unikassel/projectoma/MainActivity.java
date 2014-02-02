@@ -107,13 +107,13 @@ public class MainActivity extends ListActivity {
 			ImageHelper.setGrandmaTypeCooking();
 			break;
 		case eat:
-//			ImageHelper.setGrandmaTypeEat();
+			ImageHelper.setGrandmaTypeEat();
 			break;
 		case drink:
-//			ImageHelper.setGrandmaTypeDrink();
+			ImageHelper.setGrandmaTypeDrink();
 			break;
 		case wash_dishes:
-//			ImageHelper.setGrandmaTypeDoCleanDishes();
+			ImageHelper.setGrandmaTypeDoCleanDishes();
 			break;
 		case wash_clothes:
 			ImageHelper.setGrandmaTypeWashing();
@@ -134,7 +134,7 @@ public class MainActivity extends ListActivity {
 			ImageHelper.setGrandmaTypeMusic();
 			break;
 		case shopping:
-//			ImageHelper.setGrandmaTypeGoShopping();
+			ImageHelper.setGrandmaTypeGoShopping();
 			break;
 		default:
 			break;
@@ -149,7 +149,7 @@ public class MainActivity extends ListActivity {
 	}
 
 	public void btnTestClicked(View v) {
-		listItems.add("Playing new GIF : " + clickCounter++);
+		listItems.add("Test : " + clickCounter++);
 		adapter.notifyDataSetChanged();
 	}
 
