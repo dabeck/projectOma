@@ -105,36 +105,47 @@ public class MainActivity extends ListActivity {
 		switch(selection) {
 		case cook:
 			ImageHelper.setGrandmaTypeCooking();
+			//Eating depends on cooking
 			break;
 		case eat:
 			ImageHelper.setGrandmaTypeEat();
+			//Generates dirty dishes
 			break;
 		case drink:
 			ImageHelper.setGrandmaTypeDrink();
+			//Generates dirty dishes
 			break;
 		case wash_dishes:
 			ImageHelper.setGrandmaTypeDoCleanDishes();
+			//Generates clean dishes
 			break;
 		case wash_clothes:
 			ImageHelper.setGrandmaTypeWashing();
+			//Fill up clothes stock
 			break;
 		case sleep:
 			ImageHelper.setGrandmaTypeSleep();
+			//Resets stamina
 			break;
 		case medicine:
 			ImageHelper.setGrandmaTypeMedicine();
+			//Resets stamina
 			break;
 		case walk:
 			ImageHelper.setGrandmaTypeWalk();
+			//Reduces stamina
 			break;
 		case clean_car:
 			ImageHelper.setGrandmaTypeCleanCar();
+			//. ...
 			break;
 		case music:
 			ImageHelper.setGrandmaTypeMusic();
+			//Resets stamina
 			break;
 		case shopping:
 			ImageHelper.setGrandmaTypeGoShopping();
+			//Fill up stocks
 			break;
 		default:
 			break;
