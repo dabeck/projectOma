@@ -30,5 +30,7 @@
     <string name="cancel">Abbrechen</string>
     <string name="confirm">Bestätigen</string>
     <string name="loading">Lädt&#8230;</string>
+    <string name="gameover">SPIEL VORBEI!</string>
+    <string name="gameover_desc">Der Wunsch wurde nicht rechtzeitig erfüllt.</string>
 
 </resources>
