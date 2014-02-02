@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="difficultyNames">
-        <item >Simple</item>
-        <item >Medium</item>
-        <item >Hard</item>
+        <item>Simple</item>
+        <item>Medium</item>
+        <item>Hard</item>
     </string-array>
-    
     <string-array name="difficultyValues">
-        <item >1</item>
-        <item >2</item>
-        <item >3</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
+    <string-array name="requestTypes">
+        <item>Cook</item>
+        <item>Eat the meal</item>
+        <item>Drink something</item>
+        <item>Wash the dishes</item>
+        <item>Wash clothes</item>
+        <item>Go sleep</item>
+        <item>Take medicine</item>
+        <item>Take a walk</item>
+        <item>Clean the car</item>
+        <item>Listen to music</item>
+        <item>Go shopping</item>
+    </string-array>
+    <string-array name="requestValues">
+        <item>cook</item>
+        <item>eat</item>
+        <item>drink</item>
+        <item>wash_dishes</item>
+        <item>wash_clothes</item>
+        <item>sleep</item>
+        <item>medicine</item>
+        <item>walk</item>
+        <item>clean_car</item>
+        <item>music</item>
+        <item>shopping</item>
+    </string-array>
+
 </resources>

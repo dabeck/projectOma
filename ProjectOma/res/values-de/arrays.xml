@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="difficultyNames">
-        <item >Leicht</item>
-        <item >Mittel</item>
-        <item >Schwer</item>
+        <item>Leicht</item>
+        <item>Mittel</item>
+        <item>Schwer</item>
     </string-array>
+    <string-array name="requestTypes">
+        <item>Kochen</item>
+        <item>Mahlzeit essen</item>
+        <item>Trinken</item>
+        <item>Geschirr abwaschen</item>
+        <item>Kleidung waschen</item>
+        <item>Schlafen gehen</item>
+        <item>Medizin nehmen</item>
+        <item>Spazieren gehen</item>
+        <item>Auto waschen</item>
+        <item>Musik hören</item>
+        <item>Einkaufen gehen</item>
+    </string-array>
+
 </resources>

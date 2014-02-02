@@ -5,6 +5,8 @@ import java.util.Calendar;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ListActivity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -78,8 +80,20 @@ public class MainActivity extends ListActivity {
 	}
 
 	public void btnRequestClicked(View v) {
-		listItems.add("RequestClicked");
-		adapter.notifyDataSetChanged();
+		
+	    FragmentTransaction ft = getFragmentManager().beginTransaction();
+	    Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+	    if (prev != null) {
+	        ft.remove(prev);
+	    }
+	    ft.addToBackStack(null);
+
+	    // Create and show the dialog.
+	    RequestFragment newFragment = RequestFragment.newInstance();
+	    newFragment.show(ft, "dialog");
+
+//		listItems.add("RequestClicked");
+//		adapter.notifyDataSetChanged();
 	}
 	
 	public void btnStockClicked(View v) {
