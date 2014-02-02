@@ -23,10 +23,12 @@
     <string name="btn_reset">Reset game</string>
     <string name="reset_desc">Resets the current game</string>
     <string name="reset_warning">Are you sure?</string>
-	<string name="reset_warning_msg">This will destroy your complete game progress!</string>
-	<string name="yes">Yes</string>
-	<string name="no">No</string>
-	<string name="request_msg">What do you want to do?</string>
-	<string name="cancel">Cancel</string>
-	<string name="confirm">Confirm</string>    
+    <string name="reset_warning_msg">This will destroy your complete game progress!</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="request_msg">What do you want to do?</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="loading">Loading&#8230;</string>
+
 </resources>

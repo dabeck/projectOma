@@ -109,8 +109,11 @@ public class MainActivity extends ListActivity {
 		case eat:
 //			ImageHelper.setGrandmaTypeEat();
 			break;
+		case drink:
+//			ImageHelper.setGrandmaTypeDrink();
+			break;
 		case wash_dishes:
-			ImageHelper.setGrandmaTypeCleanDishes();
+//			ImageHelper.setGrandmaTypeDoCleanDishes();
 			break;
 		case wash_clothes:
 			ImageHelper.setGrandmaTypeWashing();
@@ -131,7 +134,7 @@ public class MainActivity extends ListActivity {
 			ImageHelper.setGrandmaTypeMusic();
 			break;
 		case shopping:
-//			ImageHelper.setGrandmaTypeShopping();
+//			ImageHelper.setGrandmaTypeGoShopping();
 			break;
 		default:
 			break;

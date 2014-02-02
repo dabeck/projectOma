@@ -23,10 +23,12 @@
     <string name="btn_reset">Spiel zurücksetzen</string>
     <string name="reset_desc">Setzt den aktuellen Spielstand zurück!</string>
     <string name="reset_warning">Bist du sicher?</string>
-	<string name="reset_warning_msg">Dies wird deinen kompletten Spielfortschritt zerstören!</string>
-	<string name="yes">Ja</string>
-	<string name="no">Nein</string>
-	<string name="request_msg">Was möchtest du tun?</string>
-	<string name="cancel">Abbrechen</string>
-	<string name="confirm">Bestätigen</string>  
+    <string name="reset_warning_msg">Dies wird deinen kompletten Spielfortschritt zerstören!</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="request_msg">Was möchtest du tun?</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="confirm">Bestätigen</string>
+    <string name="loading">Lädt&#8230;</string>
+
 </resources>

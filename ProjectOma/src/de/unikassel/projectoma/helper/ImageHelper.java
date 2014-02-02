@@ -2,6 +2,7 @@ package de.unikassel.projectoma.helper;
 
 import de.unikassel.projectoma.R;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import net.frakbot.imageviewex.Converters;
 import net.frakbot.imageviewex.ImageViewEx;
@@ -13,56 +14,67 @@ public class ImageHelper {
 	private static ImageViewEx mainImage;
 	private static String selectedImg;
 	private static byte[] gifImage;
+	private static ProgressDialog loadingDialog;
 
-	private static void setInfiniteImg(String img)
+	/**
+	 * This method sets a new animated gif based on the given parameters.
+	 * 
+	 * @param img The name of the asset to load.
+	 * @param duration How long should this gif be played? (0 for infinite)
+	 * @param reset Should the default Image be set after finished playing?
+	 */
+	private static void setOneTimeImg(final String img,final int duration, final boolean reset)
 	{
 		if(appContext instanceof Context && img.contains(".gif") && !selectedImg.equals(img)){
+
 			selectedImg = img;
 
-
-			Thread thread = new Thread() {
-				@Override
-				public void run() {
-					gifImage = Converters.assetToByteArray(appContext.getAssets(), selectedImg);
-
-					mainActivity.runOnUiThread(new Runnable() //run on ui thread
-					{
-						public void run() 
-						{ 
-							mainImage.setSource(gifImage);
-							mainImage.setFramesDuration(1);
-						}
-					});
+			mainActivity.runOnUiThread(new Runnable()
+			{
+				public void run() 
+				{ 
+					loadingDialog = new ProgressDialog(mainActivity);
+					loadingDialog.setMessage(appContext.getString(R.string.loading));
+					loadingDialog.setCancelable(false);
+					loadingDialog.show();
 				}
-			};
-			thread.start();
-		}
-	}
+			}
+			);
 
-	private static void setOneTimeImg(String img)
-	{
-		if(appContext instanceof Context && img.contains(".gif") && !selectedImg.equals(img)){
-			selectedImg = img;
-
-			Thread thread = new Thread() {
+			Thread thread = new Thread()
+			{
 				@Override
 				public void run() {
-					gifImage = Converters.assetToByteArray(appContext.getAssets(), selectedImg);
+					gifImage = Converters.assetToByteArray(appContext.getAssets(), img);
 
-					mainActivity.runOnUiThread(new Runnable() //run on ui thread
+					mainActivity.runOnUiThread(new Runnable()
 					{
 						public void run() 
 						{ 
+							loadingDialog.dismiss();
 							mainImage.setSource(gifImage);
 							mainImage.setFramesDuration(1);
 						}
 					});
 
-					long endTimeMillis = System.currentTimeMillis() + 5000;	//Sets the image for 5 seconds
-					while (true) {
-						// method logic
-						if (System.currentTimeMillis() > endTimeMillis) {
-							setGrandmaTypeInCar();
+					if(duration == 0)
+					{
+						return;
+					}
+
+					long endTimeMillis = System.currentTimeMillis() + duration * 1000;
+					while (true)
+					{
+						if (System.currentTimeMillis() > endTimeMillis)
+						{
+							if(reset)
+							{
+								setGrandmaTypeInCar();
+							}
+							else
+							{
+								mainImage.stop();
+							}
 
 							return;
 						}
@@ -74,6 +86,10 @@ public class ImageHelper {
 		}
 	}
 
+	private static void setInfiniteImg(final String img)
+	{
+		setOneTimeImg(img, 0, false);
+	}
 
 
 	public static void setContext(Context c)
@@ -106,12 +122,12 @@ public class ImageHelper {
 
 	public static void setGrandmaTypeCooking()
 	{
-		setOneTimeImg("grandma_cook.gif");
+		setOneTimeImg("grandma_cook.gif", 10, true);
 	}
 
 	public static void setGrandmaTypeWashing()
 	{
-		setInfiniteImg("grandma_washing.gif");
+		setOneTimeImg("grandma_washing.gif",10, true);
 	}
 
 	public static void setGrandmaTypeInCar()
@@ -121,7 +137,7 @@ public class ImageHelper {
 
 	public static void setGrandmaTypeMedicine()
 	{
-		setInfiniteImg("grandma_medicine.gif");
+		setOneTimeImg("grandma_medicine.gif", 5, true);
 	}
 
 	public static void setGrandmaTypeCleanDishes()
@@ -151,12 +167,12 @@ public class ImageHelper {
 
 	public static void setGrandmaTypeSleep()
 	{
-		setInfiniteImg("grandma_gosleep.gif");
+		setOneTimeImg("grandma_gosleep.gif", 3, false);
 	}
 
 	public static void setGrandmaTypeCleanCar()
 	{
-		setInfiniteImg("grandma_clean_car.gif");
+		setOneTimeImg("grandma_clean_car.gif", 5, true);
 	}
 
 	public static void setGrandmaTypeWalk()
