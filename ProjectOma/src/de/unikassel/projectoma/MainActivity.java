@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import de.unikassel.projectoma.model.Article;
 import de.unikassel.projectoma.model.Grandma;
 import de.unikassel.projectoma.model.LevelType;
+import de.unikassel.projectoma.model.RequestType;
 import de.unikassel.projectoma.reciever.DailyReciever;
 import de.unikassel.projectoma.R;
 import de.unikassel.projectoma.helper.ImageHelper;
@@ -94,6 +96,11 @@ public class MainActivity extends ListActivity {
 
 //		listItems.add("RequestClicked");
 //		adapter.notifyDataSetChanged();
+	}
+	
+	public void processRequest(RequestType selection)
+	{
+		Log.i("ProjectOma", selection.toString());
 	}
 	
 	public void btnStockClicked(View v) {

@@ -24,18 +24,5 @@
         <item>Listen to music</item>
         <item>Go shopping</item>
     </string-array>
-    <string-array name="requestValues">
-        <item>cook</item>
-        <item>eat</item>
-        <item>drink</item>
-        <item>wash_dishes</item>
-        <item>wash_clothes</item>
-        <item>sleep</item>
-        <item>medicine</item>
-        <item>walk</item>
-        <item>clean_car</item>
-        <item>music</item>
-        <item>shopping</item>
-    </string-array>
 
 </resources>
