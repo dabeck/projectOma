@@ -9,8 +9,13 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ListActivity;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -41,12 +46,52 @@ public class MainActivity extends ListActivity {
 
 	GrandmaApplication app;
 
+	//<-- Shake sensor listening -->
+
+	private SensorManager mSensorManager;
+	private float mAccel;
+	private float mAccelCurrent;
+	private float mAccelLast;
+
+	private final SensorEventListener mSensorListener = new SensorEventListener() {
+
+		public void onSensorChanged(SensorEvent se) {
+			float x = se.values[0];
+			float y = se.values[1];
+			float z = se.values[2];
+			mAccelLast = mAccelCurrent;
+			mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
+			float delta = mAccelCurrent - mAccelLast;
+			mAccel = mAccel * 0.9f + delta; // perform low-cut filter
+			
+			if(mAccel > 12)
+			{
+				listItems.add("Phone shaked!!");
+				adapter.notifyDataSetChanged();
+				processRequest(RequestType.wash_clothes);
+			}
+		}
+
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+		}
+	};
+
+	//<!-- Shake sensor end -->
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		app = ((GrandmaApplication) getApplication());
 		setContentView(R.layout.activity_main);
+		
+	    mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+	    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+	    mAccel = 0.00f;
+	    mAccelCurrent = SensorManager.GRAVITY_EARTH;
+	    mAccelLast = SensorManager.GRAVITY_EARTH;
 
 		adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, listItems);
@@ -79,11 +124,13 @@ public class MainActivity extends ListActivity {
 		return false;
 	}
 
+	//<-- Button-actions start here -->
+
 	public void btnRequestClicked(View v) {
 
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-		
+
 		if (prev != null)
 		{
 			ft.remove(prev);
@@ -98,10 +145,27 @@ public class MainActivity extends ListActivity {
 		adapter.notifyDataSetChanged();
 	}
 
+
+	public void btnStockClicked(View v) {
+		listItems.add("StockClicked");
+		adapter.notifyDataSetChanged();
+
+		ImageHelper.setGrandmaTypeInCar();
+	}
+
+	public void btnTestClicked(View v) {
+		listItems.add("Test : " + clickCounter++);
+		adapter.notifyDataSetChanged();
+	}
+
+	//<!-- Button actions end -->
+
+	//<-- Process actions start here -->
+
 	public void processRequest(RequestType selection)
 	{
 		Log.i("ProjectOma", "Trying to process request " + selection.toString());
-		
+
 		switch(selection) {
 		case cook:
 			ImageHelper.setGrandmaTypeCooking();
@@ -109,11 +173,11 @@ public class MainActivity extends ListActivity {
 			break;
 		case eat:
 			ImageHelper.setGrandmaTypeEat();
-			//Generates dirty dishes
+			//Generates dirty dishes + reduces food stock
 			break;
 		case drink:
 			ImageHelper.setGrandmaTypeDrink();
-			//Generates dirty dishes
+			//Generates dirty dishes + reduces water stock
 			break;
 		case wash_dishes:
 			ImageHelper.setGrandmaTypeDoCleanDishes();
@@ -152,21 +216,16 @@ public class MainActivity extends ListActivity {
 		}
 	}
 
-	public void btnStockClicked(View v) {
-		listItems.add("StockClicked");
-		adapter.notifyDataSetChanged();
+	//<!-- Process actions end-->
 
-		ImageHelper.setGrandmaTypeInCar();
-	}
-
-	public void btnTestClicked(View v) {
-		listItems.add("Test : " + clickCounter++);
-		adapter.notifyDataSetChanged();
-	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
+		
+		//Unregister listener for shake
+	    mSensorManager.unregisterListener(mSensorListener);
+
 		app.grandma.save(PreferenceManager
 				.getDefaultSharedPreferences(this
 						.getApplicationContext()));
@@ -175,6 +234,13 @@ public class MainActivity extends ListActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		//Register listener for shake
+		mSensorManager.registerListener(
+				mSensorListener, 
+				mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+				SensorManager.SENSOR_DELAY_NORMAL
+				);
 
 		/* Lade Oma */
 		app.grandma = Grandma.load(PreferenceManager
