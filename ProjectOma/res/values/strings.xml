@@ -32,5 +32,8 @@
     <string name="loading">Loading&#8230;</string>
     <string name="gameover">GAME OVER!</string>
     <string name="gameover_desc">The wish was not fulfilled in time.</string>
+    <string name="notify_title">1 new wish</string>
+    <string name="notify_desc_food">Grandma wants to eat something.</string>
+    <string name="notify_desc_dishes">Grandma wants to wash the dishes.</string>
 
 </resources>

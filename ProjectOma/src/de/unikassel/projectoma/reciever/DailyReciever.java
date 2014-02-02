@@ -9,7 +9,6 @@ import de.unikassel.projectoma.model.Article;
 import de.unikassel.projectoma.model.Daytime;
 import de.unikassel.projectoma.model.Dishes;
 import de.unikassel.projectoma.model.Food;
-import de.unikassel.projectoma.model.FoodType;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -25,7 +24,7 @@ public class DailyReciever extends BroadcastReceiver {
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(System.currentTimeMillis());
-		double currentHour = calendar.get(Calendar.HOUR_OF_DAY) + (1.0 / 60.0 * calendar.get(calendar.MINUTE));
+		double currentHour = calendar.get(Calendar.HOUR_OF_DAY) + (1.0 / 60.0 * calendar.get(Calendar.MINUTE));
 
 		
 		/* Generiere 3 Essenswuensche + jeweils Spuelen: */
@@ -52,7 +51,7 @@ public class DailyReciever extends BroadcastReceiver {
 	}
 	
 	private void setAlarm(Context context, Calendar calendar, Article wish) {
-		AlarmManager alarmMgr = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+		AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		Intent i = new Intent(context, WishReciever.class);
 		
 		Gson gson = new Gson();
@@ -69,7 +68,7 @@ public class DailyReciever extends BroadcastReceiver {
 		calendar.set(Calendar.HOUR_OF_DAY, hour + rand.nextInt(rangeHour));
 		calendar.set(Calendar.MINUTE, rand.nextInt(60));
 		
-		double wishHour = calendar.get(Calendar.HOUR_OF_DAY) + (1.0 / 60.0 * calendar.get(calendar.MINUTE));
+		double wishHour = calendar.get(Calendar.HOUR_OF_DAY) + (1.0 / 60.0 * calendar.get(Calendar.MINUTE));
 		
 		// wenn Zeitpunkt in Vergangenheit, dann +24h
 		if(currentHour >= wishHour) {
