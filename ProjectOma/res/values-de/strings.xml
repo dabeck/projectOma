@@ -3,7 +3,7 @@
 
     <string name="app_name">Pflege Oma!</string>
     <string name="action_settings">Einstellungen</string>
-    <string name="button_request">Wunsch bearbeiten</string>
+    <string name="button_request">Aktion</string>
     <string name="button_stock">Vorräte &amp; Kleidung</string>
     <string name="button_test">Testen</string>
     <string name="image_grandma">Gesicht</string>

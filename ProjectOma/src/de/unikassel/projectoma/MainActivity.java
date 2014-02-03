@@ -31,6 +31,7 @@ import de.unikassel.projectoma.model.RequestType;
 import de.unikassel.projectoma.reciever.DailyReciever;
 import de.unikassel.projectoma.R;
 import de.unikassel.projectoma.helper.ImageHelper;
+import de.unikassel.projectoma.helper.ImageHelper.Callback;
 
 public class MainActivity extends ListActivity {
 
@@ -45,7 +46,8 @@ public class MainActivity extends ListActivity {
 	int clickCounter = 0;
 
 	GrandmaApplication app;
-
+	Boolean performingRequest = false;
+	
 	//<-- Shake sensor listening -->
 
 	private SensorManager mSensorManager;
@@ -98,7 +100,7 @@ public class MainActivity extends ListActivity {
 
 		ImageHelper.setContext(this);
 
-		ImageHelper.setGrandmaTypeInCar();
+		ImageHelper.setGrandmaTypeInCar(null);
 	}
 
 	@Override
@@ -149,7 +151,7 @@ public class MainActivity extends ListActivity {
 		listItems.add("StockClicked");
 		adapter.notifyDataSetChanged();
 
-		ImageHelper.setGrandmaTypeInCar();
+		ImageHelper.setGrandmaTypeInCar(null);
 	}
 
 	public void btnTestClicked(View v) {
@@ -165,51 +167,136 @@ public class MainActivity extends ListActivity {
 	{
 		Log.i("ProjectOma", "Trying to process request " + selection.toString());
 		
-		//TODO: lock this method till a request is finished before executing another one
+		if(performingRequest)
+		{
+			return;
+		}
+		else
+		{
+			performingRequest = true;
+		}
 
 		switch(selection) {
 		case cook:
-			ImageHelper.setGrandmaTypeCooking();
+			ImageHelper.setGrandmaTypeCooking(new ImageHelper.Callback() {
+				
+				@Override
+				public void onFinished() {
+					performingRequest = false;
+					ImageHelper.setGrandmaTypeInCar(null);
+					Log.i("ProjectOma", "Cooking finished");
+				}
+			});
 			//Eating depends on cooking
 			break;
 		case eat:
-			ImageHelper.setGrandmaTypeEat();
+			ImageHelper.setGrandmaTypeEat(new ImageHelper.Callback() {
+				
+				@Override
+				public void onFinished() {
+					performingRequest = false;
+					
+				}
+			});
 			//Generates dirty dishes + reduces food stock
 			break;
 		case drink:
-			ImageHelper.setGrandmaTypeDrink();
+			ImageHelper.setGrandmaTypeDrink(new ImageHelper.Callback() {
+				
+				@Override
+				public void onFinished() {
+					performingRequest = false;
+					
+				}
+			});
 			//Generates dirty dishes + reduces water stock
 			break;
 		case wash_dishes:
-			ImageHelper.setGrandmaTypeDoCleanDishes();
+			ImageHelper.setGrandmaTypeDoCleanDishes(new ImageHelper.Callback() {
+				
+				@Override
+				public void onFinished() {
+					performingRequest = false;
+					
+				}
+			});
 			//Generates clean dishes
 			break;
 		case wash_clothes:
-			ImageHelper.setGrandmaTypeWashing();
+			ImageHelper.setGrandmaTypeWashing(new ImageHelper.Callback() {
+				
+				@Override
+				public void onFinished() {
+					performingRequest = false;
+					
+				}
+			});
 			//Fill up clothes stock
 			break;
 		case sleep:
-			ImageHelper.setGrandmaTypeSleep();
+			ImageHelper.setGrandmaTypeSleep(new ImageHelper.Callback() {
+				
+				@Override
+				public void onFinished() {
+					performingRequest = false;
+					
+				}
+			});
 			//Resets stamina
 			break;
 		case medicine:
-			ImageHelper.setGrandmaTypeMedicine();
+			ImageHelper.setGrandmaTypeMedicine(new ImageHelper.Callback() {
+				
+				@Override
+				public void onFinished() {
+					performingRequest = false;
+					
+				}
+			});
 			//Resets stamina
 			break;
 		case walk:
-			ImageHelper.setGrandmaTypeWalk();
+			ImageHelper.setGrandmaTypeWalk(new ImageHelper.Callback() {
+				
+				@Override
+				public void onFinished() {
+					performingRequest = false;
+					
+				}
+			});
 			//Reduces stamina
 			break;
 		case clean_car:
-			ImageHelper.setGrandmaTypeCleanCar();
+			ImageHelper.setGrandmaTypeCleanCar(new ImageHelper.Callback() {
+				
+				@Override
+				public void onFinished() {
+					performingRequest = false;
+					
+				}
+			});
 			//. ...
 			break;
 		case music:
-			ImageHelper.setGrandmaTypeMusic();
+			ImageHelper.setGrandmaTypeMusic(new ImageHelper.Callback() {
+				
+				@Override
+				public void onFinished() {
+					performingRequest = false;
+					
+				}
+			});
 			//Resets stamina
 			break;
 		case shopping:
-			ImageHelper.setGrandmaTypeGoShopping();
+			ImageHelper.setGrandmaTypeGoShopping(new ImageHelper.Callback() {
+				
+				@Override
+				public void onFinished() {
+					performingRequest = false;
+					
+				}
+			});
 			//Fill up stocks
 			break;
 		default:

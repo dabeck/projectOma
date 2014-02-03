@@ -2,9 +2,9 @@
 <resources>
 
     <string-array name="difficultyNames">
-        <item>Leicht</item>
-        <item>Mittel</item>
-        <item>Schwer</item>
+        <item>pflegeleicht</item>
+        <item>anstrengend</item>
+        <item>nervig</item>
     </string-array>
     <string-array name="requestTypes">
         <item>Kochen</item>
