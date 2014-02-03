@@ -31,7 +31,6 @@ import de.unikassel.projectoma.model.RequestType;
 import de.unikassel.projectoma.reciever.DailyReciever;
 import de.unikassel.projectoma.R;
 import de.unikassel.projectoma.helper.ImageHelper;
-import de.unikassel.projectoma.helper.ImageHelper.Callback;
 
 public class MainActivity extends ListActivity {
 
@@ -47,7 +46,7 @@ public class MainActivity extends ListActivity {
 
 	GrandmaApplication app;
 	Boolean performingRequest = false;
-	
+
 	//<-- Shake sensor listening -->
 
 	private SensorManager mSensorManager;
@@ -65,7 +64,7 @@ public class MainActivity extends ListActivity {
 			mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
 			float delta = mAccelCurrent - mAccelLast;
 			mAccel = mAccel * 0.9f + delta; // perform low-cut filter
-			
+
 			if(mAccel > 12)
 			{
 				Log.i("ProjectOma", "Phone shaked!!");
@@ -87,12 +86,12 @@ public class MainActivity extends ListActivity {
 
 		app = ((GrandmaApplication) getApplication());
 		setContentView(R.layout.activity_main);
-		
-	    mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-	    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-	    mAccel = 0.00f;
-	    mAccelCurrent = SensorManager.GRAVITY_EARTH;
-	    mAccelLast = SensorManager.GRAVITY_EARTH;
+
+		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+		mAccel = 0.00f;
+		mAccelCurrent = SensorManager.GRAVITY_EARTH;
+		mAccelLast = SensorManager.GRAVITY_EARTH;
 
 		adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, listItems);
@@ -166,7 +165,7 @@ public class MainActivity extends ListActivity {
 	public void processRequest(RequestType selection)
 	{
 		Log.i("ProjectOma", "Trying to process request " + selection.toString());
-		
+
 		if(performingRequest)
 		{
 			return;
@@ -179,122 +178,120 @@ public class MainActivity extends ListActivity {
 		switch(selection) {
 		case cook:
 			ImageHelper.setGrandmaTypeCooking(new ImageHelper.Callback() {
-				
+
 				@Override
 				public void onFinished() {
 					performingRequest = false;
-					ImageHelper.setGrandmaTypeInCar(null);
-					Log.i("ProjectOma", "Cooking finished");
 				}
 			});
 			//Eating depends on cooking
 			break;
 		case eat:
 			ImageHelper.setGrandmaTypeEat(new ImageHelper.Callback() {
-				
+
 				@Override
 				public void onFinished() {
 					performingRequest = false;
-					
+
 				}
 			});
 			//Generates dirty dishes + reduces food stock
 			break;
 		case drink:
 			ImageHelper.setGrandmaTypeDrink(new ImageHelper.Callback() {
-				
+
 				@Override
 				public void onFinished() {
 					performingRequest = false;
-					
+
 				}
 			});
 			//Generates dirty dishes + reduces water stock
 			break;
 		case wash_dishes:
 			ImageHelper.setGrandmaTypeDoCleanDishes(new ImageHelper.Callback() {
-				
+
 				@Override
 				public void onFinished() {
 					performingRequest = false;
-					
+
 				}
 			});
 			//Generates clean dishes
 			break;
 		case wash_clothes:
 			ImageHelper.setGrandmaTypeWashing(new ImageHelper.Callback() {
-				
+
 				@Override
 				public void onFinished() {
 					performingRequest = false;
-					
+
 				}
 			});
 			//Fill up clothes stock
 			break;
 		case sleep:
 			ImageHelper.setGrandmaTypeSleep(new ImageHelper.Callback() {
-				
+
 				@Override
 				public void onFinished() {
 					performingRequest = false;
-					
+
 				}
 			});
 			//Resets stamina
 			break;
 		case medicine:
 			ImageHelper.setGrandmaTypeMedicine(new ImageHelper.Callback() {
-				
+
 				@Override
 				public void onFinished() {
 					performingRequest = false;
-					
+
 				}
 			});
 			//Resets stamina
 			break;
 		case walk:
 			ImageHelper.setGrandmaTypeWalk(new ImageHelper.Callback() {
-				
+
 				@Override
 				public void onFinished() {
 					performingRequest = false;
-					
+
 				}
 			});
 			//Reduces stamina
 			break;
 		case clean_car:
 			ImageHelper.setGrandmaTypeCleanCar(new ImageHelper.Callback() {
-				
+
 				@Override
 				public void onFinished() {
 					performingRequest = false;
-					
+
 				}
 			});
 			//. ...
 			break;
 		case music:
 			ImageHelper.setGrandmaTypeMusic(new ImageHelper.Callback() {
-				
+
 				@Override
 				public void onFinished() {
 					performingRequest = false;
-					
+
 				}
 			});
 			//Resets stamina
 			break;
 		case shopping:
 			ImageHelper.setGrandmaTypeGoShopping(new ImageHelper.Callback() {
-				
+
 				@Override
 				public void onFinished() {
 					performingRequest = false;
-					
+
 				}
 			});
 			//Fill up stocks
@@ -310,9 +307,9 @@ public class MainActivity extends ListActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		
+
 		//Unregister listener for shake
-	    mSensorManager.unregisterListener(mSensorListener);
+		mSensorManager.unregisterListener(mSensorListener);
 
 		app.grandma.save(PreferenceManager
 				.getDefaultSharedPreferences(this
@@ -322,7 +319,7 @@ public class MainActivity extends ListActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+
 		//Register listener for shake
 		mSensorManager.registerListener(
 				mSensorListener, 
@@ -334,9 +331,13 @@ public class MainActivity extends ListActivity {
 		app.grandma = Grandma.load(PreferenceManager
 				.getDefaultSharedPreferences(this.getApplicationContext()));
 
-		if (app.grandma == null) {
+		if (app.grandma == null)
+		{
 			app.grandma = new Grandma(this.getApplicationContext()
 					.getString(R.string.default_name), LevelType.SIMPLE);
+			
+			app.grandma.save(PreferenceManager
+				.getDefaultSharedPreferences(this.getApplicationContext()));
 
 			/* Taeglich wiederholender 'Alarm', welcher Wuensche fuer die
 			 * naechsten 24 Stunden erzeugt. (Nur beim ersten Start erzeugen!) */
@@ -371,7 +372,9 @@ public class MainActivity extends ListActivity {
 			// GameOver-Toast
 			Toast t = Toast.makeText(
 					app.getApplicationContext(),
-					R.string.gameover + ": " + R.string.gameover_desc,
+					app.getApplicationContext().getString(R.string.gameover) +
+					": " + 
+					app.getApplicationContext().getString(R.string.gameover_desc),
 					Toast.LENGTH_LONG
 					);
 			t.show();

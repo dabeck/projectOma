@@ -38,6 +38,9 @@ public class WishReciever extends BroadcastReceiver {
 		
 		// Notifiziere den User ueber den erzeugten Wunsch.
 		notify(context, wish);
+		
+		grandma.save(PreferenceManager
+				.getDefaultSharedPreferences(context.getApplicationContext()));
 	}
 
 	private void notify(Context context, Article wish) {
