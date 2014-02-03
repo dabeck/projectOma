@@ -1,5 +1,6 @@
 package de.unikassel.projectoma;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -25,6 +26,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import de.unikassel.projectoma.model.Article;
+import de.unikassel.projectoma.model.Daytime;
+import de.unikassel.projectoma.model.Food;
 import de.unikassel.projectoma.model.Grandma;
 import de.unikassel.projectoma.model.LevelType;
 import de.unikassel.projectoma.model.RequestType;
@@ -155,6 +158,14 @@ public class MainActivity extends ListActivity {
 
 	public void btnTestClicked(View v) {
 		listItems.add("Test : " + clickCounter++);
+		adapter.notifyDataSetChanged();
+		
+		Article wish = (Article)Food.randomFood(Daytime.EVENING);
+
+		wish.setStart(new Timestamp(0));
+		app.grandma.getWishes().add(wish);
+		
+		listItems.add(wish.getStart().toLocaleString() + wish.getName());
 		adapter.notifyDataSetChanged();
 	}
 
@@ -354,14 +365,17 @@ public class MainActivity extends ListActivity {
 					.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
 		}
 
-		/* Spielende?!? */
-		// pruefe alle Deadlines, jeweils fuer Wuensche und
-		// Einkaufsliste
 		for (Article wish : app.grandma.getWishes()) {
 			checkDeadline(wish);
 		}
+		
 		for (Article wish : app.grandma.getShoppingList()) {
 			checkDeadline(wish);
+		}
+		
+		for (Article wish : app.grandma.getWishes()) {
+			listItems.add(wish.getName());
+			adapter.notifyDataSetChanged();
 		}
 	}
 
