@@ -35,5 +35,6 @@
     <string name="notify_title">1 neuer Wunsch</string>
     <string name="notify_desc_food">Oma möchte etwas essen.</string>
     <string name="notify_desc_dishes">Oma möcht Geschirr spülen.</string>
+    <string name="welcome_desc">Willkommen zu "Pflege Oma"!</string>
 
 </resources>

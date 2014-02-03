@@ -61,7 +61,6 @@ public class ImageHelper {
 							mainImage.setSource(gifImage);
 							mainImage.setFramesDuration(1);
 							
-
 							if(callback != null)
 							{
 								callback.onFinished();

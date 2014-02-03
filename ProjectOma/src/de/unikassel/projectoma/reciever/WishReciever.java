@@ -73,12 +73,18 @@ public class WishReciever extends BroadcastReceiver {
 		mNotificationManager.notify(0, mBuilder.build());
 	}
 	
-	private int wishToNotifyText(Article wish) {
-		if (wish instanceof Food) {
+	private int wishToNotifyText(Article wish)
+	{
+		if (wish instanceof Food)
+		{
 			return R.string.notify_desc_food;
-		} else if (wish instanceof Dishes) {
+		}
+		else if (wish instanceof Dishes)
+		{
 			return R.string.notify_desc_dishes;
-		} else {
+		}
+		else
+		{
 			return R.string.notify_title;
 		}
 	}

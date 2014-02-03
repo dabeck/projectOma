@@ -162,8 +162,15 @@ public class MainActivity extends ListActivity {
 		
 		Article wish = (Article)Food.randomFood(Daytime.EVENING);
 
-		wish.setStart(new Timestamp(0));
+		java.util.Date date = new java.util.Date();
+
+		wish.setStart(new Timestamp(date.getTime() + 5000));
 		app.grandma.getWishes().add(wish);
+//		
+//		Calendar calendar = Calendar.getInstance();
+//		calendar.setTimeInMillis(System.currentTimeMillis() + 5000);
+		
+//		DailyReciever.setAlarm(app.getApplicationContext(), calendar, wish);
 		
 		listItems.add(wish.getStart().toLocaleString() + wish.getName());
 		adapter.notifyDataSetChanged();
@@ -363,6 +370,13 @@ public class MainActivity extends ListActivity {
 					.getApplicationContext(), 0, intent, 0);
 			alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar
 					.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
+			
+			Toast t = Toast.makeText(
+					app.getApplicationContext(),
+					app.getApplicationContext().getString(R.string.welcome_desc),
+					Toast.LENGTH_LONG
+					);
+			t.show();
 		}
 
 		for (Article wish : app.grandma.getWishes()) {
@@ -379,8 +393,10 @@ public class MainActivity extends ListActivity {
 		}
 	}
 
-	private void checkDeadline(Article wish) {
-		if (!wish.checkStatus()) {
+	private void checkDeadline(Article wish)
+	{
+		if (!wish.checkStatus())
+		{
 			/* TODO: Article casten und Toast "Wunsch XY" praezisieren... */
 
 			// GameOver-Toast
@@ -392,12 +408,8 @@ public class MainActivity extends ListActivity {
 					Toast.LENGTH_LONG
 					);
 			t.show();
-
-			Editor edit = PreferenceManager.getDefaultSharedPreferences(
-					this.getApplicationContext()).edit();
-			edit.putString("de.unikassel.projectoma.grandma", null);
-			edit.commit();
-
+			
+			app.resetGame();
 		}
 	}
 }
