@@ -1,44 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" >
 
- 	<PreferenceCategory 
-        android:title="@string/general_settings"
-        android:key="general_category">
-        
-       <EditTextPreference
-            android:key="grandmas_name"
-            android:title="@string/grandmas_name" 
-            android:summary="@string/name_desc"
+    <PreferenceCategory
+        android:key="general_category"
+        android:title="@string/general_settings" >
+
+        <EditTextPreference
+            android:defaultValue="@string/default_name"
+            android:dialogMessage="@string/provide_name"
             android:dialogTitle="@string/set_grandmas_name"
-            android:dialogMessage="@string/provide_name"    
-            android:defaultValue="@string/default_name" />    
+            android:key="grandmas_name"
+            android:summary="@string/name_desc"
+            android:title="@string/grandmas_name" />
+
         <ListPreference
-            android:key="difficulty_level"
-            android:title="@string/difficulty_level"
-            android:summary="@string/difficulty_desc"
             android:defaultValue="1"
             android:entries="@array/difficultyNames"
             android:entryValues="@array/difficultyValues"
-        />
- 	</PreferenceCategory>
-        
- 	<PreferenceCategory 
-        android:title="@string/advanced_settings"
-        android:key="advanced_category">
-        
-        <CheckBoxPreference 
+            android:key="difficulty_level"
+            android:summary="@string/difficulty_desc"
+            android:title="@string/difficulty_level" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="advanced_category"
+        android:title="@string/advanced_settings" >
+
+        <CheckBoxPreference
+            android:defaultValue="false"
             android:key="pause_game"
             android:summary="@string/pause_desc"
-            android:title="@string/pause_game" 
-            android:defaultValue="false"
-        />
-        
+            android:title="@string/pause_game" />
+
         <Preference
             android:key="reset_game"
             android:summary="@string/reset_desc"
-            android:title="@string/btn_reset"
-        />
-            
+            android:title="@string/btn_reset" />
     </PreferenceCategory>
-    
+
 </PreferenceScreen>
