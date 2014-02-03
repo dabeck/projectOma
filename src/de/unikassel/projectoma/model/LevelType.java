@@ -1,14 +1,14 @@
 package de.unikassel.projectoma.model;
 
 public enum LevelType {
-	NONE(0),
-	SIMPLE(1),
-	MEDIUM(2),
-	HARD(3);
-	
+    NONE(0),
+    SIMPLE(1),
+    MEDIUM(2),
+    HARD(3);
+
     private final int value;
     private LevelType(int value) {
-        this.value = value;
+	this.value = value;
     }
 
     /**
@@ -17,6 +17,6 @@ public enum LevelType {
      * @return
      */
     public int getValue() {
-        return value;
+	return value;
     }
 }

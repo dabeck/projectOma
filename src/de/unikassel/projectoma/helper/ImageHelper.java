@@ -162,9 +162,14 @@ public class ImageHelper {
 		setImage("grandma_take_walk.gif", callback);
 	}
 
-	public static void setGrandmaTypeEat(Callback callback)
+	public static void setGrandmaTypeEatHeavy(Callback callback)
 	{
 		setImage("grandma_food_heavy.gif", callback);
+	}
+	
+	public static void setGrandmaTypeEatLight(Callback callback)
+	{
+		setImage("grandma_food_light.gif", callback);
 	}
 
 	public static void setGrandmaTypeDrink(Callback callback)

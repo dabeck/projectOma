@@ -36,5 +36,7 @@
     <string name="notify_desc_food">Grandma wants to eat something.</string>
     <string name="notify_desc_dishes">Grandma wants to wash the dishes.</string>
     <string name="welcome_desc">Welcome to care grandma!</string>
-
+    <string name="food_msg">What do you want so serve?</string>
+    <string name="medicine_msg">What do you want to administer?</string>
+    
 </resources>

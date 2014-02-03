@@ -24,5 +24,29 @@
         <item>Listen to music</item>
         <item>Go shopping</item>
     </string-array>
+    <string-array name="foodTypes">
+        <item>Eggs and Bacon</item>
+        <item>Cake with cream</item>
+        <item>Cereals</item>
+        <item>Fruits</item>
+        <item>Smoothy</item>
+        <item>Schnitzel with fries</item>
+        <item>Fish with fries</item>
+        <item>Knuckle of Pork</item>
+        <item>Sushi</item>
+        <item>Cannelloni</item>
+        <item>Noodlesoup</item>
+        <item>Rollmop</item>
+        <item>Bread and butter</item>
+        <item>Taost Hawaii</item>
+        <item>Salad</item>
+        <item>Ricecrackers</item>
+        <item>Pumpkin Soup</item>
+    </string-array>
+        <string-array name="medicineTypes">
+        <item>Morning-medicine</item>
+        <item>Noon-medicine</item>
+        <item>Evening-medicine</item>
+    </string-array>
 
 </resources>
