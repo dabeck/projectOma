@@ -34,6 +34,7 @@ import de.unikassel.projectoma.R;
 import de.unikassel.projectoma.fragment.FeedFragment;
 import de.unikassel.projectoma.fragment.MedicineFragment;
 import de.unikassel.projectoma.fragment.RequestFragment;
+import de.unikassel.projectoma.fragment.ShoppingFragment;
 import de.unikassel.projectoma.helper.ImageHelper;
 
 public class MainActivity extends ListActivity {
@@ -285,18 +286,13 @@ public class MainActivity extends ListActivity {
 
 		}
 	    });
+	    
+	    //TODO: open youtube song!
 	    //Resets stamina
 	    break;
 	case shopping:
-	    ImageHelper.setGrandmaTypeGoShopping(new ImageHelper.Callback() {
-
-		@Override
-		public void onFinished() {
-		    performingRequest = false;
-
-		}
-	    });
-	    //Fill up stocks
+	    ShoppingFragment shop = ShoppingFragment.newInstance();
+	    shop.show(getFragmentManager(), "shopDialog");
 	    break;
 	default:
 	    break;
@@ -335,6 +331,11 @@ public class MainActivity extends ListActivity {
 	performingRequest = false;
     }
 
+    /**
+     * Process a medicine request
+     * 
+     * @param med Type of medicine to administer
+     */
     public void processMedicine(Daytime med) {
 	switch (med) {
 	case MORNING:
@@ -356,6 +357,21 @@ public class MainActivity extends ListActivity {
 	performingRequest = false;
     }
 
+    /**
+     * Process a shopping request
+     * 
+     * @param selectedItems A list of selected food to buy
+     */
+    public void processShopping(ArrayList<FoodType> selectedItems) {
+	for (FoodType foodType : selectedItems) {
+	     listItems.add(foodType.toString());
+	}
+	adapter.notifyDataSetChanged();
+	
+	
+	//TODO: fill up stocks with selected items
+	ImageHelper.setGrandmaTypeGoShopping(null);
+    }
     //<!-- Process actions end-->
 
 

@@ -30,6 +30,8 @@ public class FeedFragment extends DialogFragment {
 	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 	builder.setTitle(R.string.food_msg);
+	
+	//TODO: check if stock contains special food type
 
 	builder.setSingleChoiceItems(R.array.foodTypes, -1, 
 		new DialogInterface.OnClickListener() {
