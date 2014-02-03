@@ -39,5 +39,6 @@
     <string name="food_msg">What do you want so serve?</string>
     <string name="medicine_msg">What do you want to administer?</string>
     <string name="shopping_msg">What do you want to buy?</string>
-
+    <string name="inventory">Inventory</string>
+    
 </resources>

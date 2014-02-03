@@ -35,6 +35,7 @@ import de.unikassel.projectoma.fragment.FeedFragment;
 import de.unikassel.projectoma.fragment.MedicineFragment;
 import de.unikassel.projectoma.fragment.RequestFragment;
 import de.unikassel.projectoma.fragment.ShoppingFragment;
+import de.unikassel.projectoma.fragment.StockFragment;
 import de.unikassel.projectoma.helper.ImageHelper;
 
 public class MainActivity extends ListActivity {
@@ -135,15 +136,12 @@ public class MainActivity extends ListActivity {
 
 	RequestFragment newFragment = RequestFragment.newInstance();
 	newFragment.show(getFragmentManager(), "requestDialog");
-
-	listItems.add("RequestClicked");
-	adapter.notifyDataSetChanged();
     }
 
 
     public void btnStockClicked(View v) {
-	listItems.add("StockClicked");
-	adapter.notifyDataSetChanged();
+	StockFragment newFragment = StockFragment.newInstance();
+	newFragment.show(getFragmentManager(), "stockDialog");
 
 	ImageHelper.setGrandmaTypeInCar(null);
     }
@@ -366,6 +364,7 @@ public class MainActivity extends ListActivity {
 	for (FoodType foodType : selectedItems) {
 	     listItems.add(foodType.toString());
 	}
+	
 	adapter.notifyDataSetChanged();
 	
 	
