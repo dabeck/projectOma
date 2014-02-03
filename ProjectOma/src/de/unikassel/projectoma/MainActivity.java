@@ -371,8 +371,7 @@ public class MainActivity extends ListActivity {
 			// GameOver-Toast
 			Toast t = Toast.makeText(
 					app.getApplicationContext(),
-					"GAME OVER: Der Wunsch '" + wish.getName()
-					+ "' wurde nicht rechtzeitig erfüllt!",
+					R.string.gameover + ": " + R.string.gameover_desc,
 					Toast.LENGTH_LONG
 					);
 			t.show();
