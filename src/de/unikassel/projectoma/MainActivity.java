@@ -2,7 +2,6 @@ package de.unikassel.projectoma;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -26,6 +25,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import de.unikassel.projectoma.model.Article;
+import de.unikassel.projectoma.model.Bed;
 import de.unikassel.projectoma.model.Clothing;
 import de.unikassel.projectoma.model.Daytime;
 import de.unikassel.projectoma.model.Dishes;
@@ -33,6 +33,7 @@ import de.unikassel.projectoma.model.Drink;
 import de.unikassel.projectoma.model.Food;
 import de.unikassel.projectoma.model.FoodType;
 import de.unikassel.projectoma.model.Grandma;
+import de.unikassel.projectoma.model.House;
 import de.unikassel.projectoma.model.LevelType;
 import de.unikassel.projectoma.model.Medicine;
 import de.unikassel.projectoma.model.RequestType;
@@ -159,9 +160,10 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 
 	Article wish = (Article)Food.randomFood(Daytime.EVENING);
 
-	java.util.Date date = new java.util.Date();
-
-	wish.setStart(new Timestamp(date.getTime() + 5000));
+	Calendar cal = Calendar.getInstance();
+	cal.setTimeInMillis(System.currentTimeMillis() + 5000);
+	
+	wish.setStart(cal);
 	app.grandma.addWish(wish);
 	//		
 	//		Calendar calendar = Calendar.getInstance();
@@ -169,7 +171,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 
 	//		DailyReciever.setAlarm(app.getApplicationContext(), calendar, wish);
 
-	listItems.add(wish.getStart().toLocaleString() + wish.getName());
+	listItems.add(wish.getStart().toString() + wish.getName());
 	adapter.notifyDataSetChanged();
     }
 
@@ -500,7 +502,13 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	    processRequest(RequestType.medicine);
 	}
 	else if (newAction instanceof Clothing) {
-	    processRequest(RequestType.wash_clothes);
+	    processRequest(RequestType.shopping);
+	}
+	else if (newAction instanceof House) {
+	    processRequest(RequestType.clean_car);
+	}
+	else if (newAction instanceof Bed) {
+	    processRequest(RequestType.sleep);
 	}
 	else {
 	    ImageHelper.setGrandmaTypeInCar(null);

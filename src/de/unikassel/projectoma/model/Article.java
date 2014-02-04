@@ -7,7 +7,7 @@ public class Article {
 
 	private String name;
 	
-	private Timestamp start;
+	private Calendar start;
 	private Timestamp duration;
 	private double progress;
 	
@@ -24,13 +24,13 @@ public class Article {
 		return this;
 	}
 	
-	public Timestamp getStart() {
+	public Calendar getStart() {
 		return start;
 	}
-	public void setStart(Timestamp start) {
+	public void setStart(Calendar start) {
 		this.start = start;
 	}
-	public Article withStart(Timestamp start) {
+	public Article withStart(Calendar start) {
 		this.start = start;
 		return this;
 	}
@@ -63,13 +63,13 @@ public class Article {
 	}
 	private Timestamp getDeadline() {
 		return new Timestamp(
-				start.getYear() + duration.getYear(),
-				start.getMonth() + duration.getMonth(),
-				start.getDay() + duration.getDay(),
-				start.getHours() + duration.getHours(),
-				start.getMinutes() + duration.getMinutes(),
-				start.getSeconds() + duration.getSeconds(),
-				start.getNanos() + duration.getNanos()
+				start.get(Calendar.YEAR) + duration.getYear(),
+				start.get(Calendar.MONTH) + duration.getMonth(),
+				start.get(Calendar.DAY_OF_MONTH) + duration.getDay(),
+				start.get(Calendar.HOUR_OF_DAY) + duration.getHours(),
+				start.get(Calendar.MINUTE) + duration.getMinutes(),
+				start.get(Calendar.SECOND) + duration.getSeconds(),
+				0 + duration.getNanos()
 			);
 	}
 	public boolean checkStatus() {
