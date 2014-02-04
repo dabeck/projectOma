@@ -1,5 +1,7 @@
 package de.unikassel.projectoma;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,7 +40,7 @@ import de.unikassel.projectoma.fragment.ShoppingFragment;
 import de.unikassel.projectoma.fragment.StockFragment;
 import de.unikassel.projectoma.helper.ImageHelper;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends ListActivity implements PropertyChangeListener {
 
     // LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
     ArrayList<String> listItems = new ArrayList<String>();
@@ -155,7 +157,7 @@ public class MainActivity extends ListActivity {
 	java.util.Date date = new java.util.Date();
 
 	wish.setStart(new Timestamp(date.getTime() + 5000));
-	app.grandma.getWishes().add(wish);
+	app.grandma.addWish(wish);
 	//		
 	//		Calendar calendar = Calendar.getInstance();
 	//		calendar.setTimeInMillis(System.currentTimeMillis() + 5000);
@@ -380,6 +382,9 @@ public class MainActivity extends ListActivity {
 
 	//Unregister listener for shake
 	mSensorManager.unregisterListener(mSensorListener);
+	
+	//Unregister listener for shake
+	app.grandma.removePropertyChangeListener(this);
 
 	app.grandma.save(PreferenceManager
 		.getDefaultSharedPreferences(this
@@ -400,11 +405,50 @@ public class MainActivity extends ListActivity {
 	/* Lade Oma */
 	app.grandma = Grandma.load(PreferenceManager
 		.getDefaultSharedPreferences(this.getApplicationContext()));
-
 	
 	/* Erster Start?!? */
-	if (app.grandma == null)
+	if (app.grandma == null) {
+	    firstStart();
+	}
+	
+	// Register listener for grandma-Object
+	app.grandma.addPropertyChangeListener(this);
+	
+	for (Article wish : app.grandma.getWishList()) {
+	    checkDeadline(wish);
+	}
+
+	for (Article wish : app.grandma.getShoppingList()) {
+	    checkDeadline(wish);
+	}
+
+	for (Article wish : app.grandma.getWishList()) {
+	    listItems.add(wish.getName());
+	    adapter.notifyDataSetChanged();
+	}
+    }
+
+    private void checkDeadline(Article wish)
+    {
+	if (!wish.checkStatus())
 	{
+	    /* TODO: Article casten und Toast "Wunsch XY" praezisieren... */
+
+	    // GameOver-Toast
+	    Toast t = Toast.makeText(
+		    app.getApplicationContext(),
+		    app.getApplicationContext().getString(R.string.gameover) +
+		    ": " + 
+		    app.getApplicationContext().getString(R.string.gameover_desc),
+		    Toast.LENGTH_LONG
+		    );
+	    t.show();
+
+	    app.resetGame();
+	}
+    }
+    
+    private void firstStart() {
 	    app.grandma = new Grandma(this.getApplicationContext()
 		    .getString(R.string.default_name), LevelType.SIMPLE);
 
@@ -435,39 +479,18 @@ public class MainActivity extends ListActivity {
 		    Toast.LENGTH_LONG
 		    );
 	    t.show();
-	}
-
-	for (Article wish : app.grandma.getWishes()) {
-	    checkDeadline(wish);
-	}
-
-	for (Article wish : app.grandma.getShoppingList()) {
-	    checkDeadline(wish);
-	}
-
-	for (Article wish : app.grandma.getWishes()) {
-	    listItems.add(wish.getName());
-	    adapter.notifyDataSetChanged();
-	}
     }
 
-    private void checkDeadline(Article wish)
-    {
-	if (!wish.checkStatus())
-	{
-	    /* TODO: Article casten und Toast "Wunsch XY" praezisieren... */
-
-	    // GameOver-Toast
-	    Toast t = Toast.makeText(
-		    app.getApplicationContext(),
-		    app.getApplicationContext().getString(R.string.gameover) +
-		    ": " + 
-		    app.getApplicationContext().getString(R.string.gameover_desc),
-		    Toast.LENGTH_LONG
-		    );
-	    t.show();
-
-	    app.resetGame();
-	}
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+	if (e.getPropertyName().equals("name")) {
+            // TODO: grandma.name has changed
+        } else if (e.getPropertyName().equals("level")) {
+            // TODO: grandma.level has changed
+        } else if (e.getPropertyName().equals("currentAction")) {
+            // TODO: grandma.currentAction has changed
+        } else if (e.getPropertyName().equals("wishes")) {
+            // TODO: grandma.wishes has changed
+        }
     }
 }

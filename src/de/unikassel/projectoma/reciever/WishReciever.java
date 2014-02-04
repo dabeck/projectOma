@@ -36,7 +36,7 @@ public class WishReciever extends BroadcastReceiver {
 		Article wish = gson.fromJson(json, Article.class);
 		
 		// Haenge Wunsch an Liste an.
-		grandma.getWishes().add(wish);
+		grandma.addWish(wish);
 		
 		// Notifiziere den User ueber den erzeugten Wunsch.
 		notify(context, wish);

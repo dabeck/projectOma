@@ -1,5 +1,7 @@
 package de.unikassel.projectoma.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +37,11 @@ public class Grandma {
 	/* Kleiderschrank */
 	private List<Clothing> wardrobe;
 	
+	protected PropertyChangeSupport propertyChangeSupport;
+	
+	
+	
+	
 	public void save(SharedPreferences sp) {
 		Editor edit = sp.edit();
 		Gson gson = new Gson();
@@ -54,7 +61,9 @@ public class Grandma {
 		return name;
 	}
 	public void setName(String name) {
+	    	String old = this.name;
 		this.name = name;
+		propertyChangeSupport.firePropertyChange("name", old, name);
 	}
 	public Grandma withName(String name) {
 		this.name = name;
@@ -65,7 +74,9 @@ public class Grandma {
 		return level;
 	}
 	public void setLevel(LevelType level) {
+	    	LevelType old = this.level;
 		this.level = level;
+		propertyChangeSupport.firePropertyChange("level", old, level);
 	}
 	public Grandma withLevel(LevelType level) {
 		this.level = level;
@@ -76,7 +87,9 @@ public class Grandma {
 		return currentAction;
 	}
 	public void setCurrentAction(Article currentAction) {
+	    	Article old = this.currentAction;
 		this.currentAction = currentAction;
+		propertyChangeSupport.firePropertyChange("currentAction", old, currentAction);
 	}
 	public Grandma withCurrentAction(Article currentAction) {
 		this.currentAction = currentAction;
@@ -94,15 +107,19 @@ public class Grandma {
 	    return this;
 	}
 	
-	public List<Article> getWishes() {
-		return wishes;
+	
+	public void addWish(Article wish) {
+	    List<Article> old = this.wishes;
+	    this.wishes.add(wish);
+	    propertyChangeSupport.firePropertyChange("wishes", old, wishes);
 	}
-	public void setWishes(List<Article> wishes) {
-		this.wishes = wishes;
+	public void removeWish(Article wish) {
+	    List<Article> old = this.wishes;
+	    this.wishes.remove(wish);
+	    propertyChangeSupport.firePropertyChange("wishes", old, wishes);
 	}
-	public Grandma withWishes(List<Article> wishes) {
-		this.setWishes(wishes);
-		return this;
+	public List<Article> getWishList() {
+	    return this.wishes;
 	}
 	
 	public List<Article> getShoppingList() {
@@ -168,6 +185,8 @@ public class Grandma {
 		this.inventory = new ArrayList<Article>();
 		
 		this.wardrobe = new ArrayList<Clothing>();
+		
+		propertyChangeSupport = new PropertyChangeSupport(this);
 	}
 	
 	
@@ -200,6 +219,13 @@ public class Grandma {
 		System.out.println("TODO: Oma.sleep();");
 	}
 
+	
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		propertyChangeSupport.addPropertyChangeListener(listener);
+	}
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		propertyChangeSupport.removePropertyChangeListener(listener);
+	}
 
 	
 	/*
