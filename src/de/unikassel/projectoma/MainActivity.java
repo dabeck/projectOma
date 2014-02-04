@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -26,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import de.unikassel.projectoma.model.Article;
 import de.unikassel.projectoma.model.Daytime;
+import de.unikassel.projectoma.model.Dishes;
 import de.unikassel.projectoma.model.Food;
 import de.unikassel.projectoma.model.FoodType;
 import de.unikassel.projectoma.model.Grandma;
@@ -481,6 +483,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	    t.show();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void propertyChange(PropertyChangeEvent e) {
 	if (e.getPropertyName().equals("name")) {
@@ -490,7 +493,17 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
         } else if (e.getPropertyName().equals("currentAction")) {
             // TODO: grandma.currentAction has changed
         } else if (e.getPropertyName().equals("wishes")) {
-            // TODO: grandma.wishes has changed
+            onWishListChanged((List<Article>)e.getNewValue(), (List<Article>)e.getOldValue());
         }
     }
+    
+    public void onWishListChanged(List<Article> newList, List<Article> oldList) {
+	listItems.clear();
+	for(Article wish: newList) {
+	    listItems.add(wish.getName());
+	    adapter.notifyDataSetChanged();
+	}
+    }
+    
+
 }
