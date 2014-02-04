@@ -26,12 +26,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import de.unikassel.projectoma.model.Article;
+import de.unikassel.projectoma.model.Clothing;
 import de.unikassel.projectoma.model.Daytime;
 import de.unikassel.projectoma.model.Dishes;
+import de.unikassel.projectoma.model.Drink;
 import de.unikassel.projectoma.model.Food;
 import de.unikassel.projectoma.model.FoodType;
 import de.unikassel.projectoma.model.Grandma;
 import de.unikassel.projectoma.model.LevelType;
+import de.unikassel.projectoma.model.Medicine;
 import de.unikassel.projectoma.model.RequestType;
 import de.unikassel.projectoma.reciever.DailyReciever;
 import de.unikassel.projectoma.R;
@@ -491,10 +494,31 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
         } else if (e.getPropertyName().equals("level")) {
             // TODO: grandma.level has changed
         } else if (e.getPropertyName().equals("currentAction")) {
-            // TODO: grandma.currentAction has changed
+            onCurrentActionChanged((Article)e.getNewValue(), (Article)e.getOldValue());
         } else if (e.getPropertyName().equals("wishes")) {
             onWishListChanged((List<Article>)e.getNewValue(), (List<Article>)e.getOldValue());
         }
+    }
+    
+    private void onCurrentActionChanged(Article newAction, Article oldAction) {
+	if (newAction instanceof Food) {
+	    processRequest(RequestType.eat);
+	}
+	else if (newAction instanceof Dishes) {
+	    processRequest(RequestType.wash_dishes);
+	}
+	else if (newAction instanceof Drink) {
+	    processRequest(RequestType.drink);
+	}
+	else if (newAction instanceof Medicine) {
+	    processRequest(RequestType.medicine);
+	}
+	else if (newAction instanceof Clothing) {
+	    processRequest(RequestType.wash_clothes);
+	}
+	else {
+	    ImageHelper.setGrandmaTypeInCar(null);
+	}
     }
     
     public void onWishListChanged(List<Article> newList, List<Article> oldList) {
