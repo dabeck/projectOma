@@ -9,7 +9,7 @@ public class Food extends Article {
     private Daytime daytime;
     private boolean isHealty;
     private boolean isHeavy;
-
+    private FoodType type;
 
 
 
@@ -50,13 +50,22 @@ public class Food extends Article {
     public boolean isHeavy() {
 	return isHeavy;
     }
-
     public void setHeavy(boolean isHeavy) {
 	this.isHeavy = isHeavy;
     }
-
     public Food withHeavy(boolean isHeavy) {
 	this.isHeavy = isHeavy;
+	return this;
+    }
+    
+    public FoodType getType() {
+	return type;
+    }
+    public void setType(FoodType type) {
+	this.type = type;
+    }
+    public Food withType(FoodType type) {
+	this.type = type;
 	return this;
     }
 
@@ -80,6 +89,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MORNING)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.EGGS_AND_BACON)
 		    );
 	    put(
 		    FoodType.CAKE_WITH_CHANTILLY_CREAM,
@@ -90,6 +100,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MORNING)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.CAKE_WITH_CHANTILLY_CREAM)
 		    );
 	    put(
 		    FoodType.CEREALS_AND_MILK,
@@ -100,6 +111,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MORNING)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.CEREALS_AND_MILK)
 		    );
 	    put(
 		    FoodType.FRUIT,
@@ -110,6 +122,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MORNING)
 		    .withHeavy(false)
 		    .withHealty(true)
+		    .withType(FoodType.FRUIT)
 		    );
 	    put(
 		    FoodType.VITAMINE_SHAKE,
@@ -120,6 +133,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MORNING)
 		    .withHeavy(false)
 		    .withHealty(true)
+		    .withType(FoodType.VITAMINE_SHAKE)
 		    );
 
 	    /* Mittags */
@@ -132,6 +146,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MIDDAY)
 		    .withHeavy(false)
 		    .withHealty(true)
+		    .withType(FoodType.SCHNITZEL_AND_FRENCH_FRIES)
 		    );
 	    put(
 		    FoodType.BOILED_COD_FISH_WITH_POTATOES,
@@ -142,6 +157,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MIDDAY)
 		    .withHeavy(false)
 		    .withHealty(true)
+		    .withType(FoodType.BOILED_COD_FISH_WITH_POTATOES)
 		    );
 	    put(
 		    FoodType.KNUCKLE_OF_PORK,
@@ -152,6 +168,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MIDDAY)
 		    .withHeavy(false)
 		    .withHealty(true)
+		    .withType(FoodType.KNUCKLE_OF_PORK)
 		    );
 	    put(
 		    FoodType.CANNELLONI_WITH_CHEESE_SAUCES,
@@ -162,6 +179,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MIDDAY)
 		    .withHeavy(false)
 		    .withHealty(true)
+		    .withType(FoodType.CANNELLONI_WITH_CHEESE_SAUCES)
 		    );
 	    put(
 		    FoodType.SUSHI,
@@ -172,6 +190,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MIDDAY)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.SUSHI)
 		    );
 	    put(
 		    FoodType.NOODLE_SOUP,
@@ -182,6 +201,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MIDDAY)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.NOODLE_SOUP)
 		    );
 
 	    /* Abends */
@@ -194,6 +214,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.EVENING)
 		    .withHeavy(false)
 		    .withHealty(true)
+		    .withType(FoodType.ROLLMOP_HERRINGS_ON_BREAD)
 		    );
 	    put(
 		    FoodType.BREAD_AND_BUTTER,
@@ -204,6 +225,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.EVENING)
 		    .withHeavy(false)
 		    .withHealty(true)
+		    .withType(FoodType.BREAD_AND_BUTTER)
 		    );
 	    put(
 		    FoodType.TOAST_HAWAI,
@@ -214,6 +236,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.EVENING)
 		    .withHeavy(false)
 		    .withHealty(true)
+		    .withType(FoodType.TOAST_HAWAI)
 		    );
 	    put(
 		    FoodType.SALAD,
@@ -224,6 +247,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.EVENING)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.SALAD)
 		    );
 	    put(
 		    FoodType.RICE_CRACKERS_WITH_CHEESE,
@@ -234,6 +258,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.EVENING)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.RICE_CRACKERS_WITH_CHEESE)
 		    );
 	    put(
 		    FoodType.PUMPKIN_SOUP,
@@ -244,6 +269,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.EVENING)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.PUMPKIN_SOUP)
 		    );
 
 	    /* Extra */
@@ -256,6 +282,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.EVENING)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.BEER_JELLY)
 		    );
 	    put(
 		    FoodType.HALF_A_PIG_ON_TOAST,
@@ -266,6 +293,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MIDDAY)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.HALF_A_PIG_ON_TOAST)
 		    );
 	    put(
 		    FoodType.FOOD_OF_THE_GODS,
@@ -276,6 +304,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MORNING)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.FOOD_OF_THE_GODS)
 		    );
 	    put(
 		    FoodType.RAABERDATSCHI,
@@ -286,6 +315,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.EVENING)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.RAABERDATSCHI)
 		    );
 	    put(
 		    FoodType.TOTE_OMA,
@@ -296,6 +326,7 @@ public class Food extends Article {
 		    .withDaytime(Daytime.MIDDAY)
 		    .withHeavy(true)
 		    .withHealty(false)
+		    .withType(FoodType.TOTE_OMA)
 		    );
 	}};
 
@@ -345,4 +376,5 @@ public class Food extends Article {
 
 	    return FoodList.get(range[rand.nextInt(range.length)]);
 	}
+
 }
