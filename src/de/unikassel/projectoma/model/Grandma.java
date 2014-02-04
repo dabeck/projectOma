@@ -35,7 +35,7 @@ public class Grandma {
 	/* Vorratskammer */
 	private List<Article> inventory;
 	/* Kleiderschrank */
-	private List<Clothing> wardrobe;
+	private int warderobeCount;
 	
 	protected PropertyChangeSupport propertyChangeSupport;
 	
@@ -155,16 +155,19 @@ public class Grandma {
 		return this;
 	}
 	
-	public List<Clothing> getWardrobe() {
-		return wardrobe;
+	public int getWarderobeCount() {
+	    return warderobeCount;
 	}
-	public void setWardrobe(List<Clothing> wardrobe) {
-		this.wardrobe = wardrobe;
+	public void setWarderobeCount(int warderobeCount) {
+	    this.warderobeCount = warderobeCount;
 	}
-	public Grandma withWardrobe(List<Clothing> wardrobe) {
-		this.wardrobe = wardrobe;
-		return this;
+	public Grandma withWarderobeCount(int warderobeCount) {
+	    this.warderobeCount = warderobeCount;
+	    return this;
 	}
+	
+	
+	
 	
 	
 	public Grandma() {
@@ -173,6 +176,7 @@ public class Grandma {
 	public Grandma(String name, LevelType level) {
 		this.name = name;
 		this.level = level;
+		this.warderobeCount = 7;
 		
 		this.alarms = new HashMap<Intent, PendingIntent>();
 		
@@ -184,39 +188,158 @@ public class Grandma {
 		
 		this.inventory = new ArrayList<Article>();
 		
-		this.wardrobe = new ArrayList<Clothing>();
-		
 		propertyChangeSupport = new PropertyChangeSupport(this);
 	}
 	
 	
 	
-	public void eat(Food f) {
-		System.out.println("TODO: Oma.eat(Food f);");
+	// essen
+	public boolean eat(Food f) {
+	    if (this.getCurrentAction() != null)
+		return false;
+	    
+	    // suche entsprechenden Wunsch
+	    Article wish = null;
+	    for (Article wishItem: this.getWishList()) {
+		if (wishItem instanceof Food && ((Food)wishItem).getType() == f.getType()) {
+		    wish = wishItem;
+		}
+	    }
+	    
+	    // checke ob Essen vorraetig
+	    for (Food availableFood: this.getPantry()) {
+		if (availableFood.getType() == f.getType()) {
+		    this.getPantry().remove(availableFood);
+		    this.setCurrentAction(wish);
+		    return true;
+		}
+	    }
+	    
+	    return false;
 	}
-	public void drink(Drink d) {
-		System.out.println("TODO: Oma.drink(Drink d);");
+	
+	// trinken
+	public boolean drink(Drink d) {
+	    if (this.getCurrentAction() != null)
+		return false;
+	    
+	    // suche entsprechenden Wunsch
+	    for (Article wish: this.getWishList()) {
+		if (wish instanceof Drink) {
+		    this.setCurrentAction(wish);
+		    return true;
+		}
+	    }
+	    
+	    return false;
 	}
-	public void cure(Medicine m) {
-		System.out.println("TODO: Oma.cure(Medicine m);");
+	
+	// medicine
+	public boolean cure(Medicine m) {
+	    if (this.getCurrentAction() != null)
+		return false;
+	    
+	    // suche entsprechenden Wunsch
+	    for (Article wish: this.getWishList()) {
+		if (wish instanceof Medicine && ((Medicine)wish).getTyp() == m.getTyp()) {
+		    this.setCurrentAction(wish);
+		    return true;
+		}
+	    }
+	    
+	    return false;
 	}
+	
+	// kaufen
 	public void buy(Article a) {
-		System.out.println("TODO: Oma.buy(Artikel a);");
+	    if (a instanceof Food) {
+		this.pantry.add((Food)a);
+	    } else {
+		this.inventory.add(a);
+	    }
 	}
 	
 	
+	 // einkleiden
+	public boolean clothe() {
+	    if (this.getCurrentAction() != null)
+		return false;
+	    
+	    // suche entsprechenden Wunsch
+	    for (Article wish: this.getWishList()) {
+		if (wish instanceof Clothing) {
+		    this.warderobeCount--;
+		    this.setCurrentAction(wish);
+		    return true;
+		}
+	    }
+	    
+	    return false;
+	}
+
+	// washen
+	public boolean washClothes() {
+	    if (this.getCurrentAction() != null)
+		return false;
+	    
+	    
+	    // suche entsprechenden Wunsch
+	    for (Article wish: this.getWishList()) {
+		if (wish instanceof Washer) {
+		    this.warderobeCount = 7;
+		    this.setCurrentAction(wish);
+		    return true;
+		}
+	    }
+	    
+	    return false;
+	}
 	
-	public void clean() {
-		System.out.println("TODO: Oma.clean();");
+	// putzen
+	public boolean clean() {
+	    if (this.getCurrentAction() != null)
+		return false;
+	    
+	    // TODO
+	    System.out.println("TODO: Oma.clean();");
+	    this.setCurrentAction(new House());
 	}
-	public void washClothes() {
-		System.out.println("TODO: Oma.washClothes();");
+	
+	// spuelen
+	public boolean washDishes() {
+	    if (this.getCurrentAction() != null)
+		return false;
+	    
+	    // suche entsprechenden Wunsch
+	    for (Article wish: this.getWishList()) {
+		if (wish instanceof Dishes) {
+		    this.setCurrentAction(wish);
+		    return true;
+		}
+	    }
+	    
+	    return false;
 	}
-	public void washDishes() {
-		System.out.println("TODO: Oma.washDishes();");
+	
+	//schlafen
+	public boolean sleep() {
+	    if (this.getCurrentAction() != null)
+		return false;
+	    
+	    // suche entsprechenden Wunsch
+	    for (Article wish: this.getWishList()) {
+		if (wish instanceof Bed) {
+		    this.setCurrentAction(wish);
+		    return true;
+		}
+	    }
+	    
+	    return false;
 	}
-	public void sleep() {
-		System.out.println("TODO: Oma.sleep();");
+	
+	// default-Zustand (null)
+	public void idle() {
+	    this.setCurrentAction(null);
 	}
 
 	
