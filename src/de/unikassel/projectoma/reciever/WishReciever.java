@@ -1,5 +1,4 @@
 package de.unikassel.projectoma.reciever;
-
 import com.google.gson.Gson;
 
 import de.unikassel.projectoma.GrandmaApplication;
@@ -24,10 +23,13 @@ public class WishReciever extends BroadcastReceiver {
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		// Lade Oma.
-		Grandma grandma = Grandma.load(PreferenceManager
-				.getDefaultSharedPreferences(context.getApplicationContext()));
+	    	// Lade Oma.
+	 	Grandma grandma = Grandma.load(PreferenceManager
+	 		.getDefaultSharedPreferences(context.getApplicationContext()));
 		
+	 	// Entferne Alarm-Intent.
+		grandma.getAlarms().remove(intent);
+	 	
 		// Hole Wunsch vom Intent.
 		Gson gson = new Gson();
 		String json = intent.getStringExtra("WISH_JSON");
@@ -39,8 +41,9 @@ public class WishReciever extends BroadcastReceiver {
 		// Notifiziere den User ueber den erzeugten Wunsch.
 		notify(context, wish);
 		
+		// Speichere Oma wieder.
 		grandma.save(PreferenceManager
-				.getDefaultSharedPreferences(context.getApplicationContext()));
+			.getDefaultSharedPreferences(context.getApplicationContext()));
 	}
 
 	private void notify(Context context, Article wish) {

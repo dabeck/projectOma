@@ -1,8 +1,11 @@
 package de.unikassel.projectoma.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
@@ -16,6 +19,9 @@ public class Grandma {
 	private LevelType level;
 	/* Wunsch, welcher aktuell abgearbeitet wird. */
 	private Article currentAction;
+	
+	/* Android Alarms */
+	private HashMap<Intent, PendingIntent> alarms;
 	
 	/* Wuensche */
 	private List<Article> wishes;
@@ -75,6 +81,17 @@ public class Grandma {
 	public Grandma withCurrentAction(Article currentAction) {
 		this.currentAction = currentAction;
 		return this;
+	}
+	
+	public HashMap<Intent, PendingIntent> getAlarms() {
+	    return alarms;
+	}
+	public void setAlarms(HashMap<Intent, PendingIntent> alarms) {
+	    this.alarms = alarms;
+	}
+	public Grandma withAlarms(HashMap<Intent, PendingIntent> alarms) {
+	    this.alarms = alarms;
+	    return this;
 	}
 	
 	public List<Article> getWishes() {
@@ -139,6 +156,8 @@ public class Grandma {
 	public Grandma(String name, LevelType level) {
 		this.name = name;
 		this.level = level;
+		
+		this.alarms = new HashMap<Intent, PendingIntent>();
 		
 		this.wishes = new ArrayList<Article>();
 		

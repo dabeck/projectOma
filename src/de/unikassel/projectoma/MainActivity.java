@@ -401,6 +401,8 @@ public class MainActivity extends ListActivity {
 	app.grandma = Grandma.load(PreferenceManager
 		.getDefaultSharedPreferences(this.getApplicationContext()));
 
+	
+	/* Erster Start?!? */
 	if (app.grandma == null)
 	{
 	    app.grandma = new Grandma(this.getApplicationContext()
@@ -423,6 +425,10 @@ public class MainActivity extends ListActivity {
 	    alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar
 		    .getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
 
+	    // Alarm-Intent merken, um bei Spielende/Reset entfernen zu koennen.
+	    app.grandma.getAlarms().put(intent, alarmIntent);
+	    
+	    //Willkommensnachricht bei erstem Start
 	    Toast t = Toast.makeText(
 		    app.getApplicationContext(),
 		    app.getApplicationContext().getString(R.string.welcome_desc),

@@ -28,21 +28,26 @@ public class GrandmaApplication extends Application {
     }
 
     public void resetGame() {
-	//TODO: reset alarmmanager cancel
-	this.setGrandma(null);
-
+	AlarmManager mgr = (AlarmManager)this.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
 	Editor edit = PreferenceManager.getDefaultSharedPreferences(
 		this.getApplicationContext()).edit();
+	
+	// Loesche geplante und jetzt obsolente Alarms
+	for(PendingIntent pi: this.grandma.getAlarms().values())
+	    mgr.cancel(pi);
+	
+	// Setze Oma null
+	this.setGrandma(null);
 	edit.putString("de.unikassel.projectoma.grandma", null);
 	edit.commit();
-
+	
+	// App-Restart
 	Intent mStartActivity = new Intent(this.getApplicationContext(), MainActivity.class);
 	int mPendingIntentId = 123456;
 	PendingIntent mPendingIntent = PendingIntent.getActivity(this.getApplicationContext(),
 		mPendingIntentId,
 		mStartActivity,
 		PendingIntent.FLAG_CANCEL_CURRENT);
-	AlarmManager mgr = (AlarmManager)this.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
 	mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
 	System.exit(0);
     }
