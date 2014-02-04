@@ -300,9 +300,15 @@ public class Grandma {
 	    if (this.getCurrentAction() != null)
 		return false;
 	    
-	    // TODO
-	    System.out.println("TODO: Oma.clean();");
-	    this.setCurrentAction(new House());
+	    // suche entsprechenden Wunsch
+	    for (Article wish: this.getWishList()) {
+		if (wish instanceof House) {
+		    this.setCurrentAction(wish);
+		    return true;
+		}
+	    }
+	    
+	    return false;
 	}
 	
 	// spuelen
