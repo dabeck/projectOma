@@ -34,6 +34,7 @@
         </activity>
         <receiver android:name="de.unikassel.projectoma.reciever.DailyReciever"></receiver>
         <receiver android:name="de.unikassel.projectoma.reciever.WishReciever"></receiver>
+        <receiver android:name="de.unikassel.projectoma.reciever.DoneReciever"></receiver>
     </application>
 
 </manifest>
