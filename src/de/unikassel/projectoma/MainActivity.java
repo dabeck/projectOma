@@ -309,30 +309,16 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
      * 
      * @param food the type of food you want to serve
      */
-    public void processFeeding(FoodType food) {
+    public void processFeeding(Food food) {
 	//TODO: satisfy foodWish with type  
 
-	if(food.getValue() >= 0 && food.getValue() < 5)
-	{
-	    //Breakfast
+	if(food.isHeavy()) {
 	    ImageHelper.setGrandmaTypeEatLight(null);
 	}
-	else if(food.getValue() >= 5 && food.getValue() < 11)
-	{
-	    //Lunch
+	else {
 	    ImageHelper.setGrandmaTypeEatHeavy(null);
 	}
-	else if(food.getValue() >= 11 && food.getValue() < 16)
-	{
-	    //Dinner
-	    ImageHelper.setGrandmaTypeEatLight(null);
-	}
-	else if(food.getValue() >= 16)
-	{
-	    //Special
-	    ImageHelper.setGrandmaTypeEatHeavy(null);
-	}
-
+	
 	performingRequest = false;
     }
 

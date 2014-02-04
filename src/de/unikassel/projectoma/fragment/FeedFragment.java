@@ -2,6 +2,7 @@ package de.unikassel.projectoma.fragment;
 
 import de.unikassel.projectoma.MainActivity;
 import de.unikassel.projectoma.R;
+import de.unikassel.projectoma.model.Food;
 import de.unikassel.projectoma.model.FoodType;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -73,7 +74,7 @@ public class FeedFragment extends DialogFragment {
 		    {
 			MainActivity container = (MainActivity) getActivity();
 
-			container.processFeeding(selected);						
+			container.processFeeding(Food.FoodList.get(selected));						
 			dismiss();
 		    }
 		}
