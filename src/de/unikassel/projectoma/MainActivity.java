@@ -313,10 +313,10 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	//TODO: satisfy foodWish with type  
 
 	if(food.isHeavy()) {
-	    ImageHelper.setGrandmaTypeEatLight(null);
+	    ImageHelper.setGrandmaTypeEatHeavy(null);
 	}
 	else {
-	    ImageHelper.setGrandmaTypeEatHeavy(null);
+	    ImageHelper.setGrandmaTypeEatLight(null);
 	}
 	
 	performingRequest = false;
