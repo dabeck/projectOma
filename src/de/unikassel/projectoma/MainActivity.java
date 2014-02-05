@@ -154,11 +154,20 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
     }
 
     public void btnTestClicked(View v) {
+	Calendar calendar = Calendar.getInstance();
 
-	TestFragment newFragment = TestFragment.newInstance();
-	newFragment.show(getFragmentManager(), "testDialog");
+	calendar.setTimeInMillis(System.currentTimeMillis()+10000);
+	Article wish = (Article)new Food("RandomFood", new Timestamp(20000)).randomFood(Daytime.MIDDAY);
+	DailyReciever.setAlarm(app.grandma, this, wish);
 
-	ImageHelper.setGrandmaActionInCar(null);
+	listItems.add("Processing " + wish.getName());
+	adapter.notifyDataSetChanged();
+
+	//TODO: testdialog (nicht fertig geworden)
+	//	TestFragment newFragment = TestFragment.newInstance();
+	//	newFragment.show(getFragmentManager(), "testDialog");
+
+	ImageHelper.setGrandmaRequestFood(null);
 
     }
 
@@ -280,13 +289,8 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
      * @param mode Testmode 1 = simulation; 2 = wishes
      */
     public void processTest(int mode) {
-	Calendar calendar = Calendar.getInstance();
-	
-	calendar.setTimeInMillis(System.currentTimeMillis()+10000);
-	
-	
-	Article wish = (Article)new Food("RandomFood", new Timestamp(20000)).randomFood(Daytime.MIDDAY).withStart(calendar);
-	DailyReciever.setAlarm(app.grandma, this, wish);
+
+
     }
     //<!-- Process actions end-->
 
