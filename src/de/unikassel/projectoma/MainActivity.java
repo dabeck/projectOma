@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.google.gson.Gson;
+
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -38,6 +40,7 @@ import de.unikassel.projectoma.model.LevelType;
 import de.unikassel.projectoma.model.Medicine;
 import de.unikassel.projectoma.model.RequestType;
 import de.unikassel.projectoma.reciever.DailyReciever;
+import de.unikassel.projectoma.reciever.DoneReciever;
 import de.unikassel.projectoma.R;
 import de.unikassel.projectoma.fragment.FeedFragment;
 import de.unikassel.projectoma.fragment.MedicineFragment;
@@ -405,6 +408,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	}
 	
 	// Register listener for grandma-Object
+	app.grandma.update();
 	app.grandma.addPropertyChangeListener(this);
 	
 	for (Article wish : app.grandma.getWishList()) {
@@ -443,8 +447,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
     
     private void firstStart() {
 	    app.grandma = new Grandma(this.getApplicationContext()
-		    	.getString(R.string.default_name), LevelType.SIMPLE)
-	    		.withContext(this.getApplicationContext());
+		    	.getString(R.string.default_name), LevelType.SIMPLE);
 
 	    app.grandma.save(PreferenceManager
 		    .getDefaultSharedPreferences(this.getApplicationContext()));
@@ -464,7 +467,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 		    .getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
 
 	    // Alarm-Intent merken, um bei Spielende/Reset entfernen zu koennen.
-	    app.grandma.getAlarms().put(intent, alarmIntent);
+	    //app.grandma.getAlarms().put(intent, alarmIntent);
 	    
 	    //Willkommensnachricht bei erstem Start
 	    Toast t = Toast.makeText(
@@ -490,6 +493,21 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
     }
     
     private void onCurrentActionChanged(Article newAction, Article oldAction) {
+	if (newAction != null) {
+		// setze DoneReciever auf JETZT + wish.duration
+		AlarmManager alarmMgr = (AlarmManager) this.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+		Intent i = new Intent(this.getApplicationContext(), DoneReciever.class);
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(newAction);
+		i.putExtra("WISH_JSON", json);
+		
+		PendingIntent alarmIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 0, i, 0);
+		alarmMgr.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + newAction.getDuration().getTime(), alarmIntent);
+		
+		//this.getAlarms().put(i, alarmIntent);
+	}
+	
 	if (newAction instanceof Food) {
 	    processRequest(RequestType.eat);
 	}

@@ -33,8 +33,8 @@ public class GrandmaApplication extends Application {
 		this.getApplicationContext()).edit();
 	
 	// Loesche geplante und jetzt obsolente Alarms
-	for(PendingIntent pi: this.grandma.getAlarms().values())
-	    mgr.cancel(pi);
+	//for(PendingIntent pi: this.grandma.getAlarms().values()) 
+	   // mgr.cancel(pi);
 	
 	// Setze Oma null
 	this.setGrandma(null);

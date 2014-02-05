@@ -206,7 +206,7 @@ public class DailyReciever extends BroadcastReceiver {
 		PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, i, 0);
 		alarmMgr.set(AlarmManager.RTC_WAKEUP, wish.getStart().getTimeInMillis(), alarmIntent);
 		
-		grandma.getAlarms().put(i, alarmIntent);
+		//grandma.getAlarms().put(i, alarmIntent);
 	}
 	
 	private Calendar setRandomCalendar(Calendar calendar, double currentHour, int hour, int rangeHour) {

@@ -31,7 +31,7 @@ public class DoneReciever extends BroadcastReceiver {
 	 		.getDefaultSharedPreferences(context.getApplicationContext()));
 	 	
 	 	// Entferne Alarm-Intent.
-	 	grandma.getAlarms().remove(intent);
+	 	//grandma.getAlarms().remove(intent);
 	 		 	
 	 	// Hole Wunsch vom Intent.
 	 	Gson gson = new Gson();
