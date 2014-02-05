@@ -48,6 +48,7 @@ import de.unikassel.projectoma.fragment.MedicineFragment;
 import de.unikassel.projectoma.fragment.RequestFragment;
 import de.unikassel.projectoma.fragment.ShoppingFragment;
 import de.unikassel.projectoma.fragment.StockFragment;
+import de.unikassel.projectoma.fragment.TestFragment;
 import de.unikassel.projectoma.helper.ImageHelper;
 
 public class MainActivity extends ListActivity implements PropertyChangeListener {
@@ -152,16 +153,21 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
     }
 
     public void btnTestClicked(View v) {
-	Calendar calendar = Calendar.getInstance();
-	
-	
-	/* DEMO-WUNSCH: Mittags-Medis */
-	// 10 Sekunden nach JETZT
-	calendar.setTimeInMillis(System.currentTimeMillis()+10000);
-	Article wish = (Article)new Medicine().withTyp(Daytime.MIDDAY)
-			.withStart(calendar).withDuration(new Timestamp(20000)).withName("TestWünsch");
-	DailyReciever.setAlarm(app.grandma, this, wish);
-	
+
+	TestFragment newFragment = TestFragment.newInstance();
+	newFragment.show(getFragmentManager(), "testDialog");
+
+	ImageHelper.setGrandmaActionInCar(null);
+
+
+	//	Calendar calendar = Calendar.getInstance();
+	//	/* DEMO-WUNSCH: Mittags-Medis */
+	//	// 10 Sekunden nach JETZT
+	//	calendar.setTimeInMillis(System.currentTimeMillis()+10000);
+	//	Article wish = (Article)new Medicine().withTyp(Daytime.MIDDAY)
+	//			.withStart(calendar).withDuration(new Timestamp(20000)).withName("TestWünsch");
+	//	DailyReciever.setAlarm(app.grandma, this, wish);
+
     }
 
     //<!-- Button actions end -->
@@ -262,6 +268,15 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 		Toast.LENGTH_LONG
 		);
 	t.show();
+    }
+
+    /**
+     * Testprocessing
+     * 
+     * @param mode Testmode 1 = simulation; 2 = wishes
+     */
+    public void processTest(int mode) {
+
     }
     //<!-- Process actions end-->
 
@@ -425,35 +440,35 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	    Article a = app.getGrandma().getWishList().get(app.getGrandma().getWishList().size() -1);
 
 	    if (a.getArticleType() == RequestType.eat) {
-		    ImageHelper.setGrandmaRequestFood(null);
+		ImageHelper.setGrandmaRequestFood(null);
 	    }
 
 	    if (a.getArticleType() == RequestType.drink) {
-		    ImageHelper.setGrandmaRequestDrink(null);
+		ImageHelper.setGrandmaRequestDrink(null);
 	    }
 
 	    if (a.getArticleType() == RequestType.wash_dishes) {
-		    ImageHelper.setGrandmaRequestCleanDishes(null);
+		ImageHelper.setGrandmaRequestCleanDishes(null);
 	    }
 
 	    if (a.getArticleType() == RequestType.clothe) {
-		    ImageHelper.setGrandmaRequestDress(null);
+		ImageHelper.setGrandmaRequestDress(null);
 	    }
 
 	    if (a.getArticleType() == RequestType.clean_car) {
-		    ImageHelper.setGrandmaRequestCleanCar(null);
+		ImageHelper.setGrandmaRequestCleanCar(null);
 	    }
 
 	    if (a.getArticleType() == RequestType.sleep) {
-		    ImageHelper.setGrandmaRequestSleep(null);
+		ImageHelper.setGrandmaRequestSleep(null);
 	    }
 
 	    if (a.getArticleType() == RequestType.medicine) {
-		    ImageHelper.setGrandmaRequestMedicine(null);
+		ImageHelper.setGrandmaRequestMedicine(null);
 	    }
 
 	    if (a.getArticleType() == RequestType.wash_clothes) {
-		    ImageHelper.setGrandmaRequestHelp(null);
+		ImageHelper.setGrandmaRequestHelp(null);
 	    }
 	} 
 	else 

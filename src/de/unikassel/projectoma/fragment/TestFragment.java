@@ -1,8 +1,7 @@
 package de.unikassel.projectoma.fragment;
 
-import de.unikassel.projectoma.GrandmaApplication;
+import de.unikassel.projectoma.MainActivity;
 import de.unikassel.projectoma.R;
-import de.unikassel.projectoma.model.Food;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -13,9 +12,9 @@ public class TestFragment extends DialogFragment {
 
     String[] itemsToDisplay;
 
-    public static StockFragment newInstance() {
+    public static TestFragment newInstance() {
 
-	StockFragment f = new StockFragment();
+	TestFragment f = new TestFragment();
 	Bundle args = new Bundle();
 	f.setArguments(args);
 
@@ -24,27 +23,17 @@ public class TestFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-	GrandmaApplication app = (GrandmaApplication) getActivity().getApplication();
-
-	int items = app.getGrandma().getPantry().size();
-
-	itemsToDisplay = new String[items];
-
-	int i = 0;
-	for(Food f : app.getGrandma().getPantry()) {
-	    itemsToDisplay[i] = f.getName();
-	    i++;
-	}
-
 	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-	builder.setTitle(R.string.inventory);
+	builder.setTitle("Testmethode wählen:");
 
-	builder.setItems(itemsToDisplay, null);
+	builder.setItems(R.array.testModes, null);
 
 	builder.setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
 	    public void onClick(DialogInterface dialog, int id) {
-
+		MainActivity container = (MainActivity) getActivity();
+		container.processTest(id);						
+		dismiss();
 	    }
 	});
 
