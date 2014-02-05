@@ -36,7 +36,7 @@ public class FeedFragment extends DialogFragment {
 	if(items <= 0)
 	{
 	    itemsToDisplay = new String[1];
-	    itemsToDisplay[0] = "Theres nothing in your pantry. Please go shopping!"; //TODO: put into strings file
+	    itemsToDisplay[0] = app.getApplicationContext().getString(R.string.msg_stock_empty);
 	    satisfiable = false;
 	}
 	else

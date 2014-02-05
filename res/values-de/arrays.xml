@@ -18,25 +18,6 @@
         <item>Musik hören</item>
         <item>Einkaufen gehen</item>
     </string-array>
-    <string-array name="foodTypes">
-        <item>Eier mit Speck</item>
-        <item>Kuchen mit Sahne</item>
-        <item>Müsli</item>
-        <item>Früchte</item>
-        <item>Fruchtsaft</item>
-        <item>Schnitzel mit Pommes</item>
-        <item>Fisch mit Pommes</item>
-        <item>Schweinshaxe</item>
-        <item>Sushi</item>
-        <item>Cannelloni</item>
-        <item>Nudelsuppe</item>
-        <item>Rollmops</item>
-        <item>Brot mit Butter</item>
-        <item>Taost Hawaii</item>
-        <item>Salat</item>
-        <item>Reiscrackers</item>
-        <item>Kürbissuppe</item>
-    </string-array>
     <string-array name="medicineTypes">
         <item>Morgen-Medizin</item>
         <item>Mittag-Medizin</item>

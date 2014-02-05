@@ -12,7 +12,7 @@ import android.os.Bundle;
 public class StockFragment extends DialogFragment {
 
     String[] itemsToDisplay;
-    
+
     public static StockFragment newInstance() {
 
 	StockFragment f = new StockFragment();
@@ -25,16 +25,33 @@ public class StockFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 	GrandmaApplication app = (GrandmaApplication) getActivity().getApplication();
-		
+
 	int items = app.getGrandma().getPantry().size();
-	itemsToDisplay = new String[items];
-	int i = 0;
-	
-	for(Food f : app.getGrandma().getPantry()) {
-	    itemsToDisplay[i] = f.getName();
-	    i++;
+	int cleanClothes = app.getGrandma().getWarderobeCount();
+
+	String clothes = app.getGrandma().getName() + " hat " + cleanClothes + " saubere Kleider!";
+	String border = "----------------------------------------------------------";
+
+	if(items <= 0)
+	{
+	    itemsToDisplay = new String[3];
+	    itemsToDisplay[0] = clothes;
+	    itemsToDisplay[1] = border;
+	    itemsToDisplay[2] = app.getApplicationContext().getString(R.string.msg_stock_empty);
 	}
-	
+	else
+	{
+	    itemsToDisplay = new String[2 + items];
+	    itemsToDisplay[0] = clothes;
+	    itemsToDisplay[1] = border;
+
+	    int i = 2;
+	    for(Food f : app.getGrandma().getPantry()) {
+		itemsToDisplay[i] = f.getName();
+		i++;
+	    }
+	}
+
 	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 	builder.setTitle(R.string.inventory);

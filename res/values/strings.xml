@@ -54,5 +54,6 @@
     <string name="notifydone_desc_house">Grandma cleaned the van.</string>
     <string name="notifydone_desc_sleep">Grandma slept enough.</string>
     <string name="msg_request_notpossible">Request could not be performed.</string>
+    <string name="msg_stock_empty">Theres nothing in your pantry. Please go shopping!</string>
 
 </resources>

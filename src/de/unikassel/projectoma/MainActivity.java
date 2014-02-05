@@ -249,16 +249,18 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
      * @param selectedItems A list of selected food to buy
      */
     public void processShopping(ArrayList<Food> selectedItems) {
-	for (Article food : selectedItems) {
-	    listItems.add(food.getName());
-	}
 	app.getGrandma().buy(selectedItems);
 
 	adapter.notifyDataSetChanged();
 
-
-	//TODO: fill up stocks with selected items
 	ImageHelper.setGrandmaTypeGoShopping(null);
+	// GameOver-Toast
+	Toast t = Toast.makeText(
+		app.getApplicationContext(),
+		app.getApplicationContext().getString(R.string.msg_shopping_positive),
+		Toast.LENGTH_LONG
+		);
+	t.show();
     }
     //<!-- Process actions end-->
 
