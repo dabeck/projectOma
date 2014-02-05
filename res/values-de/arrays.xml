@@ -17,6 +17,7 @@
         <item>Auto waschen</item>
         <item>Musik hören</item>
         <item>Einkaufen gehen</item>
+        <item>Anziehen</item>
     </string-array>
     <string-array name="medicineTypes">
         <item>Morgen-Medizin</item>

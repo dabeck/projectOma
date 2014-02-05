@@ -38,6 +38,7 @@ import de.unikassel.projectoma.model.House;
 import de.unikassel.projectoma.model.LevelType;
 import de.unikassel.projectoma.model.Medicine;
 import de.unikassel.projectoma.model.RequestType;
+import de.unikassel.projectoma.model.Washer;
 import de.unikassel.projectoma.reciever.DailyReciever;
 import de.unikassel.projectoma.reciever.DoneReciever;
 import de.unikassel.projectoma.R;
@@ -80,7 +81,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 
 	ImageHelper.setContext(this);
 
-	ImageHelper.setGrandmaTypeInCar(null);
+	ImageHelper.setGrandmaActionInCar(null);
     }
 
     @Override
@@ -146,7 +147,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	StockFragment newFragment = StockFragment.newInstance();
 	newFragment.show(getFragmentManager(), "stockDialog");
 
-	ImageHelper.setGrandmaTypeInCar(null);
+	ImageHelper.setGrandmaActionInCar(null);
     }
 
     public void btnTestClicked(View v) {
@@ -200,6 +201,9 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	case clean_car:
 	    performingRequest = app.getGrandma().clean();
 	    break;
+	case clothe:
+	    performingRequest = app.getGrandma().clothe();
+	    break;
 	case eat:
 	    FeedFragment newFragment = FeedFragment.newInstance();
 	    newFragment.show(getFragmentManager(), "foodDialog");
@@ -214,7 +218,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	    shop.show(getFragmentManager(), "shopDialog");
 	    break;
 	case music:
-	    ImageHelper.setGrandmaTypeMusic(null);
+	    ImageHelper.setGrandmaActionMusic(null);
 
 	    //TODO: open youtube song!
 	    //Resets stamina
@@ -253,7 +257,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 
 	adapter.notifyDataSetChanged();
 
-	ImageHelper.setGrandmaTypeGoShopping(null);
+	ImageHelper.setGrandmaActionShopping(null);
 	// GameOver-Toast
 	Toast t = Toast.makeText(
 		app.getApplicationContext(),
@@ -412,36 +416,81 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 
 	if (newAction instanceof Food) {
 	    if(((Food) newAction).isHealty()) {
-		ImageHelper.setGrandmaTypeEatLight(null);
+		ImageHelper.setGrandmaActionEatLight(null);
 	    } else {
-		ImageHelper.setGrandmaTypeEatHeavy(null);
+		ImageHelper.setGrandmaActionEatHeavy(null);
 	    }
 	}
 	else if (newAction instanceof Dishes) {
-	    ImageHelper.setGrandmaTypeCleanDishes(null);
+	    ImageHelper.setGrandmaRequestCleanDishes(null);
 	}
 	else if (newAction instanceof Drink) {
-	    ImageHelper.setGrandmaTypeDrink(null);
+	    ImageHelper.setGrandmaActionDrink(null);
 	}
 	else if (newAction instanceof Medicine) {
-	    ImageHelper.setGrandmaTypeMedicine(null);
+	    ImageHelper.setGrandmaActionMedicine(null);
+	}
+	else if (newAction instanceof Washer) {
+	    ImageHelper.setGrandmaActionWashing(null);
 	}
 	else if (newAction instanceof Clothing) {
-	    ImageHelper.setGrandmaTypeWashing(null);
+	    //Anziehen bild fehlt
 	}
 	else if (newAction instanceof House) {
-	    ImageHelper.setGrandmaTypeCleanCar(null);
+	    ImageHelper.setGrandmaActionCleanCar(null);
 	}
 	else if (newAction instanceof Bed) {
-	    ImageHelper.setGrandmaTypeSleep(null);
+	    ImageHelper.setGrandmaActionSleep(null);
 	}
 	else {
-	    ImageHelper.setGrandmaTypeInCar(null);
+	    ImageHelper.setGrandmaActionInCar(null);
 	}
     }
 
     public void onWishListChanged(List<Article> newList, List<Article> oldList) {
 	listItems.clear();
+
+	if(newList.size() > oldList.size())
+	{
+	    Article a = app.getGrandma().getWishList().get(app.getGrandma().getWishList().size() -1);
+
+	    if (a instanceof Food) {
+		    ImageHelper.setGrandmaRequestFood(null);
+	    }
+
+	    if (a instanceof Drink) {
+		    ImageHelper.setGrandmaRequestDrink(null);
+	    }
+
+	    if (a instanceof Dishes) {
+		    ImageHelper.setGrandmaRequestCleanDishes(null);
+	    }
+
+	    if (a instanceof Clothing) {
+		    ImageHelper.setGrandmaRequestDress(null);
+	    }
+
+	    if (a instanceof House) {
+		    ImageHelper.setGrandmaRequestCleanCar(null);
+	    }
+
+	    if (a instanceof Bed) {
+		    ImageHelper.setGrandmaRequestSleep(null);
+	    }
+
+	    if (a instanceof Medicine) {
+		    ImageHelper.setGrandmaRequestMedicine(null);
+	    }
+
+	    if (a instanceof Washer) {
+		    ImageHelper.setGrandmaRequestHelp(null);
+	    }
+	} 
+	else 
+	{
+	    ImageHelper.setGrandmaActionInCar(null);
+	}
+
 	for(Article wish: newList) {
 	    listItems.add(wish.getName());
 	    adapter.notifyDataSetChanged();

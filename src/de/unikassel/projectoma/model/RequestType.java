@@ -10,7 +10,8 @@ public enum RequestType {
    walk(7),
    clean_car(8),
    music(9),
-   shopping(10);
+   shopping(10),
+   clothe(11);
 
 	private final int value;
 	private RequestType(int value) {
