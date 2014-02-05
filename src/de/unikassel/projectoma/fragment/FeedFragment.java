@@ -1,9 +1,9 @@
 package de.unikassel.projectoma.fragment;
 
+import de.unikassel.projectoma.GrandmaApplication;
 import de.unikassel.projectoma.MainActivity;
 import de.unikassel.projectoma.R;
 import de.unikassel.projectoma.model.Food;
-import de.unikassel.projectoma.model.FoodType;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -14,7 +14,9 @@ import android.widget.Button;
 
 public class FeedFragment extends DialogFragment {
 
-    private FoodType selected;
+    private Food selected;
+    private String[] itemsToDisplay;
+    private Boolean satisfiable;
 
     public static FeedFragment newInstance() {
 
@@ -27,19 +29,42 @@ public class FeedFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+	final GrandmaApplication app = (GrandmaApplication) getActivity().getApplication();
+
+	int items = app.getGrandma().getPantry().size();
+
+	if(items <= 0)
+	{
+	    itemsToDisplay = new String[1];
+	    itemsToDisplay[0] = "Theres nothing in your pantry. Please go shopping!"; //TODO: put into strings file
+	    satisfiable = false;
+	}
+	else
+	{
+	    satisfiable = true;
+
+	    itemsToDisplay = new String[items];
+
+	    int i = 0;
+	    for(Food f : app.getGrandma().getPantry()) {
+		itemsToDisplay[i] = f.getName();
+		i++;
+	    }
+	}
 
 	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 	builder.setTitle(R.string.food_msg);
-	
-	//TODO: check if stock contains special food type
 
-	builder.setSingleChoiceItems(R.array.foodTypes, -1, 
+	builder.setSingleChoiceItems(itemsToDisplay, -1, 
 		new DialogInterface.OnClickListener() {
 
 	    @Override
 	    public void onClick(DialogInterface dialog, int selection) {
-		selected = FoodType.values()[selection];
+		if(satisfiable)
+		{
+		    selected = app.getGrandma().getPantry().get(selection);
+		}
 	    }
 	});
 
@@ -70,11 +95,11 @@ public class FeedFragment extends DialogFragment {
 		@Override
 		public void onClick(View v)
 		{
-		    if(selected != null)
+		    if(selected != null && satisfiable)
 		    {
 			MainActivity container = (MainActivity) getActivity();
 
-			container.processFeeding(Food.FoodList.get(selected));						
+			container.processFeeding(selected);						
 			dismiss();
 		    }
 		}

@@ -32,7 +32,8 @@ public class DailyReciever extends BroadcastReceiver {
 	    	Grandma grandma = Grandma.load(PreferenceManager
 	    		.getDefaultSharedPreferences(context.getApplicationContext()));
 	    	
-	    	
+	 	grandma.update();
+
 	    	
 		Article wish;
 		Article followingWish = (Article)(new Dishes());
@@ -195,7 +196,7 @@ public class DailyReciever extends BroadcastReceiver {
 
 	}
 	
-	private void setAlarm(Grandma grandma, Context context, Article wish) {
+	public static void setAlarm(Grandma grandma, Context context, Article wish) {
 		AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		Intent i = new Intent(context, WishReciever.class);
 		

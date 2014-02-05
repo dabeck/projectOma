@@ -35,11 +35,11 @@
     <string name="notify_title">1 neuer Wunsch!</string>
     <string name="notify_desc_food">Oma möchte etwas essen.</string>
     <string name="notify_desc_dishes">Oma möchte Geschirr spülen.</string>
-	<string name="notify_desc_drink">Oma möchte etwas trinken.</string>
-	<string name="notify_desc_medi">Oma braucht ihre Pillen.</string>
-	<string name="notify_desc_cloth">Oma möchte einen neuen Look.</string>
-	<string name="notify_desc_house">Oma möchte den Van waschen.</string>
-	<string name="notify_desc_sleep">Oma möchte eine Weile schlafen.</string>
+    <string name="notify_desc_drink">Oma möchte etwas trinken.</string>
+    <string name="notify_desc_medi">Oma braucht ihre Pillen.</string>
+    <string name="notify_desc_cloth">Oma möchte einen neuen Look.</string>
+    <string name="notify_desc_house">Oma möchte den Van waschen.</string>
+    <string name="notify_desc_sleep">Oma möchte eine Weile schlafen.</string>
     <string name="welcome_desc">Willkommen zu "Pflege Oma"!</string>
     <string name="food_msg">Was möchtest du servieren?</string>
     <string name="medicine_msg">Was möchtest du verabreichen?</string>
@@ -48,10 +48,11 @@
     <string name="notifydone_title">Wunsch erledigt!</string>
     <string name="notifydone_desc_food">Oma hat fertig gegessen.</string>
     <string name="notifydone_desc_dishes">Oma hat Geschirr gespült.</string>
-	<string name="notifydone_desc_drink">Oma hat fertig getrunken.</string>
-	<string name="notifydone_desc_medi">Oma hat ihre Pillen genommen.</string>
-	<string name="notifydone_desc_cloth">Oma hat sich umgezogen.</string>
-	<string name="notifydone_desc_house">Oma hat den Van gewaschen.</string>
-	<string name="notifydone_desc_sleep">Oma hat genug geschlafen.</string>
-    
+    <string name="notifydone_desc_drink">Oma hat fertig getrunken.</string>
+    <string name="notifydone_desc_medi">Oma hat ihre Pillen genommen.</string>
+    <string name="notifydone_desc_cloth">Oma hat sich umgezogen.</string>
+    <string name="notifydone_desc_house">Oma hat den Van gewaschen.</string>
+    <string name="notifydone_desc_sleep">Oma hat genug geschlafen.</string>
+    <string name="msg_request_notpossible">Wunsch konnte nicht erfüllt werden!</string>
+
 </resources>

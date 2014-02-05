@@ -30,6 +30,8 @@ public class DoneReciever extends BroadcastReceiver {
 	 	Grandma grandma = Grandma.load(PreferenceManager
 	 		.getDefaultSharedPreferences(context.getApplicationContext()));
 	 	
+	 	grandma.update();
+
 	 	// Entferne Alarm-Intent.
 	 	//grandma.getAlarms().remove(intent);
 	 		 	

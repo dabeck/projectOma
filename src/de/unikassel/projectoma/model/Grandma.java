@@ -3,19 +3,12 @@ package de.unikassel.projectoma.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.google.gson.Gson;
-
-import de.unikassel.projectoma.reciever.DoneReciever;
 
 public class Grandma {
 

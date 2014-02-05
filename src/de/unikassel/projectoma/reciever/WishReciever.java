@@ -3,7 +3,6 @@ import com.google.gson.Gson;
 
 import de.unikassel.projectoma.GrandmaApplication;
 import de.unikassel.projectoma.MainActivity;
-import de.unikassel.projectoma.helper.ImageHelper;
 import de.unikassel.projectoma.model.Article;
 import de.unikassel.projectoma.model.Bed;
 import de.unikassel.projectoma.model.Clothing;
@@ -13,7 +12,6 @@ import de.unikassel.projectoma.model.Food;
 import de.unikassel.projectoma.model.Grandma;
 import de.unikassel.projectoma.model.House;
 import de.unikassel.projectoma.model.Medicine;
-import de.unikassel.projectoma.model.RequestType;
 import de.unikassel.projectoma.R;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -34,6 +32,8 @@ public class WishReciever extends BroadcastReceiver {
 	 	Grandma grandma = Grandma.load(PreferenceManager
 	 		.getDefaultSharedPreferences(context.getApplicationContext()));
 		
+	 	grandma.update();
+	 	
 	 	// Entferne Alarm-Intent.
 		//grandma.getAlarms().remove(intent);
 	 	

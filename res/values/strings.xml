@@ -35,11 +35,11 @@
     <string name="notify_title">1 new wish!</string>
     <string name="notify_desc_food">Grandma wants to eat something.</string>
     <string name="notify_desc_dishes">Grandma wants to wash the dishes.</string>
-	<string name="notify_desc_drink">Grandma wants to drink something.</string>
-	<string name="notify_desc_medi">Grandma need some pills.</string>
-	<string name="notify_desc_cloth">Grandma wants another dress.</string>
-	<string name="notify_desc_house">Grandma wants to clean the van.</string>
-	<string name="notify_desc_sleep">Grandma wants to sleep a while.</string>
+    <string name="notify_desc_drink">Grandma wants to drink something.</string>
+    <string name="notify_desc_medi">Grandma need some pills.</string>
+    <string name="notify_desc_cloth">Grandma wants another dress.</string>
+    <string name="notify_desc_house">Grandma wants to clean the van.</string>
+    <string name="notify_desc_sleep">Grandma wants to sleep a while.</string>
     <string name="welcome_desc">Welcome to care grandma!</string>
     <string name="food_msg">What do you want so serve?</string>
     <string name="medicine_msg">What do you want to administer?</string>
@@ -48,10 +48,11 @@
     <string name="notifydone_title">Wish fulfilled!</string>
     <string name="notifydone_desc_food">Grandma finnished eating.</string>
     <string name="notifydone_desc_dishes">Grandma has washed the dishes.</string>
-	<string name="notifydone_desc_drink">Grandma finnished drinking.</string>
-	<string name="notifydone_desc_medi">Grandma took some pills.</string>
-	<string name="notifydone_desc_cloth">Grandma changed her dress.</string>
-	<string name="notifydone_desc_house">Grandma cleaned the van.</string>
-	<string name="notifydone_desc_sleep">Grandma slept enough.</string>
-    
+    <string name="notifydone_desc_drink">Grandma finnished drinking.</string>
+    <string name="notifydone_desc_medi">Grandma took some pills.</string>
+    <string name="notifydone_desc_cloth">Grandma changed her dress.</string>
+    <string name="notifydone_desc_house">Grandma cleaned the van.</string>
+    <string name="notifydone_desc_sleep">Grandma slept enough.</string>
+    <string name="msg_request_notpossible">Request could not be performed.</string>
+
 </resources>

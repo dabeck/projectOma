@@ -1,7 +1,6 @@
 package de.unikassel.projectoma.model;
 
 public enum RequestType {
-   cook(0),
    eat(1),
    drink(2),
    wash_dishes(3),

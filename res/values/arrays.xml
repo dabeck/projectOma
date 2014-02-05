@@ -12,7 +12,6 @@
         <item>3</item>
     </string-array>
     <string-array name="requestTypes">
-        <item>Cook</item>
         <item>Eat the meal</item>
         <item>Drink something</item>
         <item>Wash the dishes</item>

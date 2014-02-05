@@ -158,23 +158,19 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
     }
 
     public void btnTestClicked(View v) {
-	listItems.add("Test : " + clickCounter++);
-	adapter.notifyDataSetChanged();
-
 	Article wish = (Article)Food.randomFood(Daytime.EVENING);
 
 	Calendar cal = Calendar.getInstance();
 	cal.setTimeInMillis(System.currentTimeMillis() + 5000);
-	
+
 	wish.setStart(cal);
-	app.grandma.addWish(wish);
-	//		
-	//		Calendar calendar = Calendar.getInstance();
-	//		calendar.setTimeInMillis(System.currentTimeMillis() + 5000);
 
-	//		DailyReciever.setAlarm(app.getApplicationContext(), calendar, wish);
+	DailyReciever.setAlarm(app.getGrandma(), app.getApplicationContext(), wish);
 
-	listItems.add(wish.getStart().toString() + wish.getName());
+	listItems.add(wish.getStart().getTime().toLocaleString() +
+		" " + wish.getName() +
+		" (" + wish.getDuration().getMinutes() + "min)");
+
 	adapter.notifyDataSetChanged();
     }
 
@@ -195,109 +191,56 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	    Log.i("ProjectOma", "Already performing a request");
 	    return;
 	}
-	else
-	{
-	    performingRequest = true;
-	}
 
 	switch(selection) {
-	case cook:
-	    ImageHelper.setGrandmaTypeCooking(new ImageHelper.Callback() {
-
-		@Override
-		public void onFinished() {
-		    performingRequest = false;
-		}
-	    });
-	    //Eating depends on cooking
-	    break;
 	case eat:
 	    FeedFragment newFragment = FeedFragment.newInstance();
 	    newFragment.show(getFragmentManager(), "foodDialog");
-
 	    break;
 	case drink:
-	    ImageHelper.setGrandmaTypeDrink(new ImageHelper.Callback() {
-
-		@Override
-		public void onFinished() {
-		    performingRequest = false;
-
-		}
-	    });
-	    //Generates dirty dishes + reduces water stock
+	    performingRequest = app.getGrandma().drink(new Drink().withHot(false));
+	    if(performingRequest)
+	    {
+		ImageHelper.setGrandmaTypeDrink(null);
+	    }
 	    break;
 	case wash_dishes:
-	    ImageHelper.setGrandmaTypeDoCleanDishes(new ImageHelper.Callback() {
-
-		@Override
-		public void onFinished() {
-		    performingRequest = false;
-
-		}
-	    });
-	    //Generates clean dishes
+	    performingRequest = app.getGrandma().washDishes();
+	    if(performingRequest)
+	    {
+		ImageHelper.setGrandmaTypeDoCleanDishes(null);
+	    }
 	    break;
 	case wash_clothes:
-	    ImageHelper.setGrandmaTypeWashing(new ImageHelper.Callback() {
-
-		@Override
-		public void onFinished() {
-		    performingRequest = false;
-
-		}
-	    });
-	    //Fill up clothes stock
+	    performingRequest = app.getGrandma().washClothes();
+	    if(performingRequest)
+	    {
+		ImageHelper.setGrandmaTypeWashing(null);		
+	    }
 	    break;
 	case sleep:
-	    ImageHelper.setGrandmaTypeSleep(new ImageHelper.Callback() {
+	    performingRequest = app.getGrandma().sleep();
+	    if(performingRequest)
+	    {
+		ImageHelper.setGrandmaTypeSleep(null);
+	    }
+	    break;
+	case clean_car:
+	    performingRequest = app.getGrandma().clean();
+	    if(performingRequest)
+	    {
+		ImageHelper.setGrandmaTypeCleanCar(null);
+	    }
+	    break;
+	case music:
+	    ImageHelper.setGrandmaTypeMusic(null);
 
-		@Override
-		public void onFinished() {
-		    performingRequest = false;
-
-		}
-	    });
+	    //TODO: open youtube song!
 	    //Resets stamina
 	    break;
 	case medicine:
 	    MedicineFragment mediFragment = MedicineFragment.newInstance();
 	    mediFragment.show(getFragmentManager(), "administerDialog");
-	    //Resets stamina
-	    break;
-	case walk:
-	    ImageHelper.setGrandmaTypeWalk(new ImageHelper.Callback() {
-
-		@Override
-		public void onFinished() {
-		    performingRequest = false;
-
-		}
-	    });
-	    //Reduces stamina
-	    break;
-	case clean_car:
-	    ImageHelper.setGrandmaTypeCleanCar(new ImageHelper.Callback() {
-
-		@Override
-		public void onFinished() {
-		    performingRequest = false;
-
-		}
-	    });
-	    //. ...
-	    break;
-	case music:
-	    ImageHelper.setGrandmaTypeMusic(new ImageHelper.Callback() {
-
-		@Override
-		public void onFinished() {
-		    performingRequest = false;
-
-		}
-	    });
-	    
-	    //TODO: open youtube song!
 	    //Resets stamina
 	    break;
 	case shopping:
@@ -315,7 +258,9 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
      * @param food the type of food you want to serve
      */
     public void processFeeding(Food food) {
-	//TODO: satisfy foodWish with type  
+	Log.i("ProjectOma", "Trying to process feedrequest " + food.getName());
+
+	performingRequest = app.getGrandma().eat(food);
 
 	if(food.isHeavy()) {
 	    ImageHelper.setGrandmaTypeEatHeavy(null);
@@ -323,8 +268,6 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	else {
 	    ImageHelper.setGrandmaTypeEatLight(null);
 	}
-	
-	performingRequest = false;
     }
 
     /**
@@ -333,24 +276,13 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
      * @param med Type of medicine to administer
      */
     public void processMedicine(Daytime med) {
-	switch (med) {
-	case MORNING:
-	    //TODO: Administer medicine
-	    ImageHelper.setGrandmaTypeMedicine(null);
-	    break;
-	case MIDDAY:
-	    //TODO: Administer medicine
-	    ImageHelper.setGrandmaTypeMedicine(null);
-	    break;
-	case EVENING:
-	    //TODO: Administer medicine
-	    ImageHelper.setGrandmaTypeMedicine(null);
-	    break;
-	default:
-	    break;
-	}
+	
+	performingRequest = app.getGrandma().cure(new Medicine().withTyp(med));
 
-	performingRequest = false;
+	if(performingRequest)
+	{
+	    ImageHelper.setGrandmaTypeMedicine(null);
+	}
     }
 
     /**
@@ -360,12 +292,12 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
      */
     public void processShopping(ArrayList<FoodType> selectedItems) {
 	for (FoodType foodType : selectedItems) {
-	     listItems.add(foodType.toString());
+	    listItems.add(foodType.toString());
 	}
-	
+
 	adapter.notifyDataSetChanged();
-	
-	
+
+
 	//TODO: fill up stocks with selected items
 	ImageHelper.setGrandmaTypeGoShopping(null);
     }
@@ -378,7 +310,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 
 	//Unregister listener for shake
 	mSensorManager.unregisterListener(mSensorListener);
-	
+
 	//Unregister listener for shake
 	app.grandma.removePropertyChangeListener(this);
 
@@ -401,16 +333,16 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	/* Lade Oma */
 	app.grandma = Grandma.load(PreferenceManager
 		.getDefaultSharedPreferences(this.getApplicationContext()));
-	
+
 	/* Erster Start?!? */
 	if (app.grandma == null) {
 	    firstStart();
 	}
-	
+
 	// Register listener for grandma-Object
 	app.grandma.update();
 	app.grandma.addPropertyChangeListener(this);
-	
+
 	for (Article wish : app.grandma.getWishList()) {
 	    checkDeadline(wish);
 	}
@@ -444,70 +376,79 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	    app.resetGame();
 	}
     }
-    
+
     private void firstStart() {
-	    app.grandma = new Grandma(this.getApplicationContext()
-		    	.getString(R.string.default_name), LevelType.SIMPLE);
+	app.grandma = new Grandma(this.getApplicationContext()
+		.getString(R.string.default_name), LevelType.SIMPLE);
 
-	    app.grandma.save(PreferenceManager
-		    .getDefaultSharedPreferences(this.getApplicationContext()));
+	app.grandma.save(PreferenceManager
+		.getDefaultSharedPreferences(this.getApplicationContext()));
 
-	    /* Taeglich wiederholender 'Alarm', welcher Wuensche fuer die
-	     * naechsten 24 Stunden erzeugt. (Nur beim ersten Start erzeugen!) */
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.setTimeInMillis(System.currentTimeMillis());
+	/* Taeglich wiederholender 'Alarm', welcher Wuensche fuer die
+	 * naechsten 24 Stunden erzeugt. (Nur beim ersten Start erzeugen!) */
+	Calendar calendar = Calendar.getInstance();
+	calendar.setTimeInMillis(System.currentTimeMillis());
 
-	    @SuppressWarnings("static-access")
-	    AlarmManager alarmMgr = (AlarmManager) this.getApplicationContext()
-	    .getSystemService(this.getApplicationContext().ALARM_SERVICE);
-	    Intent intent = new Intent(this.getApplicationContext(), DailyReciever.class);
-	    PendingIntent alarmIntent = PendingIntent.getBroadcast(this
-		    .getApplicationContext(), 0, intent, 0);
-	    alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar
-		    .getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
+	@SuppressWarnings("static-access")
+	AlarmManager alarmMgr = (AlarmManager) this.getApplicationContext()
+	.getSystemService(this.getApplicationContext().ALARM_SERVICE);
+	Intent intent = new Intent(this.getApplicationContext(), DailyReciever.class);
+	PendingIntent alarmIntent = PendingIntent.getBroadcast(this
+		.getApplicationContext(), 0, intent, 0);
+	alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar
+		.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
 
-	    // Alarm-Intent merken, um bei Spielende/Reset entfernen zu koennen.
-	    //app.grandma.getAlarms().put(intent, alarmIntent);
-	    
-	    //Willkommensnachricht bei erstem Start
-	    Toast t = Toast.makeText(
-		    app.getApplicationContext(),
-		    app.getApplicationContext().getString(R.string.welcome_desc),
-		    Toast.LENGTH_LONG
-		    );
-	    t.show();
+	// Alarm-Intent merken, um bei Spielende/Reset entfernen zu koennen.
+	//app.grandma.getAlarms().put(intent, alarmIntent);
+
+	//Willkommensnachricht bei erstem Start
+	Toast t = Toast.makeText(
+		app.getApplicationContext(),
+		app.getApplicationContext().getString(R.string.welcome_desc),
+		Toast.LENGTH_LONG
+		);
+	t.show();
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void propertyChange(PropertyChangeEvent e) {
 	if (e.getPropertyName().equals("name")) {
-            // TODO: grandma.name has changed
-        } else if (e.getPropertyName().equals("level")) {
-            // TODO: grandma.level has changed
-        } else if (e.getPropertyName().equals("currentAction")) {
-            onCurrentActionChanged((Article)e.getNewValue(), (Article)e.getOldValue());
-        } else if (e.getPropertyName().equals("wishes")) {
-            onWishListChanged((List<Article>)e.getNewValue(), (List<Article>)e.getOldValue());
-        }
+	    // TODO: grandma.name has changed
+	} else if (e.getPropertyName().equals("level")) {
+	    // TODO: grandma.level has changed
+	} else if (e.getPropertyName().equals("currentAction")) {
+	    onCurrentActionChanged((Article)e.getNewValue(), (Article)e.getOldValue());
+	} else if (e.getPropertyName().equals("wishes")) {
+	    onWishListChanged((List<Article>)e.getNewValue(), (List<Article>)e.getOldValue());
+	}
     }
-    
+
     private void onCurrentActionChanged(Article newAction, Article oldAction) {
 	if (newAction != null) {
-		// setze DoneReciever auf JETZT + wish.duration
-		AlarmManager alarmMgr = (AlarmManager) this.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-		Intent i = new Intent(this.getApplicationContext(), DoneReciever.class);
-		
-		Gson gson = new Gson();
-		String json = gson.toJson(newAction);
-		i.putExtra("WISH_JSON", json);
-		
-		PendingIntent alarmIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 0, i, 0);
-		alarmMgr.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + newAction.getDuration().getTime(), alarmIntent);
-		
-		//this.getAlarms().put(i, alarmIntent);
+	    // setze DoneReciever auf JETZT + wish.duration
+	    AlarmManager alarmMgr = (AlarmManager) this.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+	    Intent i = new Intent(this.getApplicationContext(), DoneReciever.class);
+
+	    Gson gson = new Gson();
+	    String json = gson.toJson(newAction);
+	    i.putExtra("WISH_JSON", json);
+
+	    PendingIntent alarmIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 0, i, 0);
+	    alarmMgr.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + newAction.getDuration().getTime(), alarmIntent);
+
+	    //this.getAlarms().put(i, alarmIntent);
+	} else {
+	    performingRequest = false;
+	    
+	    Toast t = Toast.makeText(
+		    app.getApplicationContext(),
+		    app.getApplicationContext().getString(R.string.msg_request_notpossible),
+		    Toast.LENGTH_LONG
+		    );
+	    t.show();
 	}
-	
+
 	if (newAction instanceof Food) {
 	    processRequest(RequestType.eat);
 	}
@@ -533,7 +474,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	    ImageHelper.setGrandmaTypeInCar(null);
 	}
     }
-    
+
     public void onWishListChanged(List<Article> newList, List<Article> oldList) {
 	listItems.clear();
 	for(Article wish: newList) {
@@ -541,6 +482,6 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	    adapter.notifyDataSetChanged();
 	}
     }
-    
+
 
 }

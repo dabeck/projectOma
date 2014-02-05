@@ -1,6 +1,8 @@
 package de.unikassel.projectoma.fragment;
 
+import de.unikassel.projectoma.GrandmaApplication;
 import de.unikassel.projectoma.R;
+import de.unikassel.projectoma.model.Food;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -22,12 +24,15 @@ public class StockFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-
-	itemsToDisplay = new String[10];
-	for(int i = 0; i < 10; i++)
-	{
-	 itemsToDisplay[i] = "noch" + i + "x Wurst";
+	GrandmaApplication app = (GrandmaApplication) getActivity().getApplication();
+		
+	int items = app.getGrandma().getPantry().size();
+	itemsToDisplay = new String[items];
+	int i = 0;
+	
+	for(Food f : app.getGrandma().getPantry()) {
+	    itemsToDisplay[i] = f.getName();
+	    i++;
 	}
 	
 	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
