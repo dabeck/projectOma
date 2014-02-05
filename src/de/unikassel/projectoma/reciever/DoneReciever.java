@@ -5,9 +5,14 @@ import com.google.gson.Gson;
 import de.unikassel.projectoma.MainActivity;
 import de.unikassel.projectoma.R;
 import de.unikassel.projectoma.model.Article;
+import de.unikassel.projectoma.model.Bed;
+import de.unikassel.projectoma.model.Clothing;
 import de.unikassel.projectoma.model.Dishes;
+import de.unikassel.projectoma.model.Drink;
 import de.unikassel.projectoma.model.Food;
 import de.unikassel.projectoma.model.Grandma;
+import de.unikassel.projectoma.model.House;
+import de.unikassel.projectoma.model.Medicine;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -76,14 +81,29 @@ public class DoneReciever extends BroadcastReceiver {
 	}
 	
 	private int wishToNotifyText(Article wish) {
-		if (wish instanceof Food) {
-			return R.string.notifydone_desc_food;
+	    if (wish instanceof Food) {
+	    	    return R.string.notifydone_desc_food;
 		}
 		else if (wish instanceof Dishes) {
-			return R.string.notifydone_desc_dishes;
+		    return R.string.notifydone_desc_dishes;
+		}
+		else if (wish instanceof Drink) {
+		    return R.string.notifydone_desc_drink;
+		}
+		else if (wish instanceof Medicine) {
+		    return R.string.notifydone_desc_medi;
+		}
+		else if (wish instanceof Clothing) {
+		    return R.string.notifydone_desc_cloth;
+		}
+		else if (wish instanceof House) {
+		    return R.string.notifydone_desc_house;
+		}
+		else if (wish instanceof Bed) {
+		    return R.string.notifydone_desc_sleep;
 		}
 		else {
-			return R.string.notifydone_title;
+		    return R.string.notifydone_title;
 		}
 	}
 }

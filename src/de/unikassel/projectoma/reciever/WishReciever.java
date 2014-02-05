@@ -3,10 +3,17 @@ import com.google.gson.Gson;
 
 import de.unikassel.projectoma.GrandmaApplication;
 import de.unikassel.projectoma.MainActivity;
+import de.unikassel.projectoma.helper.ImageHelper;
 import de.unikassel.projectoma.model.Article;
+import de.unikassel.projectoma.model.Bed;
+import de.unikassel.projectoma.model.Clothing;
 import de.unikassel.projectoma.model.Dishes;
+import de.unikassel.projectoma.model.Drink;
 import de.unikassel.projectoma.model.Food;
 import de.unikassel.projectoma.model.Grandma;
+import de.unikassel.projectoma.model.House;
+import de.unikassel.projectoma.model.Medicine;
+import de.unikassel.projectoma.model.RequestType;
 import de.unikassel.projectoma.R;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -77,17 +84,29 @@ public class WishReciever extends BroadcastReceiver {
 	}
 	
 	private int wishToNotifyText(Article wish) {
-		if (wish instanceof Food)
-		{
-			return R.string.notify_desc_food;
+	    	if (wish instanceof Food) {
+	    	    return R.string.notify_desc_food;
 		}
-		else if (wish instanceof Dishes)
-		{
-			return R.string.notify_desc_dishes;
+		else if (wish instanceof Dishes) {
+		    return R.string.notify_desc_dishes;
 		}
-		else
-		{
-			return R.string.notify_title;
+		else if (wish instanceof Drink) {
+		    return R.string.notify_desc_drink;
+		}
+		else if (wish instanceof Medicine) {
+		    return R.string.notify_desc_medi;
+		}
+		else if (wish instanceof Clothing) {
+		    return R.string.notify_desc_cloth;
+		}
+		else if (wish instanceof House) {
+		    return R.string.notify_desc_house;
+		}
+		else if (wish instanceof Bed) {
+		    return R.string.notify_desc_sleep;
+		}
+		else {
+		    return R.string.notify_title;
 		}
 	}
 }
