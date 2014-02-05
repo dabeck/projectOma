@@ -1,5 +1,4 @@
 package de.unikassel.projectoma.reciever;
-import java.util.Calendar;
 
 import com.google.gson.Gson;
 

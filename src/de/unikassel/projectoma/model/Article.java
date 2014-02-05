@@ -58,7 +58,8 @@ public class Article {
 	}
 	
 	
-	private Timestamp getNow() {
+	/* replace this checkDeadline-Methods with new FailReceiver (better solution)
+	 * private Timestamp getNow() {
 		return new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
 	}
 	private Timestamp getDeadline() {
@@ -73,10 +74,10 @@ public class Article {
 			);
 	}
 	public boolean checkStatus() {
-		if(getNow().after(getDeadline()) && this.getProgress() < 1.0) {
-			return true;
+		if(getNow().after(getDeadline())) {
+		    return true;
 		} else {
-			return false;
+		    return false;
 		}
-	}
+	}*/
 }

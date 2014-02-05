@@ -302,13 +302,14 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	app.grandma.update();
 	app.grandma.addPropertyChangeListener(this);
 
-	for (Article wish : app.grandma.getWishList()) {
+	/* replace this checkDeadline-Methods with new FailReceiver (better solution)
+	 * for (Article wish : app.grandma.getWishList()) {
 	    checkDeadline(wish);
 	}
 
 	for (Article wish : app.grandma.getShoppingList()) {
 	    checkDeadline(wish);
-	}
+	}*/
 
 	for (Article wish : app.grandma.getWishList()) {
 	    listItems.add(wish.getName());
@@ -316,12 +317,11 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	}
     }
 
-    private void checkDeadline(Article wish)
+    /* replace this checkDeadline-Methods with new FailReceiver (better solution)
+     * private void checkDeadline(Article wish)
     {
 	if (!wish.checkStatus())
 	{
-	    /* TODO: Article casten und Toast "Wunsch XY" praezisieren... */
-
 	    // GameOver-Toast
 	    Toast t = Toast.makeText(
 		    app.getApplicationContext(),
@@ -334,7 +334,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 
 	    app.resetGame();
 	}
-    }
+    }*/
 
     private void firstStart() {
 	app.grandma = new Grandma(this.getApplicationContext()
