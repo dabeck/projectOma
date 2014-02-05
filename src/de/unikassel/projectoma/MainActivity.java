@@ -443,7 +443,8 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
     
     private void firstStart() {
 	    app.grandma = new Grandma(this.getApplicationContext()
-		    .getString(R.string.default_name), LevelType.SIMPLE);
+		    	.getString(R.string.default_name), LevelType.SIMPLE)
+	    		.withContext(this.getApplicationContext());
 
 	    app.grandma.save(PreferenceManager
 		    .getDefaultSharedPreferences(this.getApplicationContext()));

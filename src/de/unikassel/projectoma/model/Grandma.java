@@ -6,12 +6,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.google.gson.Gson;
+
+import de.unikassel.projectoma.reciever.DoneReciever;
 
 public class Grandma {
 
@@ -38,6 +42,8 @@ public class Grandma {
 	private int warderobeCount;
 	
 	protected PropertyChangeSupport propertyChangeSupport;
+	
+	private Context context;
 	
 	
 	
@@ -90,6 +96,21 @@ public class Grandma {
 	    	Article old = this.currentAction;
 		this.currentAction = currentAction;
 		propertyChangeSupport.firePropertyChange("currentAction", old, currentAction);
+		
+		if (currentAction != null) {
+        		// setze DoneReciever auf JETZT + wish.duration
+        		AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        		Intent i = new Intent(context, DoneReciever.class);
+        		
+        		Gson gson = new Gson();
+        		String json = gson.toJson(currentAction);
+        		i.putExtra("WISH_JSON", json);
+        		
+        		PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, i, 0);
+        		alarmMgr.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + currentAction.getDuration().getTime(), alarmIntent);
+        		
+        		this.getAlarms().put(i, alarmIntent);
+		}
 	}
 	public Grandma withCurrentAction(Article currentAction) {
 		this.currentAction = currentAction;
@@ -164,6 +185,24 @@ public class Grandma {
 	public Grandma withWarderobeCount(int warderobeCount) {
 	    this.warderobeCount = warderobeCount;
 	    return this;
+	}
+	
+	public Context getContext() {
+	    return context;
+	}
+	public void setContext(Context context) {
+	    this.context = context;
+	}
+	public Grandma withContext(Context context) {
+	    this.context = context;
+	    return this;
+	}
+	
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		propertyChangeSupport.addPropertyChangeListener(listener);
+	}
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		propertyChangeSupport.removePropertyChangeListener(listener);
 	}
 	
 	
@@ -346,14 +385,6 @@ public class Grandma {
 	// default-Zustand (null)
 	public void idle() {
 	    this.setCurrentAction(null);
-	}
-
-	
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		propertyChangeSupport.addPropertyChangeListener(listener);
-	}
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		propertyChangeSupport.removePropertyChangeListener(listener);
 	}
 
 	

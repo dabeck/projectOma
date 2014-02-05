@@ -40,5 +40,8 @@
     <string name="medicine_msg">What do you want to administer?</string>
     <string name="shopping_msg">What do you want to buy?</string>
     <string name="inventory">Inventory</string>
+    <string name="notifydone_title">Wish fulfilled</string>
+    <string name="notifydone_desc_food">Grandma finnished eating.</string>
+    <string name="notifydone_desc_dishes">Grandma has washed the dishes.</string>
     
 </resources>
