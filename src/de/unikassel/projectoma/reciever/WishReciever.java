@@ -1,4 +1,6 @@
 package de.unikassel.projectoma.reciever;
+import java.util.Calendar;
+
 import com.google.gson.Gson;
 
 import de.unikassel.projectoma.GrandmaApplication;
@@ -13,6 +15,7 @@ import de.unikassel.projectoma.model.Grandma;
 import de.unikassel.projectoma.model.House;
 import de.unikassel.projectoma.model.Medicine;
 import de.unikassel.projectoma.R;
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -45,12 +48,29 @@ public class WishReciever extends BroadcastReceiver {
 		// Haenge Wunsch an Liste an.
 		grandma.addWish(wish);
 		
+		// Setze den FailReceiver auf die Wunsch-Deadline (JETZT + 2.5 * wish.duration)
+		setFailReceiver(context, wish);
+		
 		// Notifiziere den User ueber den erzeugten Wunsch.
 		notify(context, wish);
 		
 		// Speichere Oma wieder.
 		grandma.save(PreferenceManager
 			.getDefaultSharedPreferences(context.getApplicationContext()));
+	}
+
+	private void setFailReceiver(Context context, Article wish) {
+	    	long deadline = wish.getStart().getTimeInMillis() + (long)(wish.getDuration().getTime() * 2.5);
+	    
+	    	AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+    		Intent i = new Intent(context, FailReciever.class);
+    		
+    		Gson gson = new Gson();
+    		String json = gson.toJson(wish);
+    		i.putExtra("WISH_JSON", json);
+    		
+    		PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, i, 0);
+    		alarmMgr.set(AlarmManager.RTC_WAKEUP, deadline, alarmIntent);
 	}
 
 	private void notify(Context context, Article wish) {
