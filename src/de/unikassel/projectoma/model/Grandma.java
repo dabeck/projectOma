@@ -196,8 +196,12 @@ public class Grandma {
     }
 
 
-    public void update() {
+    public void update(PropertyChangeListener listener) {
 	this.propertyChangeSupport = new PropertyChangeSupport(this);
+	
+	if(listener != null) {
+	    this.propertyChangeSupport.addPropertyChangeListener(listener);
+	}
     }
 
 

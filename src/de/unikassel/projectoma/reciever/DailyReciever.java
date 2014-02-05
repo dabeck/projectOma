@@ -32,7 +32,7 @@ public class DailyReciever extends BroadcastReceiver {
 	    	Grandma grandma = Grandma.load(PreferenceManager
 	    		.getDefaultSharedPreferences(context.getApplicationContext()));
 	    	
-	 	grandma.update();
+	 	grandma.update(null);
 
 	    	
 		Article wish;

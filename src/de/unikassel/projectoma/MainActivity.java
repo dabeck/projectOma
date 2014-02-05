@@ -302,8 +302,9 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	}
 
 	// Register listener for grandma-Object
-	app.getGrandma().update();
-	app.getGrandma().addPropertyChangeListener(this);
+	app.grandma.update(this);
+	app.grandma.addPropertyChangeListener(this);
+
 
 	for (Article wish : app.grandma.getWishList()) {
 	    listItems.add(wish.getName());

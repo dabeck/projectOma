@@ -31,7 +31,7 @@ public class FailReciever extends BroadcastReceiver {
  	Grandma grandma = Grandma.load(PreferenceManager
  		.getDefaultSharedPreferences(context.getApplicationContext()));
 	
- 	grandma.update();
+ 	grandma.update(null);
  	
 	// Hole Wunsch vom Intent.
 	Gson gson = new Gson();
