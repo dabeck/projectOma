@@ -190,21 +190,39 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	switch(selection) {
 	case drink:
 	    performingRequest = app.getGrandma().drink(new Drink().withHot(false));
+	    if (performingRequest) {
+		ImageHelper.setGrandmaActionDrink(null);
+	    }
 	    break;
 	case wash_dishes:
 	    performingRequest = app.getGrandma().washDishes();
+	    if (performingRequest) {
+		ImageHelper.setGrandmaRequestCleanDishes(null);
+	    }
 	    break;
 	case wash_clothes:
 	    performingRequest = app.getGrandma().washClothes();
+	    if (performingRequest) {
+		ImageHelper.setGrandmaActionWashing(null);
+	    }
 	    break;
 	case sleep:
 	    performingRequest = app.getGrandma().sleep();
+	    if (performingRequest) {
+		ImageHelper.setGrandmaActionSleep(null);
+	    }
 	    break;
 	case clean_car:
 	    performingRequest = app.getGrandma().clean();
+	    if (performingRequest) {
+		ImageHelper.setGrandmaActionCleanCar(null);
+	    }
 	    break;
 	case clothe:
 	    performingRequest = app.getGrandma().clothe();
+	    if (performingRequest) {
+		ImageHelper.setGrandmaRequestDress(null);
+	    }
 	    break;
 	case eat:
 	    FeedFragment newFragment = FeedFragment.newInstance();
@@ -238,6 +256,13 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
     public void processFeeding(Food food) {
 	Log.i("ProjectOma", "Trying to process feedrequest " + food.getName());
 	performingRequest = app.getGrandma().eat(food);
+	if (performingRequest) {
+	    if (food.isHeavy()) {
+		ImageHelper.setGrandmaActionEatHeavy(null);
+	    } else {
+		ImageHelper.setGrandmaActionEatLight(null);
+	    }
+	}
     }
 
     /**
@@ -247,6 +272,9 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
      */
     public void processMedicine(Daytime med) {
 	performingRequest = app.getGrandma().cure(new Medicine().withTyp(med));
+	if (performingRequest) {
+	    ImageHelper.setGrandmaActionMedicine(null);
+	}
     }
 
     /**
