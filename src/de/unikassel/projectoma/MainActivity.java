@@ -159,14 +159,9 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	// 10 Sekunden nach JETZT
 	calendar.setTimeInMillis(System.currentTimeMillis()+10000);
 	Article wish = (Article)new Medicine().withTyp(Daytime.MIDDAY)
-			.withStart(calendar).withDuration(new Timestamp(20000));
+			.withStart(calendar).withDuration(new Timestamp(20000)).withName("TestWünsch");
 	DailyReciever.setAlarm(app.grandma, this, wish);
-//
-//	listItems.add(wish.getStart().getTime().toLocaleString() +
-//		" " + wish.getName() +
-//		" (" + wish.getDuration().getMinutes() + "min)");
-//
-//	adapter.notifyDataSetChanged();
+	
     }
 
     //<!-- Button actions end -->
@@ -279,7 +274,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	mSensorManager.unregisterListener(mSensorListener);
 
 	//Unregister listener for shake
-	app.grandma.removePropertyChangeListener(this);
+	app.getGrandma().removePropertyChangeListener(this);
 
 	app.grandma.save(PreferenceManager
 		.getDefaultSharedPreferences(this
@@ -302,47 +297,19 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 		.getDefaultSharedPreferences(this.getApplicationContext()));
 
 	/* Erster Start?!? */
-	if (app.grandma == null) {
+	if (app.getGrandma() == null) {
 	    firstStart();
 	}
 
 	// Register listener for grandma-Object
-	app.grandma.update();
-	app.grandma.addPropertyChangeListener(this);
-
-	/* replace this checkDeadline-Methods with new FailReceiver (better solution)
-	 * for (Article wish : app.grandma.getWishList()) {
-	    checkDeadline(wish);
-	}
-
-	for (Article wish : app.grandma.getShoppingList()) {
-	    checkDeadline(wish);
-	}*/
+	app.getGrandma().update();
+	app.getGrandma().addPropertyChangeListener(this);
 
 	for (Article wish : app.grandma.getWishList()) {
 	    listItems.add(wish.getName());
 	    adapter.notifyDataSetChanged();
 	}
     }
-
-    /* replace this checkDeadline-Methods with new FailReceiver (better solution)
-     * private void checkDeadline(Article wish)
-    {
-	if (!wish.checkStatus())
-	{
-	    // GameOver-Toast
-	    Toast t = Toast.makeText(
-		    app.getApplicationContext(),
-		    app.getApplicationContext().getString(R.string.gameover) +
-		    ": " + 
-		    app.getApplicationContext().getString(R.string.gameover_desc),
-		    Toast.LENGTH_LONG
-		    );
-	    t.show();
-
-	    app.resetGame();
-	}
-    }*/
 
     private void firstStart() {
 	app.grandma = new Grandma(this.getApplicationContext()
@@ -456,35 +423,35 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	{
 	    Article a = app.getGrandma().getWishList().get(app.getGrandma().getWishList().size() -1);
 
-	    if (a instanceof Food) {
+	    if (a.getArticleType() == RequestType.eat) {
 		    ImageHelper.setGrandmaRequestFood(null);
 	    }
 
-	    if (a instanceof Drink) {
+	    if (a.getArticleType() == RequestType.drink) {
 		    ImageHelper.setGrandmaRequestDrink(null);
 	    }
 
-	    if (a instanceof Dishes) {
+	    if (a.getArticleType() == RequestType.wash_dishes) {
 		    ImageHelper.setGrandmaRequestCleanDishes(null);
 	    }
 
-	    if (a instanceof Clothing) {
+	    if (a.getArticleType() == RequestType.clothe) {
 		    ImageHelper.setGrandmaRequestDress(null);
 	    }
 
-	    if (a instanceof House) {
+	    if (a.getArticleType() == RequestType.clean_car) {
 		    ImageHelper.setGrandmaRequestCleanCar(null);
 	    }
 
-	    if (a instanceof Bed) {
+	    if (a.getArticleType() == RequestType.sleep) {
 		    ImageHelper.setGrandmaRequestSleep(null);
 	    }
 
-	    if (a instanceof Medicine) {
+	    if (a.getArticleType() == RequestType.medicine) {
 		    ImageHelper.setGrandmaRequestMedicine(null);
 	    }
 
-	    if (a instanceof Washer) {
+	    if (a.getArticleType() == RequestType.wash_clothes) {
 		    ImageHelper.setGrandmaRequestHelp(null);
 	    }
 	} 
