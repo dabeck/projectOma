@@ -307,7 +307,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	}
 
 	// Register listener for grandma-Object
-	app.grandma.update();
+	app.grandma.update(this);
 	app.grandma.addPropertyChangeListener(this);
 
 	/* replace this checkDeadline-Methods with new FailReceiver (better solution)

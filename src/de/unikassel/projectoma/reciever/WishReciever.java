@@ -36,7 +36,7 @@ public class WishReciever extends BroadcastReceiver {
 	 	Grandma grandma = Grandma.load(PreferenceManager
 	 		.getDefaultSharedPreferences(context.getApplicationContext()));
 		
-	 	grandma.update();
+	 	grandma.update(null);
 	 	
 	 	// Entferne Alarm-Intent.
 		//grandma.getAlarms().remove(intent);
