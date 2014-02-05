@@ -44,7 +44,16 @@ public class DailyReciever extends BroadcastReceiver {
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		double currentHour = calendar.get(Calendar.HOUR_OF_DAY) + (1.0 / 60.0 * calendar.get(Calendar.MINUTE));
 		
+		/* DEMO-WUNSCH: Mittags-Medis */
+		// 10 Sekunden nach JETZT
+		calendar.setTimeInMillis(System.currentTimeMillis() + 10000);
+		wish = (Article)new Medicine().withTyp(Daytime.MIDDAY)
+				.withStart(calendar)
+				.withName("DEMOWUNSCH")
+				.withDuration(new Timestamp(60000));
+		setAlarm(grandma, context, wish);
 		
+
 		/* ESSEN: 3x + jeweils 'Spuelen'-Wunsch */
 		//     morgens (08-10)
 		wish = (Article)Food.randomFood(Daytime.MORNING)
