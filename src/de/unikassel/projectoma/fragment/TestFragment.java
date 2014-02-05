@@ -33,7 +33,7 @@ public class TestFragment extends DialogFragment {
 	    public void onClick(DialogInterface dialog, int id) {
 		MainActivity container = (MainActivity) getActivity();
 		container.processTest(id);						
-		dismiss();
+		dialog.dismiss();
 	    }
 	});
 

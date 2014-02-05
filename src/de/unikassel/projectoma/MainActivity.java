@@ -49,6 +49,7 @@ import de.unikassel.projectoma.fragment.RequestFragment;
 import de.unikassel.projectoma.fragment.ShoppingFragment;
 import de.unikassel.projectoma.fragment.StockFragment;
 import de.unikassel.projectoma.fragment.TestFragment;
+import de.unikassel.projectoma.fragment.TestWishesFragment;
 import de.unikassel.projectoma.helper.ImageHelper;
 
 public class MainActivity extends ListActivity implements PropertyChangeListener {
@@ -158,15 +159,6 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	newFragment.show(getFragmentManager(), "testDialog");
 
 	ImageHelper.setGrandmaActionInCar(null);
-
-
-	//	Calendar calendar = Calendar.getInstance();
-	//	/* DEMO-WUNSCH: Mittags-Medis */
-	//	// 10 Sekunden nach JETZT
-	//	calendar.setTimeInMillis(System.currentTimeMillis()+10000);
-	//	Article wish = (Article)new Medicine().withTyp(Daytime.MIDDAY)
-	//			.withStart(calendar).withDuration(new Timestamp(20000)).withName("TestWünsch");
-	//	DailyReciever.setAlarm(app.grandma, this, wish);
 
     }
 
@@ -304,7 +296,13 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
      * @param mode Testmode 1 = simulation; 2 = wishes
      */
     public void processTest(int mode) {
-
+	Calendar calendar = Calendar.getInstance();
+	
+	calendar.setTimeInMillis(System.currentTimeMillis()+10000);
+	
+	
+	Article wish = (Article)new Food("RandomFood", new Timestamp(20000)).randomFood(Daytime.MIDDAY).withStart(calendar);
+	DailyReciever.setAlarm(app.grandma, this, wish);
     }
     //<!-- Process actions end-->
 
