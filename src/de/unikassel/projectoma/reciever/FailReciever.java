@@ -32,11 +32,17 @@ public class FailReciever extends BroadcastReceiver {
 	String json = intent.getStringExtra("WISH_JSON");
 	Article wish = gson.fromJson(json, Article.class);
 	
-	//reset
-	resetGame(context);
-	
-	// Notifiziere den User ueber den erzeugten Wunsch.
-	notify(context, wish);
+	// suche entsprechenden Wunsch
+	// wenn nicht mehr in wishList, scheinbar schon erfuellt
+	for (Article wishItem: grandma.getWishList()) {
+	    if (wishItem == wish) {
+        	// Notifiziere den User ueber den erzeugten Wunsch.
+        	notify(context, wish);
+        	
+        	//reset
+        	resetGame(context);
+	    }
+	}
     }
 
 	private void notify(Context context, Article wish) {
