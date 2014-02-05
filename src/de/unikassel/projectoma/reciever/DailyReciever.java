@@ -48,9 +48,11 @@ public class DailyReciever extends BroadcastReceiver {
 		
 		/* DEMO-WUNSCH: Mittags-Medis */
 		// 10 Sekunden nach JETZT
-		calendar.setTimeInMillis(System.currentTimeMillis()+10000);
+		calendar.setTimeInMillis(System.currentTimeMillis() + 10000);
 		wish = (Article)new Medicine().withTyp(Daytime.MIDDAY)
-				.withStart(calendar);
+				.withStart(calendar)
+				.withName("DEMOWUNSCH")
+				.withDuration(new Timestamp(60000));
 		setAlarm(grandma, context, wish);
 		
 		
