@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import de.unikassel.projectoma.MainActivity;
 import de.unikassel.projectoma.R;
+import de.unikassel.projectoma.model.Food;
 import de.unikassel.projectoma.model.FoodType;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,7 +15,8 @@ import android.view.View;
 import android.widget.Button;
 
 public class ShoppingFragment extends DialogFragment {
-    ArrayList<FoodType> selected = new ArrayList<FoodType>();
+    ArrayList<Food> selected = new ArrayList<Food>();
+    private String[] itemsToDisplay;
 
     public static ShoppingFragment newInstance() {
 
@@ -27,18 +29,28 @@ public class ShoppingFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+	int foodCount = Food.FoodList.size();
+	itemsToDisplay = new String[foodCount];
+	
+	for(int i = 0; i < foodCount; i++) {
+	    itemsToDisplay[i] = Food.FoodList.get(FoodType.values()[i]).getName();
+	}
+
 
 	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 	builder.setTitle(R.string.shopping_msg);
 
-	builder.setMultiChoiceItems(R.array.foodTypes, null,
+	builder.setMultiChoiceItems(itemsToDisplay, null,
 		new DialogInterface.OnMultiChoiceClickListener() {
 
 	    @Override
 	    public void onClick(DialogInterface dialog, int selection, boolean isChecked) {
-		selected.add(FoodType.values()[selection]);
-
+		if(isChecked){
+		    selected.add(Food.FoodList.get(FoodType.values()[selection]));
+		} else {
+		    selected.remove(Food.FoodList.get(FoodType.values()[selection]));
+		}
 	    }
 	});
 

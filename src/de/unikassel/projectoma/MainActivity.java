@@ -33,7 +33,6 @@ import de.unikassel.projectoma.model.Daytime;
 import de.unikassel.projectoma.model.Dishes;
 import de.unikassel.projectoma.model.Drink;
 import de.unikassel.projectoma.model.Food;
-import de.unikassel.projectoma.model.FoodType;
 import de.unikassel.projectoma.model.Grandma;
 import de.unikassel.projectoma.model.House;
 import de.unikassel.projectoma.model.LevelType;
@@ -51,51 +50,16 @@ import de.unikassel.projectoma.helper.ImageHelper;
 
 public class MainActivity extends ListActivity implements PropertyChangeListener {
 
-    // LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
     ArrayList<String> listItems = new ArrayList<String>();
-
-    // DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE
-    // LISTVIEW
     ArrayAdapter<String> adapter;
-
-    // RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
-    int clickCounter = 0;
 
     GrandmaApplication app;
     Boolean performingRequest = false;
-
-    //<-- Shake sensor listening -->
 
     private SensorManager mSensorManager;
     private float mAccel;
     private float mAccelCurrent;
     private float mAccelLast;
-
-    private final SensorEventListener mSensorListener = new SensorEventListener() {
-
-	public void onSensorChanged(SensorEvent se) {
-	    float x = se.values[0];
-	    float y = se.values[1];
-	    float z = se.values[2];
-	    mAccelLast = mAccelCurrent;
-	    mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
-	    float delta = mAccelCurrent - mAccelLast;
-	    mAccel = mAccel * 0.9f + delta; // perform low-cut filter
-
-	    if(mAccel > 12)
-	    {
-		Log.i("ProjectOma", "Phone shaked!!");
-		processRequest(RequestType.wash_clothes);
-	    }
-	}
-
-	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-	}
-    };
-
-    //<!-- Shake sensor end -->
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +104,34 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	}
 	return false;
     }
+
+    //<-- Shake sensor listening -->
+
+    private final SensorEventListener mSensorListener = new SensorEventListener() {
+
+	public void onSensorChanged(SensorEvent se) {
+	    float x = se.values[0];
+	    float y = se.values[1];
+	    float z = se.values[2];
+	    mAccelLast = mAccelCurrent;
+	    mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
+	    float delta = mAccelCurrent - mAccelLast;
+	    mAccel = mAccel * 0.9f + delta; // perform low-cut filter
+
+	    if(mAccel > 12)
+	    {
+		Log.i("ProjectOma", "Phone shaked!!");
+		processRequest(RequestType.wash_clothes);
+	    }
+	}
+
+	@Override
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+	}
+    };
+
+    //<!-- Shake sensor end -->
 
     //<-- Button-actions start here -->
 
@@ -193,50 +185,24 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	}
 
 	switch(selection) {
-	case eat:
-	    FeedFragment newFragment = FeedFragment.newInstance();
-	    newFragment.show(getFragmentManager(), "foodDialog");
-	    break;
 	case drink:
 	    performingRequest = app.getGrandma().drink(new Drink().withHot(false));
-	    if(performingRequest)
-	    {
-		ImageHelper.setGrandmaTypeDrink(null);
-	    }
 	    break;
 	case wash_dishes:
 	    performingRequest = app.getGrandma().washDishes();
-	    if(performingRequest)
-	    {
-		ImageHelper.setGrandmaTypeDoCleanDishes(null);
-	    }
 	    break;
 	case wash_clothes:
 	    performingRequest = app.getGrandma().washClothes();
-	    if(performingRequest)
-	    {
-		ImageHelper.setGrandmaTypeWashing(null);		
-	    }
 	    break;
 	case sleep:
 	    performingRequest = app.getGrandma().sleep();
-	    if(performingRequest)
-	    {
-		ImageHelper.setGrandmaTypeSleep(null);
-	    }
 	    break;
 	case clean_car:
 	    performingRequest = app.getGrandma().clean();
-	    if(performingRequest)
-	    {
-		ImageHelper.setGrandmaTypeCleanCar(null);
-	    }
 	    break;
-	case music:
-	    ImageHelper.setGrandmaTypeMusic(null);
-
-	    //TODO: open youtube song!
-	    //Resets stamina
+	case eat:
+	    FeedFragment newFragment = FeedFragment.newInstance();
+	    newFragment.show(getFragmentManager(), "foodDialog");
 	    break;
 	case medicine:
 	    MedicineFragment mediFragment = MedicineFragment.newInstance();
@@ -246,6 +212,12 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	case shopping:
 	    ShoppingFragment shop = ShoppingFragment.newInstance();
 	    shop.show(getFragmentManager(), "shopDialog");
+	    break;
+	case music:
+	    ImageHelper.setGrandmaTypeMusic(null);
+
+	    //TODO: open youtube song!
+	    //Resets stamina
 	    break;
 	default:
 	    break;
@@ -259,15 +231,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
      */
     public void processFeeding(Food food) {
 	Log.i("ProjectOma", "Trying to process feedrequest " + food.getName());
-
 	performingRequest = app.getGrandma().eat(food);
-
-	if(food.isHeavy()) {
-	    ImageHelper.setGrandmaTypeEatHeavy(null);
-	}
-	else {
-	    ImageHelper.setGrandmaTypeEatLight(null);
-	}
     }
 
     /**
@@ -276,13 +240,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
      * @param med Type of medicine to administer
      */
     public void processMedicine(Daytime med) {
-	
 	performingRequest = app.getGrandma().cure(new Medicine().withTyp(med));
-
-	if(performingRequest)
-	{
-	    ImageHelper.setGrandmaTypeMedicine(null);
-	}
     }
 
     /**
@@ -290,10 +248,11 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
      * 
      * @param selectedItems A list of selected food to buy
      */
-    public void processShopping(ArrayList<FoodType> selectedItems) {
-	for (FoodType foodType : selectedItems) {
-	    listItems.add(foodType.toString());
+    public void processShopping(ArrayList<Food> selectedItems) {
+	for (Article food : selectedItems) {
+	    listItems.add(food.getName());
 	}
+	app.getGrandma().buy(selectedItems);
 
 	adapter.notifyDataSetChanged();
 
@@ -440,7 +399,7 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	    //this.getAlarms().put(i, alarmIntent);
 	} else {
 	    performingRequest = false;
-	    
+
 	    Toast t = Toast.makeText(
 		    app.getApplicationContext(),
 		    app.getApplicationContext().getString(R.string.msg_request_notpossible),
@@ -450,25 +409,29 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
 	}
 
 	if (newAction instanceof Food) {
-	    processRequest(RequestType.eat);
+	    if(((Food) newAction).isHealty()) {
+		ImageHelper.setGrandmaTypeEatLight(null);
+	    } else {
+		ImageHelper.setGrandmaTypeEatHeavy(null);
+	    }
 	}
 	else if (newAction instanceof Dishes) {
-	    processRequest(RequestType.wash_dishes);
+	    ImageHelper.setGrandmaTypeCleanDishes(null);
 	}
 	else if (newAction instanceof Drink) {
-	    processRequest(RequestType.drink);
+	    ImageHelper.setGrandmaTypeDrink(null);
 	}
 	else if (newAction instanceof Medicine) {
-	    processRequest(RequestType.medicine);
+	    ImageHelper.setGrandmaTypeMedicine(null);
 	}
 	else if (newAction instanceof Clothing) {
-	    processRequest(RequestType.shopping);
+	    ImageHelper.setGrandmaTypeWashing(null);
 	}
 	else if (newAction instanceof House) {
-	    processRequest(RequestType.clean_car);
+	    ImageHelper.setGrandmaTypeCleanCar(null);
 	}
 	else if (newAction instanceof Bed) {
-	    processRequest(RequestType.sleep);
+	    ImageHelper.setGrandmaTypeSleep(null);
 	}
 	else {
 	    ImageHelper.setGrandmaTypeInCar(null);
