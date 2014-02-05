@@ -2,6 +2,7 @@ package de.unikassel.projectoma;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -151,20 +152,21 @@ public class MainActivity extends ListActivity implements PropertyChangeListener
     }
 
     public void btnTestClicked(View v) {
-	Article wish = (Article)Food.randomFood(Daytime.EVENING);
-
-	Calendar cal = Calendar.getInstance();
-	cal.setTimeInMillis(System.currentTimeMillis() + 5000);
-
-	wish.setStart(cal);
-
-	DailyReciever.setAlarm(app.getGrandma(), app.getApplicationContext(), wish);
-
-	listItems.add(wish.getStart().getTime().toLocaleString() +
-		" " + wish.getName() +
-		" (" + wish.getDuration().getMinutes() + "min)");
-
-	adapter.notifyDataSetChanged();
+	Calendar calendar = Calendar.getInstance();
+	
+	
+	/* DEMO-WUNSCH: Mittags-Medis */
+	// 10 Sekunden nach JETZT
+	calendar.setTimeInMillis(System.currentTimeMillis()+10000);
+	Article wish = (Article)new Medicine().withTyp(Daytime.MIDDAY)
+			.withStart(calendar).withDuration(new Timestamp(20000));
+	DailyReciever.setAlarm(app.grandma, this, wish);
+//
+//	listItems.add(wish.getStart().getTime().toLocaleString() +
+//		" " + wish.getName() +
+//		" (" + wish.getDuration().getMinutes() + "min)");
+//
+//	adapter.notifyDataSetChanged();
     }
 
     //<!-- Button actions end -->

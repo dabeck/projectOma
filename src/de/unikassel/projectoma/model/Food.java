@@ -16,6 +16,7 @@ public class Food extends Article {
     public Food(String name, Timestamp duration) {
 	this.setName(name);
 	this.setDuration(duration);
+	super.ArticleType = RequestType.eat;
     }
 
 

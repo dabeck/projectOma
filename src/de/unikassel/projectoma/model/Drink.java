@@ -3,6 +3,10 @@ package de.unikassel.projectoma.model;
 public class Drink extends Article {
 
     private boolean isHot;
+    
+    public Drink() {
+       super.ArticleType = RequestType.drink; 
+    }
 
     public boolean isHot() {
 	return isHot;

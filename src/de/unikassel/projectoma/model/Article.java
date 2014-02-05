@@ -10,6 +10,7 @@ public class Article {
 	private Calendar start;
 	private Timestamp duration;
 	private double progress;
+	protected RequestType ArticleType; 
 	
 	
 	
@@ -22,6 +23,10 @@ public class Article {
 	public Article withName(String name) {
 		this.name = name;
 		return this;
+	}
+	
+	public RequestType getArticleType() {
+		return ArticleType;
 	}
 	
 	public Calendar getStart() {

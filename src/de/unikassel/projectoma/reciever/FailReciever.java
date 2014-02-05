@@ -5,7 +5,13 @@ import com.google.gson.Gson;
 import de.unikassel.projectoma.MainActivity;
 import de.unikassel.projectoma.R;
 import de.unikassel.projectoma.model.Article;
+import de.unikassel.projectoma.model.Bed;
+import de.unikassel.projectoma.model.Dishes;
+import de.unikassel.projectoma.model.Food;
 import de.unikassel.projectoma.model.Grandma;
+import de.unikassel.projectoma.model.House;
+import de.unikassel.projectoma.model.Medicine;
+import de.unikassel.projectoma.model.RequestType;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -30,7 +36,33 @@ public class FailReciever extends BroadcastReceiver {
 	// Hole Wunsch vom Intent.
 	Gson gson = new Gson();
 	String json = intent.getStringExtra("WISH_JSON");
-	Article wish = gson.fromJson(json, Article.class);
+	Article article = gson.fromJson(json, Article.class);
+	Article wish = article;
+	
+	if(article.getArticleType() == RequestType.medicine)
+	{
+	    wish = gson.fromJson(json, Medicine.class);
+	}
+	
+	if(article.getArticleType() == RequestType.eat)
+	{
+	    wish = gson.fromJson(json, Food.class);
+	}
+	
+	if(article.getArticleType() == RequestType.sleep)
+	{
+	    wish = gson.fromJson(json, Bed.class);
+	}
+	
+	if(article.getArticleType() == RequestType.clean_car)
+	{
+	    wish = gson.fromJson(json, House.class);
+	}
+	
+	if(article.getArticleType() == RequestType.wash_dishes)
+	{
+	    wish = gson.fromJson(json, Dishes.class);
+	}
 	
 	// suche entsprechenden Wunsch
 	// wenn nicht mehr in wishList, scheinbar schon erfuellt
